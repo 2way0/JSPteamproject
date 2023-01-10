@@ -22,7 +22,7 @@
 
 #wrapper { 
 
-border: 1px solid #333;
+border: 1 px solid #333;
 max-width: 800px; /*800이하 시 줄어듦*/
 height: 100%;
 margin: 0 auto;
