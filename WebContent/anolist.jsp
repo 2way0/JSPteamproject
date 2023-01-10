@@ -20,7 +20,8 @@
 <!-- 글목록css -->
 <style>
 
-#wrapper {
+#wrapper { 
+
 border: 1px solid #333;
 max-width: 800px; /*800이하 시 줄어듦*/
 height: 100%;
