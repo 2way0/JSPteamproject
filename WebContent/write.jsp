@@ -200,10 +200,10 @@ padding-bottom: 10px;*/
 
 
 
-	<section class="wrapper">
+	
 		<div class="container">
 			<div class="row">
-				<main style="padding: 15px">
+				<main style="margin-top: 90px">
 				<div class="container">
 					<div class="row">
 						<form method="post" encType="multipart/form-data"
@@ -248,7 +248,7 @@ padding-bottom: 10px;*/
 				</main>
 			</div>
 		</div>
-	</section>
+
 	
 	 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 	<script>

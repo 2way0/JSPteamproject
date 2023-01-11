@@ -155,6 +155,10 @@ color: #0055FF;
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">About</a></li>
+						<li><%if(userID != null){%>
+	                    <a href="write.jsp" class="btn btn-success offset-10" style="width: 75px; margin-right: 100px">
+	                    	글쓰기</a>
+						<% }%></li>
 					</ul>
 
 					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -243,8 +247,14 @@ color: #0055FF;
                            <div id="ano">익명</div>
                            <div id="date"><%=post.getDate() %></div>
                        </div>
-                       <h1><%=post.getTitle() %></h1>
-                       <p><%=post.getContent() %></p>
+                       <h1>
+                       <a href="view.jsp?postNum=<%=post.getPostNum()%>">
+                       <%=post.getTitle() %>
+                       </h1>
+                       <p>
+                       <a href="view.jsp?postNum=<%=post.getPostNum()%>">
+                       <%=post.getContent() %>
+                       </p>
                        <div id="like-comment">
                            <span id="like">
                            <%
@@ -280,7 +290,7 @@ color: #0055FF;
        			//out.print("<a href='anolist2.jsp?postpage= "+i+"'>"+i+"</a> ");
        			//위에처럼 해도 되고 아래처럼 해도 된다 - postpage 값 전달 되도록
        		%>
-       			<a href="anolist.jsp?postpage=<%=i%>"><%=i %></a>
+       			<a href="anolist.jsp?postpage=<%=i%>" style="margin-right:-500px"><%=i %></a>
        		<%
        		}
        	%>	

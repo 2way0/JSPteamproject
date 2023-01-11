@@ -13,6 +13,7 @@ import java.util.Properties;
 
 public class Dao {
 	// 싱글톤
+	
 	private static Dao dao = new Dao();
 	private Dao() {}
 	public static Dao getInstance() {
@@ -183,7 +184,31 @@ public class Dao {
 		}
 		
 		
-		
+		public Post getPost(int postNum) {
+			String sql = "select * from post where postNum = ?";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, postNum);
+				ResultSet rs = psmt.executeQuery();
+				while(rs.next()) {
+					Post post = new Post(postNum, postNum, sql, sql, postNum, postNum, sql, sql, postNum);
+					post.setPostNum(rs.getInt(1));
+					post.setStudentNum(rs.getInt(2));
+					post.setTitle(rs.getString(3));
+					post.setContent(rs.getString(4));
+					post.setLikeCount(rs.getInt(5));
+					post.setCommentCount(rs.getInt(6));
+					post.setDate(rs.getString(7));
+					post.setBoard(rs.getString(8));
+					post.setOnoff(rs.getInt(9));
+					
+					return post;
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return null; 
+		}
 		// -------------------글쓰기--------------
 		
 		
@@ -580,7 +605,6 @@ public class Dao {
 		
 		//해당아이디가 좋아요한 글 수
 		System.out.println("아이디 총 좋아요 수: "+dao.countLikeID(1001));
-		
 		
 		// stream
 //		postCheck.stream().sorted((n1,n2)->n2.compareTo(n1)).forEach(n->System.out.println(n));
