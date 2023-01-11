@@ -23,7 +23,10 @@
 	
 <!-- 글목록css -->
 <style>
-
+a {
+	color: black;
+	text-decoration: none;
+}
 #wrapper {
 /*border: 1px solid #333;*/
 max-width: 800px; /*800이하 시 줄어듦*/
