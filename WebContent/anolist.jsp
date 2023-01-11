@@ -25,7 +25,7 @@
 <style>
 
 #wrapper {
-border: 1px solid #333;
+/*border: 1px solid #333;*/
 max-width: 800px; /*800이하 시 줄어듦*/
 height: 100%;
 margin: 0 auto;
@@ -138,7 +138,7 @@ color: #0055FF;
 <body>
 
 <!-- 헤더 -->
-<header class="p-3 text-bg-dark" style="position:fixed; width: 100%; z-index: 1;">
+<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
