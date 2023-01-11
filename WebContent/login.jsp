@@ -134,7 +134,7 @@ color: #0055FF;
 			userID = (String) session.getAttribute("userID");
 		}
 	%>
-<header class="p-3 text-bg-dark" style="position:fixed; width: 100%; z-index: 1;">
+<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;"">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -179,9 +179,8 @@ color: #0055FF;
 	</header>
 	
 	  <div class="container">
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<div class="jumbotron" style="padding-top: 20px;"> 
+		<div class="col-lg-4" style="margin: auto;">
+			<div class="jumbotron" style="margin-top: 50%; "> 
 				<form method="post" action="loginAction.jsp">
 					<h3 style="text-align: center;">로그인 화면</h3>
 					<div class="form-group">
