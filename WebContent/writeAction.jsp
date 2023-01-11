@@ -8,9 +8,6 @@
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="user" class="user.Post" scope="page" />
-<jsp:setProperty name="user" property="Title" />
-<jsp:setProperty name="user" property="Content" />
 
 <!DOCTYPE html>
 <html>
@@ -50,11 +47,8 @@
 		//form으로 전달받은 3가지를 가져온다.\
 		
 		String fileName = multi.getFilesystemName("fileName"); //파일이름
-		String bbsTitle = multi.getParameter("title"); // 게시판 제목 -> 사실 왜 가져오는지 이해가 잘 안됨...
-		String bbsContent = multi.getParameter("content"); // 게시판 내용
-		
-		user.setTitle(bbsTitle);
-		user.setContent(bbsContent);
+		String bbsTitle = multi.getParameter("title"); // 
+		String bbsContent = multi.getParameter("content"); // 
 		
 		if(userID == null){
 			PrintWriter script = response.getWriter();
@@ -63,7 +57,7 @@
 			script.println("location.href = 'login.jsp'");
 			script.println("</script>");
 		} else{
-			if(user.getTitle() == null || user.getContent() == null){
+			if(request.getParameter("bbsTitle") == null || request.getParameter("bbsContent") == null){
 						PrintWriter script = response.getWriter();
 						script.println("<script>");
 						script.println("alert('입력이 안된 사항이 있습니다.')");
@@ -72,7 +66,7 @@
 					} else {
 						
 						Dao dao = Dao.getInstance();
-						int result = dao.write(user.getTitle(), userID, user.getContent());
+						int result = dao.write(request.getParameter("bbsTitle"), userID, request.getParameter("bbsContent"));
 						if(result == -1){
 							PrintWriter script = response.getWriter();
 							script.println("<script>");
