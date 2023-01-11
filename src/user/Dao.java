@@ -62,7 +62,7 @@ public class Dao {
 				int commentCount = rs.getInt("commentCount");
 				String date =  rs.getString("date");
 				String board =  rs.getString("board");
-				String onoff =  rs.getString("onoff");
+				int onoff =  rs.getInt("onoff");
 				post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
 				postList.add(post);
 			}
@@ -99,7 +99,7 @@ public class Dao {
 				int commentCount = rs.getInt("commentCount");
 				String date =  rs.getString("date");
 				String board =  rs.getString("board");
-				String onoff =  rs.getString("onoff");
+				int onoff =  rs.getInt("onoff");
 				post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
 				postList.add(post);
 			}
@@ -182,8 +182,130 @@ public class Dao {
 			return  0;
 		}
 		
-	
-	
+		
+		
+		// -------------------글쓰기--------------
+		
+		
+		
+		//날짜를 불러옴
+		public String getDate() {
+			String sql = "select now()";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getString(1);
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return ""; 
+		}
+		
+		
+		
+		
+		// 게시판 번호를 불러옴
+		public int getNext() {
+			String sql = "select postNum from post order by postNum desc";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getInt(1) + 1;
+				}
+				return 1; // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 
+		}
+		
+		//사번을 불러옴
+		public int getStuNum() {
+			String sql = "select studentNum from post order by postNum desc";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getInt(1) + 1;
+				}
+				return 1; // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 
+		}
+		
+		//좋아요 수를 불러옴
+				public int getLikeNum() {
+					String sql = "select likeCount from post order by postNum desc";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						ResultSet rs = psmt.executeQuery();
+						if(rs.next()) {
+						return rs.getInt(1) + 1;
+						}
+						return 1; // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return -1; // 
+				}
+				
+		//댓글수
+				public int getCommentNum() {
+					String sql = "select commentCount from post order by postNum desc";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						ResultSet rs = psmt.executeQuery();
+						if(rs.next()) {
+						return rs.getInt(1) + 1;
+						}
+						return 1; // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return -1; // 
+				}
+		
+				//댓글수
+				public String getBoard() {
+					String sql = "select board from post order by postNum desc";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						ResultSet rs = psmt.executeQuery();
+						if(rs.next()) {
+						return rs.getString(1);
+						}
+						return sql; // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return sql; // 
+				}				
+		
+		//글쓰기
+		public int write(String title, String userID, String content) {
+			String sql = "insert into post values(?,?,?,?,?,?,?,?,?)";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, getNext());
+				psmt.setInt(2, getStuNum());
+				psmt.setString(3, title);
+				psmt.setString(4, content);
+				psmt.setInt(5, getLikeNum());
+				psmt.setInt(6, getCommentNum());
+				psmt.setString(7, getDate());
+				psmt.setString(8, getBoard());
+				psmt.setInt(9, 1);
+				return psmt.executeUpdate(); // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; //
+		}
 //	--------------------------------------------------------------------
 	
 //	user  ----------------------------------------------------------------
@@ -238,6 +360,23 @@ public class Dao {
 		}
 		return -2; 
 	}
+	
+	//회원가입
+	public int join(User user) {
+		String SQL = "insert into user(userID,nickName,pw,email) values(?, ?, ?, ?)";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, user.getUserID());
+			psmt.setString(2, user.getPw());
+			psmt.setString(3, user.getNickName());
+			psmt.setString(4, user.getEmail());
+			return psmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //
+	}
+	
 //	--------------------------------------------------------------------
 	
 //	comment  -------------------------------------------------------------
