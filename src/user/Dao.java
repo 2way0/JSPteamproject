@@ -216,6 +216,28 @@ public class Dao {
 		
 		return null;
 	}
+	
+	//로그인 기능
+	public int login(String userID, String pw) {
+		String SQL = "select pw from user where userID = ?";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, userID);
+			ResultSet rs = psmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getString(1).equals(pw)) {
+					return 1; 
+				}
+				else{
+					return 0; 
+				}
+			}
+			return -1; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -2; 
+	}
 //	--------------------------------------------------------------------
 	
 //	comment  -------------------------------------------------------------

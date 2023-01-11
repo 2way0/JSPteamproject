@@ -136,7 +136,12 @@ color: #0055FF;
 
 
 <body>
-
+<%
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String) session.getAttribute("userID");
+		}
+	%>
 <!-- 헤더 -->
 <header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;">
 		<div class="container-fluid">
@@ -158,15 +163,15 @@ color: #0055FF;
 							placeholder="Search..." aria-label="Search">
 					</form>
 
-<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼.
+<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
 
 					<%
-					if (userID == null) {
-					%>
+				if(userID == null){
+			%>
 					<div class="text-end">
 						<button type="button" class="btn btn-outline-light me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp" class="login">Login</a>
+							<a href="login.jsp">Login</a>
 						</button>
 						<button type="button" class="btn btn-warning" role="button"
 							aria-haspopup="true" aria-expanded="false">
@@ -174,19 +179,19 @@ color: #0055FF;
 						</button>
 					</div>
 					<%
-					} else {
-					%>
+				} else {
+			%>
 					<div class="text-end">
 						<button type="button" class="btn btn-outline-light me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="logoutAction.jsp" class="login">LogOut</a>
+							<a href="logoutAction.jsp">LogOut</a>
 						</button>
 
 					</div>
-					<%
-					}
-					%>
---%>
+					<%		
+				}
+			%>
+
 				</div>
 			</div>
 		</div>
