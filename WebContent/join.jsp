@@ -185,9 +185,8 @@ color: #0055FF;
 	</header>
 	
 	 <div class="container">
-		<div class="col-lg-4"></div>
-		<div class="col-lg-4">
-			<div class="jumbotron" style="padding-top: 20px;"> 
+		<div class="col-lg-4" style="margin: auto;">
+			<div class="jumbotron" style="margin-top: 50%;"> 
 				<form method="post" action="joinAction.jsp">
 					<h3 style="text-align: center;">회원가입 화면</h3>
 					<div class="form-group">
