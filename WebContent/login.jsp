@@ -1,26 +1,19 @@
+<%@page import="java.io.PrintWriter"%>
+<%@ page import="java.io.File" %>
 <%@page import="user.*"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="./style.css" type="text/css">
+<meta name="viewport" content="width=device-width" initail-scale="1">
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<!-- 헤더 부트스트랩 --> 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
-	
-
-
-
-
-	
-	
 <!-- 글목록css -->
 <style>
 
@@ -129,15 +122,18 @@ color: #FF0000;
 #comment {
 color: #0055FF;
 }
-
 </style>
 
 </head>
-
-
+<title>메인창</title>
+</head>
 <body>
-
-<!-- 헤더 -->
+<%
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String) session.getAttribute("userID");
+		}
+	%>
 <header class="p-3 text-bg-dark" style="position:fixed; width: 100%; z-index: 1;">
 		<div class="container-fluid">
 			<div class="row">
@@ -157,131 +153,53 @@ color: #0055FF;
 							class="form-control form-control-dark text-bg-dark"
 							placeholder="Search..." aria-label="Search">
 					</form>
-
-<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼.
-
-					<%
-					if (userID == null) {
-					%>
+					
 					<div class="text-end">
 						<button type="button" class="btn btn-outline-light me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp" class="login">Login</a>
+							<a href="login.jsp">Login</a>
 						</button>
 						<button type="button" class="btn btn-warning" role="button"
 							aria-haspopup="true" aria-expanded="false">
 							<a href="join.jsp" id="sign-color">Sign-up</a>
 						</button>
 					</div>
-					<%
-					} else {
-					%>
+					
 					<div class="text-end">
 						<button type="button" class="btn btn-outline-light me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="logoutAction.jsp" class="login">LogOut</a>
+							<a href="logoutAction.jsp">LogOut</a>
 						</button>
 
 					</div>
-					<%
-					}
-					%>
---%>
+					
 				</div>
 			</div>
 		</div>
 	</header>
+	
+	  <div class="container">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+			<div class="jumbotron" style="padding-top: 20px;"> 
+				<form method="post" action="loginAction.jsp">
+					<h3 style="text-align: center;">로그인 화면</h3>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="아이디"
+						name="userID" maxlength="20">
+					</div>
+					
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="비밀번호"
+						name="userPassword" maxlength="20">
+					</div>
+					<input type="submit" class="btn btn-primary form-control" value="로그인">
+				</form>
+		</div>
+		<div class="col-lg-4"></div>
+	</div>
+	</div>
+					
 
-
-
-
-<!-- 글목록 부분 -->
-<%
-	//페이지 누르면 값 가져오기
-	
-	String postpg = request.getParameter("postpage");
-	if(postpg == null) {
-		postpg = "1";
-	}
-	int postpage = Integer.parseInt(postpg);
-	//1->0 ; 2-> 10
-	int index_no = (postpage-1)*10;
-	
-	
-	
-	//DB연결, post테이블정보 담은 리스트
-	Dao dao = Dao.getInstance();
-	int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
-	List<Post> postlist = dao.selectPostAll(index_no);
-	
-	
-	
-	
-	//총 게시물 개수
-	int totalPost = dao.countPostAll();
-	//
-	int lastPostpage = (int)Math.ceil((double)totalPost/10);
-	
-%>
-   <div id="wrapper">
-       <section id="content">
-           <ul>
-           <%
-           		for(Post post : postlist){
-           %>
-               <li>
-                   <article>
-                       <div id="profile">     
-                           <img src="image/blankProfile.jpg" alt="프로필사진">
-                           <div id="ano">익명</div>
-                           <div id="date"><%=post.getDate() %></div>
-                       </div>
-                       <h1><%=post.getTitle() %></h1>
-                       <p><%=post.getContent() %></p>
-                       <div id="like-comment">
-                           <span id="like">
-                           <%
-                           int likeOnOff = dao.LikeOnOff(post.getPostNum(),loginStudentNum);
-                           if	(likeOnOff == 0){
-                           %>
-                               <img src="image/icon_like.png" alt="좋아요 수"> <%=post.getLikeCount()%>  
-                        	<%
-                           }else{
-                        	 %>
-                               <img src="image/icon_likeFull.png" alt="좋아요 수"> <%=post.getLikeCount()%>  
-                        	<%
-                           }
-                           %>
-                           </span>
-                           <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount()%>
-                           </span>
-                       </div>
-                   </article>
-               </li>
-               <%} %>
-               
-           </ul>
-       </section>
-   </div>
-   
-<!-- 페이징 -->
-	<div style="width:600px; text-align:center; margin-top:10px;">
-	<%
-       	//페이징
-       		for(int i=1; i<=lastPostpage; i++){
-       			//out.print("<a href='anolist2.jsp?postpage= "+i+"'>"+i+"</a> ");
-       			//위에처럼 해도 되고 아래처럼 해도 된다 - postpage 값 전달 되도록
-       		%>
-       			<a href="anolist.jsp?postpage=<%=i%>"><%=i %></a>
-       		<%
-       		}
-       	%>	
-	</div>  
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script>
-	
-	</script>
 </body>
-
 </html>

@@ -10,8 +10,6 @@
 
 
 
-
-
 <!-- 글목록css -->
 <style>
 #wrapper {
