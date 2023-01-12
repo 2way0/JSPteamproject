@@ -231,7 +231,7 @@ public class Dao {
 		
 		
 		
-		// 게시판 번호를 불러옴
+		// 저장할 새롭게 게시판의 번호를 지정
 		public int getNext() {
 			String sql = "select postNum from post order by postNum desc";
 			try {

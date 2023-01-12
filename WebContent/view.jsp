@@ -295,7 +295,7 @@ padding-bottom: 10px;*/
            </ul>
        </section>
    </div>
-	<a href="anolist.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
+	<a href="anolist.jsp" class="btn btn-success offset-10" style="width: 75px; margin: 15px;">목록</a>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
