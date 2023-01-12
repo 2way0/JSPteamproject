@@ -152,22 +152,49 @@ padding-bottom: 10px;*/
 			<section id="content">
 				<div>내정보</div>
 				<div id="myPageList">
-					<div><a href ="myPost.jsp">내가 쓴 글</a></div>
-					<div><a href ="myComment.jsp">댓글 단 글</a></div>
-					<div><a href ="myLike.jsp">좋아요 한 글</a></div>
+					<div><button id="exePost">내가 쓴 글</button></div>
+					<div><button id="exeComment">댓글 단 글</button></div>
+					<div><button id="exeLike">좋아요 한 글</button></div>
 				</div>
-				<div>
+				<div id="showList">
+				</div>
 					
 			</section>
 		</div>
 	</div>
 	</div>
-
+	
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script>
 		
+	<script>
+	$("#exePost").click(function(){
+		$.ajax({
+			url : 'myPost.jsp',
+			success : function(x){
+				$('#showList').html(x);
+			}
+		})
+	});
+	$("#exeComment").click(function(){
+		$.ajax({
+			url : 'myComment.jsp',
+			success : function(x){
+				$('#showList').html(x);
+			}
+		})
+	});
+	$("#exeLike").click(function(){
+		$.ajax({
+			url : 'myLike.jsp',
+			success : function(x){
+				$('#showList').html(x);
+			}
+		})
+	});
+	 
 	</script>
 </body>
 

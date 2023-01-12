@@ -13,6 +13,7 @@ import java.util.Properties;
 
 public class Dao {
 	// 싱글톤
+	
 	private static Dao dao = new Dao();
 	private Dao() {}
 	public static Dao getInstance() {
@@ -62,7 +63,7 @@ public class Dao {
 				int commentCount = rs.getInt("commentCount");
 				String date =  rs.getString("date");
 				String board =  rs.getString("board");
-				String onoff =  rs.getString("onoff");
+				int onoff =  rs.getInt("onoff");
 				post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
 				postList.add(post);
 			}
@@ -99,7 +100,7 @@ public class Dao {
 				int commentCount = rs.getInt("commentCount");
 				String date =  rs.getString("date");
 				String board =  rs.getString("board");
-				String onoff =  rs.getString("onoff");
+				int onoff =  rs.getInt("onoff");
 				post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
 				postList.add(post);
 			}
@@ -182,8 +183,154 @@ public class Dao {
 			return  0;
 		}
 		
-	
-	
+		
+		public Post getPost(int postNum) {
+			String sql = "select * from post where postNum = ?";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, postNum);
+				ResultSet rs = psmt.executeQuery();
+				while(rs.next()) {
+					Post post = new Post(postNum, postNum, sql, sql, postNum, postNum, sql, sql, postNum);
+					post.setPostNum(rs.getInt(1));
+					post.setStudentNum(rs.getInt(2));
+					post.setTitle(rs.getString(3));
+					post.setContent(rs.getString(4));
+					post.setLikeCount(rs.getInt(5));
+					post.setCommentCount(rs.getInt(6));
+					post.setDate(rs.getString(7));
+					post.setBoard(rs.getString(8));
+					post.setOnoff(rs.getInt(9));
+					
+					return post;
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return null; 
+		}
+		// -------------------글쓰기--------------
+		
+		
+		
+		//날짜를 불러옴
+		public String getDate() {
+			String sql = "select now()";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getString(1);
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return ""; 
+		}
+		
+		
+		
+		
+		// 저장할 새롭게 게시판의 번호를 지정
+		public int getNext() {
+			String sql = "select postNum from post order by postNum desc";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getInt(1) + 1;
+				}
+				return 1; // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 
+		}
+		
+		//사번을 불러옴
+		public int getStuNum() {
+			String sql = "select studentNum from post order by postNum desc";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getInt(1) + 1;
+				}
+				return 1; // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 
+		}
+		
+		//좋아요 수를 불러옴
+				public int getLikeNum() {
+					String sql = "select likeCount from post order by postNum desc";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						ResultSet rs = psmt.executeQuery();
+						if(rs.next()) {
+						return rs.getInt(1) + 1;
+						}
+						return 1; // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return -1; // 
+				}
+				
+		//댓글수
+				public int getCommentNum() {
+					String sql = "select commentCount from post order by postNum desc";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						ResultSet rs = psmt.executeQuery();
+						if(rs.next()) {
+						return rs.getInt(1) + 1;
+						}
+						return 1; // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return -1; // 
+				}
+		
+				//댓글수
+				public String getBoard() {
+					String sql = "select board from post order by postNum desc";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						ResultSet rs = psmt.executeQuery();
+						if(rs.next()) {
+						return rs.getString(1);
+						}
+						return sql; // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return sql; // 
+				}				
+		
+		//글쓰기
+		public int write(String title, String userID, String content) {
+			String sql = "insert into post values(?,?,?,?,?,?,?,?,?)";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, getNext());
+				psmt.setInt(2, getStuNum());
+				psmt.setString(3, title);
+				psmt.setString(4, content);
+				psmt.setInt(5, getLikeNum());
+				psmt.setInt(6, getCommentNum());
+				psmt.setString(7, getDate());
+				psmt.setString(8, getBoard());
+				psmt.setInt(9, 1);
+				return psmt.executeUpdate(); // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; //
+		}
 //	--------------------------------------------------------------------
 	
 //	user  ----------------------------------------------------------------
@@ -216,6 +363,45 @@ public class Dao {
 		
 		return null;
 	}
+	
+	//로그인 기능
+	public int login(String userID, String pw) {
+		String SQL = "select pw from user where userID = ?";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, userID);
+			ResultSet rs = psmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getString(1).equals(pw)) {
+					return 1; 
+				}
+				else{
+					return 0; 
+				}
+			}
+			return -1; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -2; 
+	}
+	
+	//회원가입
+	public int join(User user) {
+		String SQL = "insert into user(userID,nickName,pw,email) values(?, ?, ?, ?)";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, user.getUserID());
+			psmt.setString(2, user.getPw());
+			psmt.setString(3, user.getNickName());
+			psmt.setString(4, user.getEmail());
+			return psmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //
+	}
+	
 //	--------------------------------------------------------------------
 	
 //	comment  -------------------------------------------------------------
@@ -419,7 +605,6 @@ public class Dao {
 		
 		//해당아이디가 좋아요한 글 수
 		System.out.println("아이디 총 좋아요 수: "+dao.countLikeID(1001));
-		
 		
 		// stream
 //		postCheck.stream().sorted((n1,n2)->n2.compareTo(n1)).forEach(n->System.out.println(n));

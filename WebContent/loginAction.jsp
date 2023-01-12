@@ -133,78 +133,42 @@ color: #0055FF;
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
+		if(userID != null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인이 되어 있습니다.')");
+			script.println("location.href = 'anolist.jsp'");
+			script.println("</script>");
+		}
+		Dao dao = Dao.getInstance();
+		
+		int result = dao.login(request.getParameter("userID"), request.getParameter("userPassword"));
+		if(result == 1){
+			session.setAttribute("userID", request.getParameter("userID"));
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("location.href = 'anolist.jsp'");
+			script.println("</script>");
+		} else if(result == 0){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('비밀번호가 틀립니다')");
+			script.println("history.back()");
+			script.println("</script>");
+		} else if(result == -1){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('존재하지 않는 아이디입니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+		}  else if (result == -2){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('데이터베이스 오류가 발생했습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+		}
 	%>
-<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;"">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
-
-					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-						<li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
-						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">About</a></li>
-					</ul>
-
-					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-						<input type="search"
-							class="form-control form-control-dark text-bg-dark"
-							placeholder="Search..." aria-label="Search">
-					</form>
-						<%
-				if(userID == null){
-			%>
-					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp">Login</a>
-						</button>
-						<button type="button" class="btn btn-warning" role="button"
-							aria-haspopup="true" aria-expanded="false">
-							<a href="join.jsp" id="sign-color">Sign-up</a>
-						</button>
-					</div>
-					<%
-				} else {
-			%>
-					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="logoutAction.jsp">LogOut</a>
-						</button>
-
-					</div>
-					<%		
-				}
-			%>
-				</div>
-			</div>
-		</div>
-	</header>
-	
-	  <div class="container">
-		<div class="col-lg-4" style="margin: auto;">
-			<div class="jumbotron" style="margin-top: 50%; "> 
-				<form method="post" action="loginAction.jsp">
-					<h3 style="text-align: center;">로그인 화면</h3>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디"
-						name="userID" maxlength="20">
-					</div>
-					
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="비밀번호"
-						name="userPassword" maxlength="20">
-					</div>
-					<input type="submit" class="btn btn-primary form-control" value="로그인">
-				</form>
-		</div>
-		<div class="col-lg-4"></div>
-	</div>
-	</div>
-					
 
 </body>
 </html>

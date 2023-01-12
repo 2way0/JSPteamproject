@@ -10,11 +10,14 @@ public class Post implements Comparable<Post>{
 	private int commentCount;
 	private String date;
 	private String board;
-	private String onoff;
+	private int onoff;
 	
 	//생성자
+	
+	
+	
 	public Post(int postNum, int studentNum, String title, String content, int likeCount, int commentCount, String date,
-			String board, String onoff) {
+			String board, int onoff) {
 		super();
 		this.postNum = postNum;
 		this.studentNum = studentNum;
@@ -26,8 +29,8 @@ public class Post implements Comparable<Post>{
 		this.board = board;
 		this.onoff = onoff;
 	}
-	
-	
+
+
 
 	public Post(int postNum, String title, String content, String date) {
 		super();
@@ -37,6 +40,9 @@ public class Post implements Comparable<Post>{
 		this.date = date;
 	}
 
+
+
+	
 
 
 	// getter, setter
@@ -88,10 +94,10 @@ public class Post implements Comparable<Post>{
 	public void setBoard(String board) {
 		this.board = board;
 	}
-	public String getOnoff() {
+	public int getOnoff() {
 		return onoff;
 	}
-	public void setOnoff(String onoff) {
+	public void setOnoff(int onoff) {
 		this.onoff = onoff;
 	}
 
