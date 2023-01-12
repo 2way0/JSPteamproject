@@ -30,7 +30,10 @@
 		
 		System.out.println(postNum);
 		
-		
+		int studentNum = 0;
+		if(session.getAttribute("studentNUm") != null){
+			studentNum = (int) session.getAttribute("studentNum");
+		}
 		
 		if(userID == null){
 			PrintWriter script = response.getWriter();
@@ -48,7 +51,7 @@
 					} else {
 						
 						Dao dao = Dao.getInstance();
-						int result = dao.write(request.getParameter("bbsTitle"), userID, request.getParameter("bbsContent"));
+						int result = dao.write(request.getParameter("bbsTitle"), studentNum, request.getParameter("bbsContent"));
 						if(result == -1){
 							PrintWriter script = response.getWriter();
 							script.println("<script>");

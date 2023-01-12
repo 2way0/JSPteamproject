@@ -140,17 +140,20 @@ color: #0055FF;
 			script.println("location.href = 'anolist.jsp'");
 			script.println("</script>");
 		}
-		Dao dao = Dao.getInstance();
 		
+		Dao dao = Dao.getInstance();
 		int result = dao.login(request.getParameter("userID"), request.getParameter("userPassword"));
 		if(result == 1){
 			session.setAttribute("userID", request.getParameter("userID"));
+			session.setAttribute("studentNum", dao.selectStudentNum(request.getParameter("userID")));
+			System.out.print("우리가 가져온 학생남바  " +dao.selectStudentNum(request.getParameter("userID")));
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("location.href = 'anolist.jsp'");
 			script.println("</script>");
 		} else if(result == 0){
 			PrintWriter script = response.getWriter();
+			
 			script.println("<script>");
 			script.println("alert('비밀번호가 틀립니다')");
 			script.println("history.back()");

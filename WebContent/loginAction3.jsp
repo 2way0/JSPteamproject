@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@ page import="user.UserDAO" %>
+<%@ user.* %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="user" class="user.User" scope="page" />
@@ -27,12 +27,12 @@ pageEncoding="UTF-8"%>
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
-		UserDAO userDao = new UserDAO();
-		int result = userDao.login(user.getUserID(), user.getUserPassword());
+		Dao dao = Dao.getInstance();
+		int result = Dao.login(user.getUserID(), user.getUserPassword());
 		if(result == 1){
 			session.setAttribute("userID", user.getUserID());
-			System.out.println("in dao studentNum when try login : "+userDao.selectStudentNum((String)session.getAttribute("userID")));
-			session.setAttribute("studentNum", userDao.selectStudentNum((String)session.getAttribute("userID")));
+			System.out.println("in dao studentNum when try login : "+dao.selectStudentNum((String)session.getAttribute("userID")));
+			session.setAttribute("studentNum", dao.selectStudentNum((String)session.getAttribute("userID")));
 			System.out.println("this is studentNum i got from dao : "+session.getAttribute("studentNum"));
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

@@ -18,6 +18,14 @@ public class User implements Comparable<User>{
 		this.email = email;
 	}
 	
+	
+	
+	public User() {
+		super();
+	}
+
+
+
 	// getter, setter
 	public int getStudentNum() {
 		return studentNum;

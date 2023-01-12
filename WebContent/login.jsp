@@ -150,7 +150,8 @@ color: #0055FF;
 
 					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 						<input type="search"
-							class="form-control form-control-dark text-bg-dark"
+							class="form-control 
+-control-dark text-bg-dark"
 							placeholder="Search..." aria-label="Search">
 					</form>
 						<%

@@ -146,7 +146,7 @@ public class Dao {
 	//총 게시물 개수
 	public int countPostAll(){
 		
-		String sql = "select count(*) total from post where onoff=1";
+		String sql = "select count(*) total from post";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			
@@ -312,12 +312,12 @@ public class Dao {
 				}				
 		
 		//글쓰기
-		public int write(String title, String userID, String content) {
+		public int write(String title, int studentNum, String content) {
 			String sql = "insert into post values(?,?,?,?,?,?,?,?,?)";
 			try {
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, getNext());
-				psmt.setInt(2, getStuNum());
+				psmt.setInt(2, studentNum);
 				psmt.setString(3, title);
 				psmt.setString(4, content);
 				psmt.setInt(5, getLikeNum());
@@ -385,6 +385,30 @@ public class Dao {
 		}
 		return -2; 
 	}
+	
+	
+	//studetNum 확인
+	public int selectStudentNum(String userID) {
+		String sql = "select studentNum from user where userId = ?";
+		try {
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setString(1, userID);
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next()){
+			return	rs.getInt(1);
+			}
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1; // 데이터 베이스 실패 
+		
+	}
+	
+
+	
 	
 	//회원가입
 	public int join(User user) {
@@ -524,7 +548,7 @@ public class Dao {
 		}
 			
 		public int LikeOnOff(int likePostNum, int likeStudentNum){
-			String sql = "select count(*) total from like_table where postNum = ? and studentNum = ?";
+			String sql = "select count(*) from like_table where postNum = ? and studentNum = ?";
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setInt(1, likePostNum);
