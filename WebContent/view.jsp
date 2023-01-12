@@ -26,6 +26,7 @@ padding: 0 auto;
 
 }
 
+
 #content {
 /*border: 1px solid red;*/
 max-width: 800px;
