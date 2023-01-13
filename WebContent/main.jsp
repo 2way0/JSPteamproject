@@ -139,7 +139,7 @@ color: #0055FF;
 		}
 	%>
 <!-- 헤더 -->
-<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;">
+<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background: #99CC99;">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -150,17 +150,17 @@ color: #0055FF;
 						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">About</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">My Page</a></li>
 						<li><%if(userID != null){%>
 	                    <a href="write.jsp" class="btn btn-success offset-10" style="width: 75px; margin-right: 100px">
 	                    	글쓰기</a>
 						<% }%></li>
 					</ul>
-
-					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+<%--검색 --%>
+					<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 						<input type="search"
 							class="form-control form-control-dark text-bg-dark"
-							placeholder="Search..." aria-label="Search">
+							placeholder="Search..." aria-label="Search" name="searchWord">
 					</form>
 
 <%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
