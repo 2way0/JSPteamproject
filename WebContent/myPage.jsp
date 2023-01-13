@@ -22,12 +22,43 @@
 	padding: 0 auto;
 }
 
+#userInfo {
+	/*border: 1px solid blue;*/
+	max-width: 800px;
+	background-color: rgb(243, 242, 242);
+	padding: 20px;
+	
+}
+
+#img{
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	display: block;
+	
+}
+
+#userID {
+	margin: auto;
+	text-align: center;
+}
+
+#nickName {
+	margin: auto;
+	text-align: center;
+}
+
 #content {
-	/*border: 1px solid red;*/
+	border: 1px solid red;
 	max-width: 800px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	margin-top: 300px;
+	margin-top: 30px;
+}
+#myPageList {
+	
+	
+	
 }
 #myPageList div{
 	display: inline-block;
@@ -141,27 +172,25 @@ padding-bottom: 10px;*/
 
 <body>
 
-
-
-
-	
-	<div>
-
-
-		<div id="wrapper">
-			<section id="content">
-				<div>내정보</div>
-				<div id="myPageList">
-					<div><button id="exePost">내가 쓴 글</button></div>
-					<div><button id="exeComment">댓글 단 글</button></div>
-					<div><button id="exeLike">좋아요 한 글</button></div>
-				</div>
-				<div id="showList">
-				</div>
-					
-			</section>
-		</div>
-	</div>
+<div id="wrapper">
+			<div id="userInfo">
+				
+				<img id="img" src="image/blankProfile.jpg" alt="프로필사진">
+				<div id="userID"><a href="updateMyinfoForm.jsp">아이디</a></div>
+				<div id="nickName"><a href="updateMyinfoForm.jsp">닉네임</a></div>
+				
+			</div>
+			
+			
+		<section id="content">
+			<div id="myPageList">
+				<div><button id="exePost">내가 쓴 글</button></div>
+				<div><button id="exeComment">댓글 단 글</button></div>
+				<div><button id="exeLike">좋아요 한 글</button></div>
+			</div>
+			<div id="showList">
+			</div>
+		</section>
 	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
