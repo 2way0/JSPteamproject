@@ -31,6 +31,27 @@
 		
 		int postNum= 0;
 		
+		String saveFolder ="bbsUpload"; //사진을 저장할 경로
+		String encType="utf-8"; // 변환 방식
+		int maxSize = 5*1024*1024; // 사진의 size
+		
+		ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+		String realFolder = context.getRealPath("bbsUpload"); //saveFolder의 절대경로를 받는다.
+		System.out.println(realFolder);
+		MultipartRequest multi = null;
+		
+		
+		//파일업로드를 실질적으로 담당하는 부분
+		multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());	
+		
+		//form으로 전달받은 3가지를 가져온다.\
+		
+		String fileName = multi.getFilesystemName("fileName"); //파일이름
+		String bbsTitle = multi.getParameter("bbsTitle"); // 게시판 제목 -> 사실 왜 가져오는지 이해가 잘 안됨...
+		String bbsContent = multi.getParameter("bbsContent"); // 게시판 내용
+		
+	
+		
 		if(userID == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

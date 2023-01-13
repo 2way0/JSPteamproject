@@ -206,7 +206,7 @@ padding-bottom: 10px;*/
 			<main style="margin-top: 90px">
 			<div class="container">
 				<div class="row">
-					<form method="post"
+					<form method="post" encType="multipart/form-data"
 						action="writeAction.jsp" id="ActionBtn">
 						<table class="table table-striped"
 							style="text-align: center border:1px solid #dddddd">
