@@ -59,19 +59,22 @@
                            <span id="like">
                            <%
                            int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),loginStudentNum);
+                           int countLike = dao.countLikePost(postlist.get(i).getPostNum());
+                           int countComment = dao.countCommentPost(postlist.get(i).getPostNum());
+                           
                            if	(likeOnOff == 0){
                            %>
-                               <img src="image/OFF.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
+                               <img src="image/OFF.png" alt="좋아요 수"> <%=countLike%>  
                         	<%
                            }else{
                         	 %>
-                               <img src="image/ON.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
+                               <img src="image/ON.png" alt="좋아요 수"> <%=countLike%>  
                         	<%
                            }
                            %>
                            </span>
                            <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"> <%=postlist.get(i).getCommentCount()%>
+                               <img src="image/icon_comment.png" alt="댓글 수"> <%=countComment%>
                            </span>
                        </div>
                    </article>
