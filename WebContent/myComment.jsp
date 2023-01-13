@@ -9,13 +9,7 @@
 <title>Insert title here</title>
 
 </head>
-
-
 <body>
-
-
-
-
 	<!-- 글목록 부분 -->
 	<%
 	//페이지 누르면 값 가져오기
@@ -39,22 +33,19 @@
 	int lastCommentpage = (int) Math.ceil((double) totalComment / 10);
 	%>
 	
-
-
-		
 					<ul>
 						<%
 						for (Comment comment : commentList) {
 						%>
 						<li>
-							<article>
+							<article id=commentCss>
 								<div id="profile">
 									<img src="image/blankProfile.jpg" alt="프로필사진">
 									
 									<div id="date"><%=comment.getDate()%></div>
 								</div>
-								<h1><%="글제목"+comment.getTitle() %></h1>
-								<p><%="댓글내용"+comment.getCommentContent()%></p>
+								<h2><%="글제목"+comment.getTitle() %></h2>
+								<h3><%="댓글내용"+comment.getCommentContent()%></h3>
 								
 							</article>
 						</li>
@@ -73,7 +64,7 @@
 			//out.print("<a href='anolist2.jsp?commentpage= "+i+"'>"+i+"</a> ");
 			//위에처럼 해도 되고 아래처럼 해도 된다 - commentpage 값 전달 되도록
 		%>
-		<a href="myComent.jsp?commentpage=<%=i%>"><%=i%></a>
+		<button class="pageBtn" value=<%=i %>><%=i%></button>
 		<%
 		}
 		%>
@@ -81,7 +72,17 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
-		
+	$(function(){
+		$(".pageBtn").click(function() {
+			$.ajax({
+				url : 'myComment.jsp?postpage='+ $(this).val(),
+				success : function(x) {
+					$('#showPage').html(x);
+				}
+			})
+		});
+
+	});
 	</script>
 </body>
 

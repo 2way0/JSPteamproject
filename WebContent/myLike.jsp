@@ -67,11 +67,12 @@
 	<div style="width: 600px; text-align: center; margin-top: 10px;">
 		<%
 		//페이징
-		for (int i = 1; i <= lastPostpage; i++) {
+		int i = 1;
+		for (i = 1; i <= lastPostpage; i++) {
 			//out.print("<a href='anolist2.jsp?postpage= "+i+"'>"+i+"</a> ");
 			//위에처럼 해도 되고 아래처럼 해도 된다 - postpage 값 전달 되도록
 		%>
-		<a href="myLike.jsp?postpage=<%=i%>"><%=i%></a>
+		<button class="pageBtn" value=<%=i %>><%=i%></button>
 		<%
 		}
 		%>
@@ -79,7 +80,17 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
-		
+		$(function(){
+			$(".pageBtn").click(function() {
+				$.ajax({
+					url : 'myLike.jsp?postpage='+ $(this).val(),
+					success : function(x) {
+						$('#showPage').html(x);
+					}
+				})
+			});
+	
+		});
 	</script>
 </body>
 
