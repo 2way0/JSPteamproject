@@ -254,7 +254,7 @@ public class Dao {
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				ResultSet rs = psmt.executeQuery();
 				if(rs.next()) {
-				return rs.getInt(1) + 1;
+				return rs.getInt(1);
 				}
 				return 1; // 
 			} catch(Exception e) {
@@ -262,40 +262,8 @@ public class Dao {
 			}
 			return -1; // 
 		}
-		
-		//좋아요 수를 불러옴
-				public int getLikeNum() {
-					String sql = "select likeCount from post order by postNum desc";
-					try {
-						PreparedStatement psmt = conn.prepareStatement(sql);
-						ResultSet rs = psmt.executeQuery();
-						if(rs.next()) {
-						return rs.getInt(1) + 1;
-						}
-						return 1; // 
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
-					return -1; // 
-				}
-				
-		//댓글수
-				public int getCommentNum() {
-					String sql = "select commentCount from post order by postNum desc";
-					try {
-						PreparedStatement psmt = conn.prepareStatement(sql);
-						ResultSet rs = psmt.executeQuery();
-						if(rs.next()) {
-						return rs.getInt(1) + 1;
-						}
-						return 1; // 
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
-					return -1; // 
-				}
-		
-				//댓글수
+	
+			//게시판 이름(익명게시판)
 				public String getBoard() {
 					String sql = "select board from post order by postNum desc";
 					try {
@@ -320,8 +288,8 @@ public class Dao {
 				psmt.setInt(2, studentNum);
 				psmt.setString(3, title);
 				psmt.setString(4, content);
-				psmt.setInt(5, getLikeNum());
-				psmt.setInt(6, getCommentNum());
+				psmt.setInt(5, 0);
+				psmt.setInt(6, 0);
 				psmt.setString(7, getDate());
 				psmt.setString(8, getBoard());
 				psmt.setInt(9, 1);
@@ -555,7 +523,7 @@ public class Dao {
 				pstm.setInt(2, likeStudentNum);
 				ResultSet rsTot = pstm.executeQuery();
 				rsTot.next();
-				int total = rsTot.getInt("total");
+				int total = rsTot.getInt("likeNumber");
 				System.out.println("게시판 좋아요표시 : "+total+"리턴완료");
 				return total;
 			} catch (SQLException e) {

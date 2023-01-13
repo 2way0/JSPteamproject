@@ -40,9 +40,19 @@ public class Post implements Comparable<Post>{
 		this.date = date;
 	}
 
-
+	
+	public Post(String title, String content) {
+		super();
+		this.title = title;
+		this.content = content;
+	}
 
 	
+
+	public Post() {
+		super();
+	}
+
 
 
 	// getter, setter

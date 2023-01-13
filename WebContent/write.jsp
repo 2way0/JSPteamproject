@@ -229,6 +229,14 @@ padding-bottom: 10px;*/
 											class="form-control" placeholder="글 내용" name="bbsContent"
 											maxlength="2048" style="height: 350px;"></textarea></td>
 								</tr>
+								<tr>
+									<td colspan="5"><label class="input-file-btn"
+										for="input-file"><img src="image/camera2.png"
+										id="input-btn-png"> </label> 
+										<input id="input-file"
+										type="file" name="fileName" style="display: none">
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						<input type="submit" value="글쓰기" onclick="clickBtn()"

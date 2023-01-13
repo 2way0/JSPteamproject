@@ -4,7 +4,9 @@
 <%@ page import="java.io.PrintWriter" %> 
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.Enumeration" %>
-
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 
 <% request.setCharacterEncoding("UTF-8"); %>
 
@@ -19,21 +21,15 @@
 <body>
 	<%	
 		String userID = null;
+		int studentNum = 0;
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
-		}
-		
-		int postNum= 0;
-		if(request.getParameter("postNum") !=null){
-			postNum = Integer.parseInt(request.getParameter("bbsID"));
-		}
-		
-		System.out.println(postNum);
-		
-		int studentNum = 0;
-		if(session.getAttribute("studentNUm") != null){
 			studentNum = (int) session.getAttribute("studentNum");
 		}
+		System.out.println("가져온 학생 아이디 :" + userID);
+		System.out.println("가져온 학생번호 :" + studentNum);
+		
+		int postNum= 0;
 		
 		if(userID == null){
 			PrintWriter script = response.getWriter();
@@ -59,7 +55,8 @@
 							script.println("history.back()");
 							script.println("</script>");
 						} else{
-							
+							System.out.println(request.getParameter("bbsTitle"));
+							System.out.println(request.getParameter("bbsContent"));
 							PrintWriter script = response.getWriter();
 							script.println("<script>");
 							script.println("location.href = 'anolist.jsp'");
