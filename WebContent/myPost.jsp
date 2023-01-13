@@ -59,11 +59,11 @@
                            int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),loginStudentNum);
                            if	(likeOnOff == 0){
                            %>
-                               <img src="image/icon_like.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
+                               <img src="image/OFF.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
                         	<%
                            }else{
                         	 %>
-                               <img src="image/icon_likeFull.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
+                               <img src="image/ON.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
                         	<%
                            }
                            %>
