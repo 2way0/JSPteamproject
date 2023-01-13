@@ -206,7 +206,7 @@ padding-bottom: 10px;*/
 			<main style="margin-top: 90px">
 			<div class="container">
 				<div class="row">
-					<form method="post" encType="multipart/form-data"
+					<form method="post" enctype="multipart/form-data"
 						action="writeAction.jsp" id="ActionBtn">
 						<table class="table table-striped"
 							style="text-align: center border:1px solid #dddddd">
@@ -229,6 +229,7 @@ padding-bottom: 10px;*/
 											class="form-control" placeholder="글 내용" name="bbsContent"
 											maxlength="2048" style="height: 350px;"></textarea></td>
 								</tr>
+								
 								<tr>
 									<td colspan="5"><label class="input-file-btn"
 										for="input-file"><img src="image/camera2.png"
