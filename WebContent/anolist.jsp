@@ -241,40 +241,40 @@ color: #0055FF;
        <section id="content">
            <ul>
            <%
-           		for(Post post : postlist){
+           for (int i = 0; i <= postlist.size() - 1; i++) {
            %>
                <li>
                    <article>
                        <div id="profile">     
                            <img src="image/blankProfile.jpg" alt="프로필사진">
                            <div id="ano">익명</div>
-                           <div id="date"><%=post.getDate() %></div>
+                           <div id="date"><%=postlist.get(i).getDate() %></div>
                        </div>
                        <h1>
-                       <a href="view.jsp?postNum=<%=post.getPostNum()%>">
-                       <%=post.getTitle() %>
+                       <a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>">
+                       <%=postlist.get(i).getTitle() %></a>
                        </h1>
                        <p>
-                       <a href="view.jsp?postNum=<%=post.getPostNum()%>">
-                       <%=post.getContent() %>
+                       <a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>">
+                       <%=postlist.get(i).getContent() %></a>
                        </p>
                        <div id="like-comment">
                            <span id="like">
                            <%
-                           int likeOnOff = dao.LikeOnOff(post.getPostNum(),loginStudentNum);
+                           int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),loginStudentNum);
                            if	(likeOnOff == 0){
                            %>
-                               <img src="image/icon_like.png" alt="좋아요 수"> <%=post.getLikeCount()%>  
+                               <img src="image/icon_like.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
                         	<%
                            }else{
                         	 %>
-                               <img src="image/icon_likeFull.png" alt="좋아요 수"> <%=post.getLikeCount()%>  
+                               <img src="image/icon_likeFull.png" alt="좋아요 수"> <%=postlist.get(i).getLikeCount()%>  
                         	<%
                            }
                            %>
                            </span>
                            <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount()%>
+                               <img src="image/icon_comment.png" alt="댓글 수"> <%=postlist.get(i).getCommentCount()%>
                            </span>
                        </div>
                    </article>

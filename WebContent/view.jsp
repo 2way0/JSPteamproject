@@ -35,7 +35,6 @@
 	padding: 0 auto;
 }
 
-
 #content {
 	/*border: 1px solid red;*/
 	max-width: 800px;
@@ -152,14 +151,22 @@ padding-bottom: 10px;*/
 <body>
 	<%
 		String userID = null;
-		if (session.getAttribute("userID") != null) {
-			userID = (String) session.getAttribute("userID");
+		int studentNum = 0;
+		if(session.getAttribute("userID") != null){
+		userID = (String) session.getAttribute("userID");
+		studentNum = (int) session.getAttribute("studentNum");
 		}
+		
 		int postNum = 0;
 		if(request.getParameter("postNum") != null){
 			postNum = Integer.parseInt(request.getParameter("postNum"));
+			
 		}
 		
+		
+		Post post = new Post();
+		Dao dao = Dao.getInstance();
+		post = dao.getPost(postNum);
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
@@ -182,7 +189,7 @@ padding-bottom: 10px;*/
 							<%
 								if (userID != null) {
 							%> <a href="write.jsp" class="btn btn-success offset-10"
-							style="width: 75px; margin-right:100px">글쓰기</a> <%
+							style="width: 75px; margin-right: 100px">글쓰기</a> <%
  	}
  %>
 						</li>
@@ -223,80 +230,55 @@ padding-bottom: 10px;*/
 						}
 					%>
 				</div>
-				</div>
-				</div>
-				</header>
+			</div>
+		</div>
+	</header>
 
-<!-- 글목록 부분 -->
-<%
-	//페이지 누르면 값 가져오기
-	
-	String postpg = request.getParameter("postpage");
-	if(postpg == null) {
-		postpg = "1";
-	}
-	int postpage = Integer.parseInt(postpg);
-	//1->0 ; 2-> 10
-	int index_no = (postpage-1)*10;
-	
-	
-	
-	//DB연결, post테이블정보 담은 리스트
-	Dao dao = Dao.getInstance();
-	int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
-	List<Post> postlist = dao.selectPostAll(index_no);
-	
-	
-	
-	
-	//총 게시물 개수
-	int totalPost = dao.countPostAll();
-	//
-	int lastPostpage = (int)Math.ceil((double)totalPost/10);
-	
-%>
-   <div id="wrapper">
-       <section id="content">
+<div class="container">
+		<div class="row">
+			<main style="padding: 15px">
+				 <div id="wrapper">
+      			 <section id="content">
            <ul>
-           <%
-           		for(Post post : postlist){
-           %>
-               <li>
+               <li style="margin:10px">
                    <article>
-                       <div id="profile">     
+                       <div id="profile">
                            <img src="image/blankProfile.jpg" alt="프로필사진">
                            <div id="ano">익명</div>
-                           <div id="date"><%=post.getDate() %></div>
+                           <div id="date"><%=post.getDate()%></div>
                        </div>
-                       <h1><%=post.getTitle() %></h1>
-                       <p><%=post.getContent() %></p>
+                      
+                       <p><%=post.getContent()%></p>
+                      
                        <div id="like-comment">
                            <span id="like">
-                           <%
-                           int likeOnOff = dao.LikeOnOff(post.getPostNum(),loginStudentNum);
-                           if	(likeOnOff == 0){
-                           %>
-                               <img src="image/icon_like.png" alt="좋아요 수"> <%=post.getLikeCount()%>  
-                        	<%
-                           }else{
-                        	 %>
-                               <img src="image/icon_likeFull.png" alt="좋아요 수"> <%=post.getLikeCount()%>  
-                        	<%
-                           }
-                           %>
+                               <img src="icon_like.png" alt="좋아요 수"> <%=post.getLikeCount() %>
                            </span>
                            <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount()%>
+                               <img src="icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
                            </span>
                        </div>
                    </article>
                </li>
-               <%} %>
-               
            </ul>
        </section>
-   </div>
-	<a href="anolist.jsp" class="btn btn-success offset-10" style="width: 75px; margin: 15px;">목록</a>
+     <a href="anolist.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
+						<%
+						if (studentNum != 0 && studentNum == post.getStudentNum()) {
+						%>
+						<a href="update.jsp?postNum=<%=postNum%>"
+							class="btn btn-primary offset-7" style="width: 75px;">수정</a> <a
+							onclick="return confirm('정말로 삭제하시겠습니까?')"
+							href="deleteAction.jsp?postNum=<%=postNum%>" class="btn btn-primary"
+							style="width: 75px; margin-left: 15px;">삭제</a>
+						<%
+						}
+						%>
+   			</div>
+		</main>
+		</div>
+	</div>
+	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>

@@ -191,7 +191,7 @@ public class Dao {
 				psmt.setInt(1, postNum);
 				ResultSet rs = psmt.executeQuery();
 				while(rs.next()) {
-					Post post = new Post(postNum, postNum, sql, sql, postNum, postNum, sql, sql, postNum);
+					Post post = new Post();
 					post.setPostNum(rs.getInt(1));
 					post.setStudentNum(rs.getInt(2));
 					post.setTitle(rs.getString(3));
@@ -298,6 +298,21 @@ public class Dao {
 				e.printStackTrace();
 			}
 			return -1; //
+		}
+		
+		// 글 수정
+		public int update(int postNum, String title, String content) {
+			String sql = "update post set title = ?, content = ? where postNum= ?";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setString(1, title);
+				psmt.setString(2, content);
+				psmt.setInt(3, postNum);
+				return psmt.executeUpdate(); // 첫번째 게시글인 경우
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 데이터 베이스 호출
 		}
 //	--------------------------------------------------------------------
 	
