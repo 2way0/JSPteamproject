@@ -167,13 +167,21 @@ padding-bottom: 10px;*/
 </head>
 
 <body>
+<%
+	Dao dao = Dao.getInstance();
+	
+//임의로 studentNum 정함.
+	int studentNum=1001;
+	User user = dao.selectUserOne(studentNum);
+	
+	
+%>
 	<div>
 		<div id="wrapper">
 			<div id="userInfo">
-				
 				<img id="img" src="image/blankProfile.jpg" alt="프로필사진">
-				<div id="userID"><a href="updateMyinfoForm.jsp">아이디</a></div>
-				<div id="nickName"><a href="updateMyinfoForm.jsp">닉네임</a></div>
+				<div id="userID"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getUserID() %></a></div>
+				<div id="nickName"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getNickName() %></a></div>
 				
 			</div>
 			

@@ -348,6 +348,7 @@ public class Dao {
 		return null;
 	}
 	
+	
 	//로그인 기능
 	public int login(String userID, String pw) {
 		String SQL = "select pw from user where userID = ?";
@@ -409,6 +410,61 @@ public class Dao {
 		}
 		return -1; //
 	}
+	
+
+	// 학번으로 유저 한명 정보 불러오기
+			public User selectUserOne(int num){
+				String sql = "select studentNum, userID, nickName, pw, email from user "
+						+ "where studentNum = ?";
+				User user = null;
+				try {
+					PreparedStatement pstm = conn.prepareStatement(sql);
+					pstm.setInt(1, num); //물음표 안에 int num값.
+					ResultSet rs = pstm.executeQuery();
+					while(rs.next()) {
+						int studentNum = rs.getInt("studentNum");
+						String userID =  rs.getString("userID");
+						String nickName =  rs.getString("nickName");
+						String pw =  rs.getString("pw");
+						String email =  rs.getString("email");
+						user = new User(studentNum,userID,nickName,pw,email);
+					}
+					rs.close();
+					pstm.close();
+					System.out.println("학번으로 유저 정보 불러오기");
+					return user;
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+					System.out.println("selectUserOne() 에러");
+				}
+				return null;
+			}
+			
+			//유저 정보 수정
+			public int updateUser(User user) {
+				String sql = "update user set nickname=?, pw=?, email=?"
+						+ " where studentNum=?";
+				
+				try {
+					PreparedStatement pstm = conn.prepareStatement(sql);
+					
+					pstm.setString(1, user.getNickName());
+					pstm.setString(2, user.getPw());
+					pstm.setString(3, user.getEmail());
+					pstm.setInt(4, user.getStudentNum());
+					int res = pstm.executeUpdate();
+					System.out.println("처리된 행의 개수:"+res);
+					pstm.close();
+					return res;
+				} catch (SQLException e) {
+					e.printStackTrace();
+					System.out.println("updateUser() 에러");
+				}
+				return 0;
+				
+			}
+			
 	
 //	--------------------------------------------------------------------
 	
