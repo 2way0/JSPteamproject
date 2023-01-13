@@ -1,34 +1,23 @@
 <%@page import="java.io.PrintWriter"%>
 <%@ page import="java.io.File"%>
-<%@page import="user.Post"%>
-<%@page import="user.User"%>
-<%@page import="user.Dao"%>
-<%@page import="java.util.List"%>
+<%@page import="user.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="./style.css" type="text/css">
+<meta name="viewport" content="width=device-width" initail-scale="1">
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<!-- 헤더 부트스트랩 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
-
-
-
-
-
-
-
 <!-- 글목록css -->
 <style>
 #wrapper {
-	/*border: 1px solid #333;*/
+	border: 1px solid #333;
 	max-width: 800px; /*800이하 시 줄어듦*/
 	height: 100%;
 	margin: 0 auto;
@@ -146,31 +135,50 @@ padding-bottom: 10px;*/
 </style>
 
 </head>
-
-
+<title>메인창</title>
+</head>
 <body>
 	<%
 		String userID = null;
 		int studentNum = 0;
-		if(session.getAttribute("userID") != null){
-		userID = (String) session.getAttribute("userID");
-		studentNum = (int) session.getAttribute("studentNum");
+		if (session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+			studentNum = (int) session.getAttribute("studentNum");
 		}
-		
+		if (userID == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인을 하세요')");
+			script.println("location.href = 'login.jsp'");
+			script.println("</script>");
+		}
 		int postNum = 0;
 		if(request.getParameter("postNum") != null){
 			postNum = Integer.parseInt(request.getParameter("postNum"));
-			
 		}
-		
+		if (postNum == 0){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('유효하지 않은 글입니다')");
+			script.println("location.href = 'anolist.jsp'");
+			script.println("</script>");
+		}
 		
 		Post post = new Post();
 		Dao dao = Dao.getInstance();
 		post = dao.getPost(postNum);
+		
+		
+		if(studentNum != post.getStudentNum()){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('권한이 존재하지 않습니다')");
+			script.println("location.href = 'anolist.jsp'");
+			script.println("</script>");
+		}
 	%>
-	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1;">
+		style="position: fixed; top: 0; width: 100%; z-index: 1;"">
 		<div class="container-fluid">
 			<div class="row">
 				<div
@@ -185,14 +193,6 @@ padding-bottom: 10px;*/
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">About</a></li>
-						<li>
-							<%
-								if (userID != null) {
-							%> <a href="write.jsp" class="btn btn-success offset-10"
-							style="width: 75px; margin-right: 100px">글쓰기</a> <%
- 	}
- %>
-						</li>
 					</ul>
 
 					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -200,9 +200,6 @@ padding-bottom: 10px;*/
 							class="form-control form-control-dark text-bg-dark"
 							placeholder="Search..." aria-label="Search">
 					</form>
-
-					<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
-
 					<%
 						if (userID == null) {
 					%>
@@ -234,56 +231,58 @@ padding-bottom: 10px;*/
 		</div>
 	</header>
 
-<div class="container">
+
+
+
+	<div class="container">
 		<div class="row">
-			<main style="padding: 15px">
-				 <div id="wrapper">
-      			 <section id="content">
-           <ul>
-               <li style="margin:10px">
-                   <article>
-                       <div id="profile">
-                           <img src="image/blankProfile.jpg" alt="프로필사진">
-                           <div id="ano">익명</div>
-                           <div id="date"><%=post.getDate()%></div>
-                       </div>
-                      
-                       <p><%=post.getContent()%></p>
-                      
-                       <div id="like-comment">
-                           <span id="like">
-                               <img src="image/icon_like.png" alt="좋아요 수"> <%=post.getLikeCount() %>
-                           </span>
-                           <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
-                           </span>
-                       </div>
-                   </article>
-               </li>
-           </ul>
-       </section>
-     <a href="anolist.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
-						<%
-						if (studentNum != 0 && studentNum == post.getStudentNum()) {
-						%>
-						<a href="update.jsp?postNum=<%=postNum%>"
-							class="btn btn-primary offset-7" style="width: 75px;">수정</a> <a
-							onclick="return confirm('정말로 삭제하시겠습니까?')"
-							href="deleteAction.jsp?postNum=<%=postNum%>" class="btn btn-primary"
-							style="width: 75px; margin-left: 15px;">삭제</a>
-						<%
-						}
-						%>
-   			</div>
-		</main>
+			<main style="margin-top: 90px">
+			<div class="container">
+				<div class="row">
+					<form method="post"
+						action="updateAction.jsp?postNum=<%=postNum%>" id="ActionBtn">
+						<table class="table table-striped"
+							style="text-align: center border:1px solid #dddddd">
+							<thead>
+								<tr>
+									<th colspan="2"
+										style="background-color: #eeeeee; text-align: center;">게시판
+										글쓰기 양식</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="text-align: center"><input type="text"
+										class="form-control" placeholder="글 제목" name="bbsTitle"
+										maxlength="50" value="<%= post.getTitle() %>"></td>
+								</tr>
+								<tr>
+									<td style="text-align: center"><textarea
+											class="form-control" placeholder="글 내용" name="bbsContent"
+											maxlength="2048" style="height: 350px;" value="<%= post.getContent() %>">
+											</textarea></td>
+								</tr>
+							
+							</tbody>
+						</table>
+						<input type="submit" value="글쓰기" onclick="clickBtn()"
+							class="btn btn-success offset-10" style="width: 75px;">
+					</form>
+				</div>
+			</div>
+			</main>
 		</div>
 	</div>
-	
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+
+	<script src="https://code.jquery.com/jquery-3.6.3.js"
+		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+		crossorigin="anonymous"></script>
 	<script>
-		
+		function clickBtn(){
+			$('#actionBtn').submit();
+		}
 	</script>
 </body>
-
 </html>

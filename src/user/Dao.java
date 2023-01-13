@@ -302,12 +302,13 @@ public class Dao {
 		
 		// 글 수정
 		public int update(int postNum, String title, String content) {
-			String sql = "update post set title = ?, content = ? where postNum= ?";
+			String sql = "UPDATE POST SET TITLE=?,CONTENT=? WHERE POSTNUM=?";
 			try {
 				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(3, postNum);
 				psmt.setString(1, title);
 				psmt.setString(2, content);
-				psmt.setInt(3, postNum);
+				
 				return psmt.executeUpdate(); // 첫번째 게시글인 경우
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -538,7 +539,7 @@ public class Dao {
 				pstm.setInt(2, likeStudentNum);
 				ResultSet rsTot = pstm.executeQuery();
 				rsTot.next();
-				int total = rsTot.getInt("likeNumber");
+				int total = rsTot.getInt(1);
 				System.out.println("게시판 좋아요표시 : "+total+"리턴완료");
 				return total;
 			} catch (SQLException e) {
@@ -599,7 +600,7 @@ public class Dao {
 		for(Post a : likeCheck) {
 			System.out.println("좋"+a.getTitle());
 		}
-
+		System.out.println("업데이트 됨? :" + dao.update(2015, "제발", "뭐냐고"));
 		
 		//해당아이디가 쓴 글 수
 		System.out.println("아이디 총 게시글 수: "+dao.countPostID(1001));
