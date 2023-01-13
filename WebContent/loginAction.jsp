@@ -149,7 +149,7 @@ color: #0055FF;
 			System.out.print("우리가 가져온 학생남바  " +dao.selectStudentNum(request.getParameter("userID")));
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'anolist.jsp'");
+			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		} else if(result == 0){
 			PrintWriter script = response.getWriter();

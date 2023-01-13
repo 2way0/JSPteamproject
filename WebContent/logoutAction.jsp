@@ -15,7 +15,7 @@
 		session.invalidate();
 	%>
 	<script>
-		location.href = 'anolist.jsp';
+		location.href = 'main.jsp';
 	</script>
 </body>
 </html>
