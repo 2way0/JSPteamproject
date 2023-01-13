@@ -26,7 +26,7 @@
 <%--수정완료되면 알림창뜨고 마이페이지로 돌아가기 --%>
 <script>
 alert("정보가 수정되었습니다.");
-window.location.href = 'mypage.jsp';
+window.location.href = 'myPage.jsp';
 </script>
 </body>
 </html>
