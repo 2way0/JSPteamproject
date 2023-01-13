@@ -191,7 +191,7 @@ padding-bottom: 10px;*/
 								<h1><%=post.getTitle()%></h1>
 								<p><%=post.getContent()%></p>
 								<div id="like-comment">
-									<span id="like"> <img src="image/icon_like.png"
+									<span id="like"> <img src="image/OFF.png"
 										alt="좋아요 수"> <%=post.getLikeCount()%>
 									</span> <span id="comment"> <img src="image/icon_comment.png"
 										alt="댓글 수"> <%=post.getCommentCount()%>

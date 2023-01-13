@@ -266,7 +266,7 @@ padding-bottom: 10px;*/
                       	
                        <div id="like-comment">
                            <span id="like">
-                               <img src="image/icon_like.png" alt="좋아요 수"> <%=post.getLikeCount() %>
+                               <img src="image/OFF.png" alt="좋아요 수"> <%=post.getLikeCount() %>
                            </span>
                            <span id="comment">
                                <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
@@ -296,7 +296,20 @@ padding-bottom: 10px;*/
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
+	$("#like_btn").click(function() {
+		var img = document.getElementById('like_img');
 		
+		if (img.src.match('OFF')) {
+			img.src = 'ON.png';
+			
+			checkImg++;
+			console.log(checkImg);
+		} else {
+			img.src = 'OFF.png';
+			checkImg--;
+			console.log(checkImg);
+		}
+});
 	</script>
 </body>
 

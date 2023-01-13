@@ -538,7 +538,27 @@ public class Dao {
 			return  0;
 		}
 	
+	// 해당 글 댓글 수
+	public int countLikeComment(int PostNum){
+		String sql = "select count(*) total from comment where PostNum = ?";
+		try {
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, PostNum);
+			ResultSet rsTot = pstm.executeQuery();
+			rsTot.next();
+			int total = rsTot.getInt("total");
+			System.out.println("해당 게시글 댓글 수 : "+total+"리턴완료");
+			return total;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("countLikeComment() 에러");
+		}
+		return  0;
+	}
+		
 //	--------------------------------------------------------------------
+//		like --------------------------------------------------------------------
 //		like_table  ----------------------------------------------------------
 		public List<Post> selectLikeID(int idStudentNum,int index_no){
 			List<Post> likeList = new ArrayList<>();
@@ -591,7 +611,7 @@ public class Dao {
 			return  0;
 		}
 			
-	// 해당 아이디가 작성한 총 댓글 개수
+	// 해당 아이디가 누른 좋아요 개수
 			public int countLikeID(int idStudentNum){
 				String sql = "select count(*) total from like_table where studentNum = ?";
 				try {
@@ -600,12 +620,31 @@ public class Dao {
 					ResultSet rsTot = pstm.executeQuery();
 					rsTot.next();
 					int total = rsTot.getInt("total");
-					System.out.println("해당 아이디 총 댓글 수 : "+total+"리턴완료");
+					System.out.println("해당 아이디가 누른 총 좋아요 수 : "+total+"리턴완료");
 					return total;
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("countCommentID() 에러");
+				}
+				return  0;
+			}	
+			
+		// 해당 글 좋아요 수
+			public int countLikePost(int PostNum){
+				String sql = "select count(*) total from like_table where PostNum = ?";
+				try {
+					PreparedStatement pstm = conn.prepareStatement(sql);
+					pstm.setInt(1, PostNum);
+					ResultSet rsTot = pstm.executeQuery();
+					rsTot.next();
+					int total = rsTot.getInt("total");
+					System.out.println("해당 글 총 좋아요 수 : "+total+"리턴완료");
+					return total;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("countLikePost() 에러");
 				}
 				return  0;
 			}	
