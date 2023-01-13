@@ -177,7 +177,6 @@ padding-bottom: 10px;*/
 	int studentNum=1001;
 	User user = dao.selectUserOne(studentNum);
 	
-	
 %>
 	<div>
 		<div id="wrapper">

@@ -26,35 +26,36 @@
 	Dao dao = Dao.getInstance();
 	int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
 	List<Comment> commentList = dao.selectCommentID(loginStudentNum, index_no);
+	
 
 	//내가 작성한 총 댓글 개수
 	int totalComment = dao.countCommentID(loginStudentNum);
 	//
 	int lastCommentpage = (int) Math.ceil((double) totalComment / 10);
 	%>
+	<div id="showPage">
+	<ul>
+           <%
+           for (int i = 0; i <= commentList.size() - 1; i++) {
+           %>
+               <li>
+                   <article>
+                       <div id="profile"> 
+                       <h1>
+                       <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
+                       <%=commentList.get(i).getTitle() %></a>
+                       </h1>    
+                       </div>
+                       <div id="date"><%=commentList.get(i).getDate() %></div>
+                       <p>
+                       <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
+                       <%=commentList.get(i).getCommentContent() %></a>
+                       </p>
+                   </article>
+               </li>
+               <%} %>
+           </ul>
 	
-					<ul>
-						<%
-						for (Comment comment : commentList) {
-						%>
-						<li>
-							<article id=commentCss>
-								<div id="profile">
-									<img src="image/blankProfile.jpg" alt="프로필사진">
-									
-									<div id="date"><%=comment.getDate()%></div>
-								</div>
-								<h2><%="글제목"+comment.getTitle() %></h2>
-								<h3><%="댓글내용"+comment.getCommentContent()%></h3>
-								
-							</article>
-						</li>
-						<%
-						}
-						%>
-
-					</ul>
-			
 
 	<!-- 페이징 -->
 	<div style="width: 600px; text-align: center; margin-top: 10px;">
