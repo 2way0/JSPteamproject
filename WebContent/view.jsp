@@ -247,7 +247,7 @@ padding-bottom: 10px;*/
                            <div id="ano">익명</div>
                            <div id="date"><%=post.getDate()%></div>
                        </div>
-                      
+                       <p><%=post.getTitle() %>
                        <p><%=post.getContent()%></p>
                       
                        <div id="like-comment">
