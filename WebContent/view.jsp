@@ -247,9 +247,23 @@ padding-bottom: 10px;*/
                            <div id="ano">익명</div>
                            <div id="date"><%=post.getDate()%></div>
                        </div>
-                       <p><%=post.getTitle() %>
+                       <h1><%=post.getTitle() %></h1>
+                       <%
+                       ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+               		   String realFolder = context.getRealPath("bbsUpload"); //saveFolder의 절대경로를 받는다.
+                       
+                       File oldFile = new File(realFolder+"\\"+"0사진.jpg");
+                       File viewFile = new File(realFolder+"\\"+postNum+"사진.jpg");
+                       oldFile.renameTo(viewFile);
+                       System.out.println(viewFile);
+                       
+                        if(viewFile.exists()){
+                    	%>
+                    	<br>
+                       <img src="bbsUpload\\<%=postNum%>사진.jpg" width="300px" height="300px">
+                       <%} %>
                        <p><%=post.getContent()%></p>
-                      
+                      	
                        <div id="like-comment">
                            <span id="like">
                                <img src="image/icon_like.png" alt="좋아요 수"> <%=post.getLikeCount() %>

@@ -183,7 +183,7 @@ public class Dao {
 			return  0;
 		}
 		
-		
+		// 특정한 게시판 값 의 모든 정보를 가져옴
 		public Post getPost(int postNum) {
 			String sql = "select * from post where postNum = ?";
 			try {
@@ -247,21 +247,6 @@ public class Dao {
 			return -1; // 
 		}
 		
-		//사번을 불러옴
-		public int getStuNum() {
-			String sql = "select studentNum from post order by postNum desc";
-			try {
-				PreparedStatement psmt = conn.prepareStatement(sql);
-				ResultSet rs = psmt.executeQuery();
-				if(rs.next()) {
-				return rs.getInt(1);
-				}
-				return 1; // 
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			return -1; // 
-		}
 	
 			//게시판 이름(익명게시판)
 				public String getBoard() {

@@ -5,7 +5,8 @@
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="java.util.Enumeration" %>
-
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <!DOCTYPE html>
@@ -27,9 +28,27 @@
 		System.out.println("가져온 학생 아이디 :" + userID);
 		System.out.println("가져온 학생번호 :" + studentNum);
 		
-		int postNum= 0;
+		int postNum = 0;
 		
 		
+		String saveFolder ="bbsUpload"; //사진을 저장할 경로
+		String encType="utf-8"; // 변환 방식
+		int maxSize = 5*1024*1024; // 사진의 size
+		
+		ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+		String realFolder = context.getRealPath("bbsUpload"); //saveFolder의 절대경로를 받는다.
+		System.out.println(realFolder);
+		MultipartRequest multi = null;
+		
+		
+		//파일업로드를 실질적으로 담당하는 부분
+		multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());	
+		
+		//form으로 전달받은 3가지를 가져온다.\
+		
+		String fileName = multi.getFilesystemName("fileName"); //파일이름
+		String bbsTitle = multi.getParameter("bbsTitle"); // 게시판 제목 
+		String bbsContent = multi.getParameter("bbsContent"); // 게시판 내용
 	
 		
 		if(userID == null){
@@ -39,7 +58,7 @@
 			script.println("location.href = 'login.jsp'");
 			script.println("</script>");
 		} else{
-			if(request.getParameter("bbsTitle") == null || request.getParameter("bbsContent") == null){
+			if(bbsTitle == null || bbsContent == null){
 						PrintWriter script = response.getWriter();
 						script.println("<script>");
 						script.println("alert('입력이 안된 사항이 있습니다.')");
@@ -48,7 +67,7 @@
 					} else {
 						
 						Dao dao = Dao.getInstance();
-						int result = dao.write(request.getParameter("bbsTitle"), studentNum, request.getParameter("bbsContent"));
+						int result = dao.write(bbsTitle, studentNum, bbsContent);
 						if(result == -1){
 							PrintWriter script = response.getWriter();
 							script.println("<script>");
@@ -56,9 +75,13 @@
 							script.println("history.back()");
 							script.println("</script>");
 						} else{
-							System.out.println(request.getParameter("bbsTitle"));
-							System.out.println(request.getParameter("bbsContent"));
 							PrintWriter script = response.getWriter();
+							if(fileName != null){
+								File oldFile = new File(realFolder+"\\"+fileName); 
+								File newFile = new File(realFolder+"\\"+postNum+"사진.jpg");
+								oldFile.renameTo(newFile);
+								System.out.println(newFile);
+							}
 							script.println("<script>");
 							script.println("location.href = 'anolist.jsp'");
 							script.println("</script>");
