@@ -2,6 +2,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8"); //한글깨짐 방지
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +22,45 @@
 	padding: 0 auto;
 }
 
+#userInfo {
+	/*border: 1px solid blue;*/
+	max-width: 800px;
+	background-color: rgb(243, 242, 242);
+	padding: 20px;
+	
+}
+
+#img{
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	display: block;
+	
+}
+
+#userID {
+	margin: auto;
+	text-align: center;
+}
+
+#nickName {
+	margin: auto;
+	text-align: center;
+}
+
 #content {
-	/*border: 1px solid red;*/
+	border: 1px solid red;
 	max-width: 800px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	margin-top: 300px;
+	margin-top: 30px;
 }
-
-#myPageList div {
+#myPageList {
+	
+	
+	
+}
+#myPageList div{
 	display: inline-block;
 	border: 1px solid #333;
 }
@@ -132,17 +165,28 @@ padding-bottom: 10px;*/
 #comment {
 	color: #0055FF;
 }
-
-#commentCss li {
-	background-color: #fff;
-}
 </style>
 
 </head>
 
 <body>
+<%
+	Dao dao = Dao.getInstance();
+	
+//임의로 studentNum 정함.
+	int studentNum=1001;
+	User user = dao.selectUserOne(studentNum);
+	
+%>
 	<div>
 		<div id="wrapper">
+			<div id="userInfo">
+				<img id="img" src="image/blankProfile.jpg" alt="프로필사진">
+				<div id="userID"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getUserID() %></a></div>
+				<div id="nickName"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getNickName() %></a></div>
+				
+			</div>
+			
 			<section id="content">
 				<div>내정보</div>
 				<div id="myPageList">
