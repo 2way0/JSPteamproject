@@ -539,7 +539,7 @@ public class Dao {
 		}
 	
 	// 해당 글 댓글 수
-	public int countLikeComment(int PostNum){
+	public int countCommentPost(int PostNum){
 		String sql = "select count(*) total from comment where PostNum = ?";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
@@ -552,7 +552,7 @@ public class Dao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("countLikeComment() 에러");
+			System.out.println("countCommentPost() 에러");
 		}
 		return  0;
 	}
@@ -693,6 +693,12 @@ public class Dao {
 		
 		//해당아이디가 좋아요한 글 수
 		System.out.println("아이디 총 좋아요 수: "+dao.countLikeID(1001));
+		
+		//해당글의 좋아요 수
+		System.out.println("글 총 좋아요 수: "+dao.countLikePost(2001));
+		
+		//해당글의 댓글 수
+		System.out.println("글 총 댓글 수: "+dao.countCommentPost(2001));
 		
 		// stream
 //		postCheck.stream().sorted((n1,n2)->n2.compareTo(n1)).forEach(n->System.out.println(n));
