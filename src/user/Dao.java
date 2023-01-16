@@ -209,6 +209,43 @@ public class Dao {
 			}
 			return null; 
 		}
+		
+		//검색한 단어 포함한 게시물 목록 불러오기
+		public List<Post> selectSearchedList(String searchWord){
+			List<Post> searchedList = new ArrayList<>();
+			
+			String sql = "select * from post where onoff=1 "
+					+ "and (title like '%"+searchWord+"%' "
+							+ "or content like '%"+searchWord+"%')";
+			Post post = null;
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery();
+				while(rs.next()) {
+					int postNum = rs.getInt("postNum");
+					int studentNum = rs.getInt("studentNum");
+					String title = rs.getString("title");
+					String content = rs.getString("content");
+					int likeCount = rs.getInt("likeCount");
+					int commentCount = rs.getInt("commentCount");
+					String date =  rs.getString("date");
+					String board =  rs.getString("board");
+					int onoff =  rs.getInt("onoff");
+					post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
+					searchedList.add(post);
+				}
+				rs.close();
+				pstm.close();
+				System.out.println("검색한 게시글 목록 리턴");
+				return searchedList;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("selectSearchedList() 에러");
+			}
+			return null;
+		}
+		
 		// -------------------글쓰기--------------
 		
 		
