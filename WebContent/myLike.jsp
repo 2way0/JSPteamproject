@@ -11,6 +11,14 @@
 </head>
 
 <body>
+<%
+	String userID = null;
+	int studentNum = 0;
+	if(session.getAttribute("userID") != null){
+	userID = (String) session.getAttribute("userID");
+	studentNum = (int) session.getAttribute("studentNum");
+	}
+%>
 
 	<!-- 글목록 부분 -->
 	<%
@@ -25,12 +33,11 @@
 	int index_no = (postpage - 1) * 10;
 
 	//DB연결, post테이블정보 담은 리스트
-	int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
 	Dao dao = Dao.getInstance();
-	List<Post> postlist = dao.selectLikeID(loginStudentNum, index_no);
+	List<Post> postlist = dao.selectLikeID(studentNum, index_no);
 
 	//내가 좋아요한 총 게시물 개수
-	int totalPost = dao.countLikeID(loginStudentNum);
+	int totalPost = dao.countLikeID(studentNum);
 	//
 	int lastPostpage = (int) Math.ceil((double) totalPost / 10);
 	%>
@@ -58,7 +65,7 @@
                        <div id="like-comment">
                            <span id="like">
                            <%
-                           int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),loginStudentNum);
+                           int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),studentNum);
                            int countLike = dao.countLikePost(postlist.get(i).getPostNum());
                            int countComment = dao.countCommentPost(postlist.get(i).getPostNum());
                            

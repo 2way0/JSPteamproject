@@ -12,6 +12,13 @@
 <body>
 	<!-- 글목록 부분 -->
 	<%
+	String userID = null;
+	int studentNum = 0;
+	if(session.getAttribute("userID") != null){
+	userID = (String) session.getAttribute("userID");
+	studentNum = (int) session.getAttribute("studentNum");
+	}
+	
 	//페이지 누르면 값 가져오기
 
 	String commentpg = request.getParameter("commentpage");
@@ -24,12 +31,11 @@
 
 	//DB연결, comment테이블정보 담은 리스트
 	Dao dao = Dao.getInstance();
-	int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
-	List<Comment> commentList = dao.selectCommentID(loginStudentNum, index_no);
+	List<Comment> commentList = dao.selectCommentID(studentNum, index_no);
 	
 
 	//내가 작성한 총 댓글 개수
-	int totalComment = dao.countCommentID(loginStudentNum);
+	int totalComment = dao.countCommentID(studentNum);
 	//
 	int lastCommentpage = (int) Math.ceil((double) totalComment / 10);
 	%>

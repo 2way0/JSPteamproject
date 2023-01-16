@@ -140,9 +140,12 @@ color: #0055FF;
 
 <body>
 <%
+		
 		String userID = null;
+		int loginStudentNum = 0;
 		if(session.getAttribute("userID") != null){
-			userID = (String) session.getAttribute("userID");
+		userID = (String) session.getAttribute("userID");
+		loginStudentNum = (int) session.getAttribute("studentNum");
 		}
 	%>
 <!-- 헤더 -->
@@ -225,7 +228,6 @@ color: #0055FF;
 	
 	//DB연결, post테이블정보 담은 리스트
 	Dao dao = Dao.getInstance();
-	int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
 	List<Post> postlist = dao.selectPostAll(index_no);
 	
 	

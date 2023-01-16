@@ -12,25 +12,30 @@
 <body>
 	<!-- 글목록 부분 -->
 	<%
-		//페이지 누르면 값 가져오기
+	String userID = null;
+	int studentNum = 0;
+	if(session.getAttribute("userID") != null){
+	userID = (String) session.getAttribute("userID");
+	studentNum = (int) session.getAttribute("studentNum");
+	}
+	//페이지 누르면 값 가져오기
 
-		String postpg = request.getParameter("postpage");
-		if (postpg == null) {
-			postpg = "1";
-		}
-		int postpage = Integer.parseInt(postpg);
-		//1->0 ; 2-> 10
-		int index_no = (postpage - 1) * 10;
+	String postpg = request.getParameter("postpage");
+	if (postpg == null) {
+		postpg = "1";
+	}
+	int postpage = Integer.parseInt(postpg);
+	//1->0 ; 2-> 10
+	int index_no = (postpage - 1) * 10;
 
-		//DB연결, post테이블정보 담은 리스트
-		int loginStudentNum = 1001; // 임의의 값 나중에 로그인 한 studentNum으로 바꿔주기
-		Dao dao = Dao.getInstance();
-		List<Post> postlist = dao.selectPostID(loginStudentNum, index_no);
+	//DB연결, post테이블정보 담은 리스트
+	Dao dao = Dao.getInstance();
+	List<Post> postlist = dao.selectPostID(studentNum, index_no);
 
-		//내가 작성한 총 게시물 개수
-		int totalPost = dao.countPostID(loginStudentNum);
-		//
-		int lastPostpage = (int) Math.ceil((double) totalPost / 10);
+	//내가 작성한 총 게시물 개수
+	int totalPost = dao.countPostID(studentNum);
+	//
+	int lastPostpage = (int) Math.ceil((double) totalPost / 10);
 	%>
 	
 	<div id="showPage">
@@ -56,7 +61,7 @@
                        <div id="like-comment">
                            <span id="like">
                            <%
-                           int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),loginStudentNum);
+                           int likeOnOff = dao.LikeOnOff(postlist.get(i).getPostNum(),studentNum);
                            int countLike = dao.countLikePost(postlist.get(i).getPostNum());
                            int countComment = dao.countCommentPost(postlist.get(i).getPostNum());
                            
