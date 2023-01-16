@@ -14,6 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <!-- 글목록css -->
 <style>
 a {
@@ -132,6 +133,9 @@ color: #0055FF;
 
 
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.3/index.global.min.js"></script>
+
 <%
 		String userID = null;
 		if(session.getAttribute("userID") != null){
@@ -197,12 +201,26 @@ color: #0055FF;
 		</div>
 	</header>
 	
-	
-	
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script>
-	
-	</script>
+	<div class="container">
+		<div class="row" style="scale:0.7;">
+	<div id='calendar'></div>
+	</div>
+	</div>
+  
+   <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth', //달별로 출력
+          locale: 'ko', // 한글로 설정
+          expandRows: true, // 화면에 맞게 높이 재설정
+          nowIndicator: true // 현재 시간 표시
+        });
+        calendar.render();
+      });
+
+    </script>
 </body>
 
 </html>
