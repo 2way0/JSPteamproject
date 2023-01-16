@@ -301,10 +301,8 @@ padding-bottom: 10px;*/
 		
 		if (img.src.match('OFF')) {
 			img.src = 'image/ON.png';
-			location.href = 'likeBtn.jsp';
 		} else {
 			img.src = 'image/OFF.png';
-			location.href = 'likeBtn.jsp';
 		}
 	});
 	</script>
