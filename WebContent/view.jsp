@@ -300,16 +300,13 @@ padding-bottom: 10px;*/
 		var img = document.getElementById('like_img');
 		
 		if (img.src.match('OFF')) {
-			img.src = 'ON.png';
-			
-			checkImg++;
-			console.log(checkImg);
+			img.src = 'image/ON.png';
+			location.href = 'likeBtn.jsp';
 		} else {
-			img.src = 'OFF.png';
-			checkImg--;
-			console.log(checkImg);
+			img.src = 'image/OFF.png';
+			location.href = 'likeBtn.jsp';
 		}
-});
+	});
 	</script>
 </body>
 
