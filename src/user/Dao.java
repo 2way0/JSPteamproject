@@ -300,6 +300,20 @@ public class Dao {
 			}
 			return -1; // 데이터 베이스 호출
 		}
+		
+		// 글 삭제
+		public int delete(int postNum) {
+			String sql = String.format("Delete from post where postNum = %d", postNum);
+			PreparedStatement psmt;
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt = conn.prepareStatement(sql);
+				int result = psmt.executeUpdate(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return -1; // 데이터 베이스 호출
+		}
 //	--------------------------------------------------------------------
 	
 //	user  ----------------------------------------------------------------

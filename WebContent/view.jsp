@@ -266,7 +266,7 @@ padding-bottom: 10px;*/
                       	
                        <div id="like-comment">
                            <span id="like">
-                               <img src="image/OFF.png" alt="좋아요 수"> <%=post.getLikeCount() %>
+                                <button id="like_btn" value=<%=studentNum%>><img src="image/OFF.png" id="like_img"></button><%=post.getLikeCount() %>
                            </span>
                            <span id="comment">
                                <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
