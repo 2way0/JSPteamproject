@@ -266,8 +266,11 @@ padding-bottom: 10px;*/
                     	%>
                     	<br>
                        <img src="bbsUpload\\<%=postNum%>사진.jpg" width="300px" height="300px">
-                       <%} %>
-                       <p><%=post.getContent()%></p>
+                       <%}
+                        
+                        String content = post.getContent().replaceAll("\n", "<br/>");
+                        %>
+                       <h2 style="font-size: 15px;"><%=content%></h2>
                       	
                        <div id="like-comment">
                            <span id="like">
