@@ -141,7 +141,7 @@ color: #0055FF;
 					<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
 
 					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-						<li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+						<li><a href="main.jsp" class="nav-link px-2 text-secondary">Home</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
