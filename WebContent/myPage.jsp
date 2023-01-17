@@ -171,10 +171,16 @@ padding-bottom: 10px;*/
 
 <body>
 <%
+	String userID = null;
+	int studentNum = 0;
+	if(session.getAttribute("userID") != null){
+	userID = (String) session.getAttribute("userID");
+	studentNum = (int) session.getAttribute("studentNum");
+	}
+
 	Dao dao = Dao.getInstance();
 	
 //임의로 studentNum 정함.
-	int studentNum=1001;
 	User user = dao.selectUserOne(studentNum);
 	
 %>

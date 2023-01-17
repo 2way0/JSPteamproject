@@ -180,7 +180,7 @@ padding-bottom: 10px;*/
 
 					<ul
 						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-						<li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+						<li><a href="main.jsp" class="nav-link px-2 text-secondary">Home</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
@@ -266,7 +266,7 @@ padding-bottom: 10px;*/
                       	
                        <div id="like-comment">
                            <span id="like">
-                               <img src="image/OFF.png" alt="좋아요 수"> <%=post.getLikeCount() %>
+                                <button id="like_btn" value=<%=studentNum%>><img src="image/OFF.png" id="like_img"></button><%=post.getLikeCount() %>
                            </span>
                            <span id="comment">
                                <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
@@ -300,16 +300,11 @@ padding-bottom: 10px;*/
 		var img = document.getElementById('like_img');
 		
 		if (img.src.match('OFF')) {
-			img.src = 'ON.png';
-			
-			checkImg++;
-			console.log(checkImg);
+			img.src = 'image/ON.png';
 		} else {
-			img.src = 'OFF.png';
-			checkImg--;
-			console.log(checkImg);
+			img.src = 'image/OFF.png';
 		}
-});
+	});
 	</script>
 </body>
 

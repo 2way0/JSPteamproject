@@ -209,6 +209,43 @@ public class Dao {
 			}
 			return null; 
 		}
+		
+		//검색한 단어 포함한 게시물 목록 불러오기
+		public List<Post> selectSearchedList(String searchWord){
+			List<Post> searchedList = new ArrayList<>();
+			
+			String sql = "select * from post where onoff=1 "
+					+ "and (title like '%"+searchWord+"%' "
+							+ "or content like '%"+searchWord+"%')";
+			Post post = null;
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery();
+				while(rs.next()) {
+					int postNum = rs.getInt("postNum");
+					int studentNum = rs.getInt("studentNum");
+					String title = rs.getString("title");
+					String content = rs.getString("content");
+					int likeCount = rs.getInt("likeCount");
+					int commentCount = rs.getInt("commentCount");
+					String date =  rs.getString("date");
+					String board =  rs.getString("board");
+					int onoff =  rs.getInt("onoff");
+					post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
+					searchedList.add(post);
+				}
+				rs.close();
+				pstm.close();
+				System.out.println("검색한 게시글 목록 리턴");
+				return searchedList;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("selectSearchedList() 에러");
+			}
+			return null;
+		}
+		
 		// -------------------글쓰기--------------
 		
 		
@@ -296,6 +333,20 @@ public class Dao {
 				
 				return psmt.executeUpdate(); // 첫번째 게시글인 경우
 			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; // 데이터 베이스 호출
+		}
+		
+		// 글 삭제
+		public int delete(int postNum) {
+			String sql = String.format("Delete from post where postNum = %d", postNum);
+			PreparedStatement psmt;
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt = conn.prepareStatement(sql);
+				int result = psmt.executeUpdate(sql);
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			return -1; // 데이터 베이스 호출
@@ -538,7 +589,27 @@ public class Dao {
 			return  0;
 		}
 	
+	// 해당 글 댓글 수
+	public int countCommentPost(int PostNum){
+		String sql = "select count(*) total from comment where PostNum = ?";
+		try {
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, PostNum);
+			ResultSet rsTot = pstm.executeQuery();
+			rsTot.next();
+			int total = rsTot.getInt("total");
+			System.out.println("해당 게시글 댓글 수 : "+total+"리턴완료");
+			return total;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("countCommentPost() 에러");
+		}
+		return  0;
+	}
+		
 //	--------------------------------------------------------------------
+//		like --------------------------------------------------------------------
 //		like_table  ----------------------------------------------------------
 		public List<Post> selectLikeID(int idStudentNum,int index_no){
 			List<Post> likeList = new ArrayList<>();
@@ -591,7 +662,7 @@ public class Dao {
 			return  0;
 		}
 			
-	// 해당 아이디가 작성한 총 댓글 개수
+	// 해당 아이디가 누른 좋아요 개수
 			public int countLikeID(int idStudentNum){
 				String sql = "select count(*) total from like_table where studentNum = ?";
 				try {
@@ -600,12 +671,31 @@ public class Dao {
 					ResultSet rsTot = pstm.executeQuery();
 					rsTot.next();
 					int total = rsTot.getInt("total");
-					System.out.println("해당 아이디 총 댓글 수 : "+total+"리턴완료");
+					System.out.println("해당 아이디가 누른 총 좋아요 수 : "+total+"리턴완료");
 					return total;
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.out.println("countCommentID() 에러");
+				}
+				return  0;
+			}	
+			
+		// 해당 글 좋아요 수
+			public int countLikePost(int PostNum){
+				String sql = "select count(*) total from like_table where PostNum = ?";
+				try {
+					PreparedStatement pstm = conn.prepareStatement(sql);
+					pstm.setInt(1, PostNum);
+					ResultSet rsTot = pstm.executeQuery();
+					rsTot.next();
+					int total = rsTot.getInt("total");
+					System.out.println("해당 글 총 좋아요 수 : "+total+"리턴완료");
+					return total;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("countLikePost() 에러");
 				}
 				return  0;
 			}	
@@ -654,6 +744,12 @@ public class Dao {
 		
 		//해당아이디가 좋아요한 글 수
 		System.out.println("아이디 총 좋아요 수: "+dao.countLikeID(1001));
+		
+		//해당글의 좋아요 수
+		System.out.println("글 총 좋아요 수: "+dao.countLikePost(2001));
+		
+		//해당글의 댓글 수
+		System.out.println("글 총 댓글 수: "+dao.countCommentPost(2001));
 		
 		// stream
 //		postCheck.stream().sorted((n1,n2)->n2.compareTo(n1)).forEach(n->System.out.println(n));

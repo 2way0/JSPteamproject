@@ -1,24 +1,28 @@
-<%@page import="java.io.PrintWriter"%>
-<%@ page import="java.io.File" %>
 <%@page import="user.*"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="./style.css" type="text/css">
-<meta name="viewport" content="width=device-width" initail-scale="1">
 <meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- 헤더 부트스트랩 --> 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <!-- 글목록css -->
 <style>
-
+a {
+	color: black;
+	text-decoration: none;
+}
 #wrapper {
-border: 1px solid #333;
+/*border: 1px solid #333;*/
 max-width: 800px; /*800이하 시 줄어듦*/
 height: 100%;
 margin: 0 auto;
@@ -122,19 +126,24 @@ color: #FF0000;
 #comment {
 color: #0055FF;
 }
+
 </style>
 
 </head>
-<title>메인창</title>
-</head>
+
+
 <body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.0.3/index.global.min.js"></script>
+
 <%
 		String userID = null;
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
 		}
 	%>
-<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;"">
+<!-- 헤더 -->
+<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background: #99CC99;">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -145,16 +154,22 @@ color: #0055FF;
 						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
 						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">About</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">My Page</a></li>
+						<li><%if(userID != null){%>
+	                    <a href="write.jsp" class="btn btn-success offset-10" style="width: 75px; margin-right: 100px">
+	                    	글쓰기</a>
+						<% }%></li>
 					</ul>
-
-					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+<%--검색 --%>
+					<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 						<input type="search"
-							class="form-control 
--control-dark text-bg-dark"
-							placeholder="Search..." aria-label="Search">
+							class="form-control form-control-dark text-bg-dark"
+							placeholder="Search..." aria-label="Search" name="searchWord">
 					</form>
-						<%
+
+<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
+
+					<%
 				if(userID == null){
 			%>
 					<div class="text-end">
@@ -180,32 +195,32 @@ color: #0055FF;
 					<%		
 				}
 			%>
+
 				</div>
 			</div>
 		</div>
 	</header>
 	
-	  <div class="container">
-		<div class="col-lg-4" style="margin: auto;">
-			<div class="jumbotron" style="margin-top: 50%; "> 
-				<form method="post" action="loginAction.jsp">
-					<h3 style="text-align: center;">로그인 화면</h3>
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="아이디"
-						name="userID" maxlength="20">
-					</div>
-					
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="비밀번호"
-						name="userPassword" maxlength="20">
-					</div>
-					<input type="submit" class="btn btn-primary form-control" value="로그인">
-				</form>
-		</div>
-		<div class="col-lg-4"></div>
+	<div class="container">
+		<div class="row" style="scale:0.7;">
+	<div id='calendar'></div>
 	</div>
 	</div>
-					
+  
+   <script>
 
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth', //달별로 출력
+          locale: 'ko', // 한글로 설정
+          expandRows: true, // 화면에 맞게 높이 재설정
+          nowIndicator: true // 현재 시간 표시
+        });
+        calendar.render();
+      });
+
+    </script>
 </body>
+
 </html>
