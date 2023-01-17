@@ -143,6 +143,11 @@ padding-bottom: 10px;*/
 #comment {
 	color: #0055FF;
 }
+
+#like_btn {
+	border: none;
+}
+
 </style>
 
 </head>
@@ -266,7 +271,21 @@ padding-bottom: 10px;*/
                       	
                        <div id="like-comment">
                            <span id="like">
-                                <button id="like_btn" value=<%=studentNum%>><img src="image/OFF.png" id="like_img"></button><%=post.getLikeCount() %>
+                                 <button value=<%=postNum%> id="like_btn">
+                                <%
+		                           int likeOnOff = dao.LikeOnOff(postNum,studentNum);
+		                           if	(likeOnOff == 0){
+	                           %>
+	                               <img src="image/OFF.png" alt="좋아요 수" id="like_img">
+	                        	<%
+	                           		 } else {
+	                        	 %>
+	                               <img src="image/ON.png" alt="좋아요 수" id="like_img">
+	                        	<%
+	                          		 };
+	                           %>
+	                           </button> 
+	                           <%=post.getLikeCount() %>
                            </span>
                            <span id="comment">
                                <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
@@ -301,8 +320,16 @@ padding-bottom: 10px;*/
 		
 		if (img.src.match('OFF')) {
 			img.src = 'image/ON.png';
+			
+			fetch("likeBtn.jsp?postNum="+$(this).val())
+			  .then(response => response.json())
+			  .then(json => console.log(json));
 		} else {
 			img.src = 'image/OFF.png';
+			
+			fetch("likeBtn.jsp?postNum="+$(this).val())
+			  .then(response => response.json())
+			  .then(json => console.log(json));
 		}
 	});
 	</script>
