@@ -276,6 +276,9 @@ padding-bottom: 10px;*/
                            <span id="like">
                                  <button value=<%=postNum%> id="like_btn">
                                 <%
+                                
+                         		int countLike = dao.countLikePost(postNum);
+                         		int countComment = dao.countCommentPost(postNum);
 		                           int likeOnOff = dao.LikeOnOff(postNum,studentNum);
 		                           if	(likeOnOff == 0){
 	                           %>
@@ -288,10 +291,10 @@ padding-bottom: 10px;*/
 	                          		 };
 	                           %>
 	                           </button> 
-	                           <%=post.getLikeCount() %>
+	                           <%=countLike %>
                            </span>
                            <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"> <%=post.getCommentCount() %>
+                               <img src="image/icon_comment.png" alt="댓글 수"> <%=countComment %>
                            </span>
                        </div>
                    </article>

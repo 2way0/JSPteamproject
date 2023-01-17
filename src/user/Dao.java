@@ -59,12 +59,10 @@ public class Dao {
 				int studentNum = rs.getInt("studentNum");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
-				int likeCount = rs.getInt("likeCount");
-				int commentCount = rs.getInt("commentCount");
 				String date =  rs.getString("date");
 				String board =  rs.getString("board");
 				int onoff =  rs.getInt("onoff");
-				post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
+				post = new Post(postNum, studentNum, title, content, date, board, onoff); 
 				postList.add(post);
 			}
 			rs.close();
@@ -96,12 +94,10 @@ public class Dao {
 				int studentNum = rs.getInt("studentNum");
 				String title = rs.getString("title");
 				String content = rs.getString("content");
-				int likeCount = rs.getInt("likeCount");
-				int commentCount = rs.getInt("commentCount");
 				String date =  rs.getString("date");
 				String board =  rs.getString("board");
 				int onoff =  rs.getInt("onoff");
-				post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
+				post = new Post(postNum, studentNum, title, content, date, board, onoff); 
 				postList.add(post);
 			}
 			rs.close();
@@ -190,17 +186,15 @@ public class Dao {
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, postNum);
 				ResultSet rs = psmt.executeQuery();
+				Post post = new Post();
 				while(rs.next()) {
-					Post post = new Post();
 					post.setPostNum(rs.getInt(1));
 					post.setStudentNum(rs.getInt(2));
 					post.setTitle(rs.getString(3));
 					post.setContent(rs.getString(4));
-					post.setLikeCount(rs.getInt(5));
-					post.setCommentCount(rs.getInt(6));
-					post.setDate(rs.getString(7));
-					post.setBoard(rs.getString(8));
-					post.setOnoff(rs.getInt(9));
+					post.setDate(rs.getString(5));
+					post.setBoard(rs.getString(6));
+					post.setOnoff(rs.getInt(7));
 					
 					return post;
 				}
@@ -226,12 +220,10 @@ public class Dao {
 					int studentNum = rs.getInt("studentNum");
 					String title = rs.getString("title");
 					String content = rs.getString("content");
-					int likeCount = rs.getInt("likeCount");
-					int commentCount = rs.getInt("commentCount");
 					String date =  rs.getString("date");
 					String board =  rs.getString("board");
 					int onoff =  rs.getInt("onoff");
-					post = new Post(postNum, studentNum, title, content, likeCount, commentCount, date, board, onoff); 
+					post = new Post(postNum, studentNum, title, content, date, board, onoff); 
 					searchedList.add(post);
 				}
 				rs.close();

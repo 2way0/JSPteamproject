@@ -6,8 +6,6 @@ public class Post implements Comparable<Post>{
 	private int studentNum;
 	private String title;
 	private String content;
-	private int likeCount;
-	private int commentCount;
 	private String date;
 	private String board;
 	private int onoff;
@@ -16,15 +14,13 @@ public class Post implements Comparable<Post>{
 	
 	
 	
-	public Post(int postNum, int studentNum, String title, String content, int likeCount, int commentCount, String date,
+	public Post(int postNum, int studentNum, String title, String content, String date,
 			String board, int onoff) {
 		super();
 		this.postNum = postNum;
 		this.studentNum = studentNum;
 		this.title = title;
 		this.content = content;
-		this.likeCount = likeCount;
-		this.commentCount = commentCount;
 		this.date = date;
 		this.board = board;
 		this.onoff = onoff;
@@ -80,18 +76,6 @@ public class Post implements Comparable<Post>{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getLikeCount() {
-		return likeCount;
-	}
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-	public int getCommentCount() {
-		return commentCount;
-	}
-	public void setCommentCount(int commentCount) {
-		this.commentCount = commentCount;
-	}
 	public String getDate() {
 		return date;
 	}
@@ -115,7 +99,7 @@ public class Post implements Comparable<Post>{
 	@Override
 	public String toString() {
 		return "Text [postNum=" + postNum + ", studentNum=" + studentNum + ", title=" + title + ", content=" + content
-				+ ", likeCount=" + likeCount + ", commentCount=" + commentCount + ", date=" + date + ", board=" + board
+				+ ", date=" + date + ", board=" + board
 				+ ", onoff=" + onoff + "]";
 	}
 

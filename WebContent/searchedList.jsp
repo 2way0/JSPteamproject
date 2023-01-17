@@ -132,6 +132,12 @@ color: #0055FF;
 			searchWord = (String) session.getAttribute("searchWord");
 			System.out.println("searchword from session is :" + searchWord);
 		}
+		String userID = null;
+		int loginStudentNum = 0;
+		if (session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+			loginStudentNum = (int) session.getAttribute("studentNum");
+		}
 %>
 <%
 	//DB연결, 검색한 게시글 목록 불러오기
@@ -143,24 +149,34 @@ color: #0055FF;
        <section id="content">
            <ul>
            <%
-           		for(Post slist : searchedList) {
+           		for (int i = 0; i <= searchedList.size() - 1; i++) {
            %>
                <li>
                    <article>
                        <div id="profile">     
                            <img src="image/blankProfile.jpg" alt="프로필사진">
                            <div id="ano">익명</div>
-                           <div id="date"><%=slist.getDate() %></div>
+                           <div id="date"><%=searchedList.get(i).getDate() %></div>
                        </div>
-                       <h1><%=slist.getTitle() %></h1>
-                       <p><%=slist.getContent() %></p>
+                       <h1><%=searchedList.get(i).getTitle() %></h1>
+                       <p><%=searchedList.get(i).getContent()%></p>
                        <div id="like-comment">
                            <span id="like">
-                               <img src="image/icon_like.png" alt="좋아요 수"><%=slist.getLikeCount() %>
-                           </span>
-                           <span id="comment">
-                               <img src="image/icon_comment.png" alt="댓글 수"><%=slist.getCommentCount() %>
-                           </span>
+                           <%
+                           int likeOnOff = dao.LikeOnOff(searchedList.get(i).getPostNum(), loginStudentNum);
+                           int countLike = dao.countLikePost(searchedList.get(i).getPostNum());
+                    	   int countComment = dao.countCommentPost(searchedList.get(i).getPostNum());
+                    		if (likeOnOff == 0) {
+                    			 %> <img src="image/OFF.png" alt="좋아요 수">
+                    											<%=countLike%> <%
+                    			 	} else {
+                    			 %> <img src="image/ON.png" alt="좋아요 수">
+                    											<%=countLike%> <%
+                    			 	}
+                    			 %>
+                    										</span> <span id="comment"> <img src="image/icon_comment.png"
+                    											alt="댓글 수"> <%=countComment%>
+                    										</span>
                        </div>
                    </article>
                </li>
