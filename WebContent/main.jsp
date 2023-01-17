@@ -160,14 +160,7 @@ color: #0055FF;
 	                    	글쓰기</a>
 						<% }%></li>
 					</ul>
-<%--검색 --%>
-					<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-						<input type="search"
-							class="form-control form-control-dark text-bg-dark"
-							placeholder="Search..." aria-label="Search" name="searchWord">
-					</form>
 
-<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
 
 					<%
 				if(userID == null){
@@ -201,12 +194,38 @@ color: #0055FF;
 		</div>
 	</header>
 	
-	<div class="container">
-		<div class="row" style="scale:0.7;">
-	<div id='calendar'></div>
-	</div>
-	</div>
-  
+	
+	
+
+<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
+	
+	<section class="wrapper">
+		<div class="container">
+			<div class="row">
+				
+					<div class="container">
+						<div class="row">
+							<div id="wrapper" style="height: 100%; overflow: hidden;">
+								<section id="content1" style="margin:110px">
+								<%-- 검색 --%>
+									<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+									<input type="search" class="form-control form-control-dark text-bg-white" placeholder="관심있는 내용을 검색하세요" aria-label="Search" name="searchWord">
+									</form>
+								</section>
+								<section id="content2">
+								<%-- 달력 --%>
+									<div id=calendar>
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+				
+			</div>
+		</div>
+	</section>
+
+
    <script>
 
       document.addEventListener('DOMContentLoaded', function() {
@@ -215,7 +234,31 @@ color: #0055FF;
           initialView: 'dayGridMonth', //달별로 출력
           locale: 'ko', // 한글로 설정
           expandRows: true, // 화면에 맞게 높이 재설정
-          nowIndicator: true // 현재 시간 표시
+          nowIndicator: true, // 현재 시간 표시
+          navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
+          editable: true, // 수정 가능?
+          selectable: true, // 달력 일자 드래그 설정가능
+          eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
+              console.log(obj);
+            },
+            eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
+              console.log(obj);
+            },
+            eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
+              console.log(obj);
+            },
+            select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
+                var title = prompt('할 일을 적어주세요:');
+                if (title) {
+                  calendar.addEvent({
+                    title: title,
+                    start: arg.start,
+                    end: arg.end,
+                    allDay: arg.allDay
+                  })
+                }
+                calendar.unselect()
+              }
         });
         calendar.render();
       });
