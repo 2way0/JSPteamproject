@@ -700,6 +700,56 @@ public class Dao {
 				return  0;
 			}	
 			
+//------------------------------------------------------------------------
+// view like
+		
+		// like_table에서 데이터 값을 찾아, 입력 삭제 기능
+		public void likeDB(int studentNum, int postNum) {
+			String sql = String.format("select count(*) num from like_table where studentNum = ? and postNum = ?");
+			PreparedStatement psmt;
+			try {
+				psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, studentNum);
+				psmt.setInt(2, postNum);
+				ResultSet rsTot = psmt.executeQuery();
+				rsTot.next();
+				int total = rsTot.getInt("num");
+				if (total == 0) {
+					insertLike(studentNum, postNum);
+				} else {
+					deleteLike(studentNum, postNum);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// like_table DB에 좋아요 누르면 값 입력,,
+		public void insertLike(int studentNum, int postNum) {
+			String sql = "insert into like_table values (0,?,?)";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, studentNum);
+				psmt.setInt(2, postNum);
+				int result = psmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		// like_table DB에 좋아요 취소하면 데이터 삭제,,
+		public void deleteLike(int studentNum, int postNum) {
+			String sql = String.format("delete from like_table where studentNum = %d and postNum = %d", studentNum, postNum);
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				int result = psmt.executeUpdate(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+						
+			
 			
 //-------------------------------------------------------------------------
 	public static void main(String[] args) {
