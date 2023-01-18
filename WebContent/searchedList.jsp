@@ -146,64 +146,6 @@ color: #0055FF;
 	List<Post> searchedList = dao.selectSearchedList(searchWord);
 
 %>
-<%-- header 부분 --%>
-<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background-color: #bddbd2 !important;">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
-
-					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-						<li><a href="main.jsp" class="nav-link px-2 text-dark fw-semibold">Home</a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
-						<li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
-						<li><a href="myPage.jsp" class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
-						<li><%if(userID != null){%>
-	                    <a href="write.jsp" class="btn btn-success offset-10" style="width: 75px; margin-right: 100px">
-	                    	글쓰기</a>
-						<% }%></li>
-					</ul>
-<%--검색 --%>
-					<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-						<input type="search"
-							class="form-control form-control-dark text-bg-white"
-							placeholder="Search..." aria-label="Search" name="searchWord">
-					</form>
-
-					<%
-				if(userID == null){
-			%>
-					<div class="text-end">
-						<button type="button" class="btn btn-warning"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp">Login</a>
-						</button>
-						<button type="button" class="btn btn-outline-light me-2" role="button"
-							aria-haspopup="true" aria-expanded="false">
-							<a href="join.jsp" id="sign-color">Sign-up</a>
-						</button>
-					</div>
-					<%
-				} else {
-			%>
-					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="logoutAction.jsp">LogOut</a>
-						</button>
-
-					</div>
-					<%		
-				}
-			%>
-
-				</div>
-			</div>
-		</div>
-	</header>
-
-
 
 <%-- 실제 검색한 것이 나오는 장소 --%>
 <div id="wrapper">
