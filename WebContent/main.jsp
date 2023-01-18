@@ -91,11 +91,11 @@ border: 2px solid black;
 				if(userID == null){
 			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-warning"
+						<button type="button" class="btn btn-outline-dark me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<a href="login.jsp">로그인</a>
 						</button>
-						<button type="button" class="btn btn-outline-light me-2" role="button"
+						<button type="button" class="btn btn-warning" role="button"
 							aria-haspopup="true" aria-expanded="false">
 							<a href="join.jsp" id="sign-color">회원 가입</a>
 						</button>
