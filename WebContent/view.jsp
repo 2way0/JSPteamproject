@@ -165,13 +165,13 @@ padding-bottom: 10px;*/
 		int postNum = 0;
 		if(request.getParameter("postNum") != null){
 			postNum = Integer.parseInt(request.getParameter("postNum"));
-			
 		}
 		
 		
 		Post post = new Post();
 		Dao dao = Dao.getInstance();
 		post = dao.getPost(postNum);
+		
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
