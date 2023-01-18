@@ -18,7 +18,9 @@
 <link rel="stylesheet" href="style.css">
 <!-- 글목록css -->
 <style>
-
+body{
+	padding-top:87px;
+}
 </style>
 
 </head>
@@ -30,7 +32,7 @@
                         session.getAttribute("userID"); } %>
 	<header class="p-3 text-bg-dark"
 		style="position: fixed; top: 0; width: 100%; z-index: 1;"">
-		<div class=" container-fluid">
+		<div class=" container">
 			<div class="row">
 				<div
 					class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">

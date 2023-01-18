@@ -18,9 +18,34 @@
 <link rel="stylesheet" href="style.css">
 <!-- 글목록css -->
 <style>
+body{
+	padding-top:87px;
+}
 a {
 	color: black;
 	text-decoration: none;
+}
+
+
+#centerLine2 {
+	height: 100px;
+}
+
+#centerLine3 {
+	height: 350px;
+}
+
+#centerLine4 {
+	height: 350px;
+}
+
+#centerLine5 {
+	height: 300px;
+}
+
+#search {
+margin-top:30px;
+border: 2px solid black;
 }
 </style>
 
@@ -38,8 +63,8 @@ a {
 		}
 	%>
 <!-- 헤더 -->
-			<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background-color: #bddbd2 !important;">
-				<div class="container-fluid">
+			<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background-color: white !important;">
+				<div class="container">
 					<div class="row">
 					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 						<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
@@ -68,11 +93,11 @@ a {
 					<div class="text-end">
 						<button type="button" class="btn btn-warning"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp">Login</a>
+							<a href="login.jsp">로그인</a>
 						</button>
 						<button type="button" class="btn btn-outline-light me-2" role="button"
 							aria-haspopup="true" aria-expanded="false">
-							<a href="join.jsp" id="sign-color">Sign-up</a>
+							<a href="join.jsp" id="sign-color">회원 가입</a>
 						</button>
 					</div>
 					<%
@@ -98,33 +123,47 @@ a {
 	
 
 <%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
-	
-	<section class="wrapper">
-		<div class="container">
-			<div class="row">
-				
-					<div class="container">
-						<div class="row">
-							<div id="wrapper" style="height: 100%; overflow: hidden;">
-								<section id="content1" style="margin:110px">
-								<%-- 검색 --%>
-									<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-									<input type="search" class="form-control form-control-dark text-bg-white" placeholder="관심있는 내용을 검색하세요" aria-label="Search" name="searchWord">
-									</form>
-								</section>
-								<section id="content2">
-								<%-- 달력 --%>
-									<div id=calendar>
-									</div>
-								</section>
-							</div>
-						</div>
-					</div>
-				
-			</div>
-		</div>
+	<section>
+	<div class="container">
+	  <div class="row" id="centerLine">
+		  <div class="col-md-1" style="background-color:red;">
+      		Column
+    	  </div>
+    	  <div class="col-md-10">
+      		<div class="row" id="centerLine2">
+      		  <div class="col-md-12" style="background-color:orange;">
+      		  	<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" id="search">
+						<input type="search"
+							class="form-control form-control-dark text-bg-white"
+							placeholder="토픽 주제를 검색하세요" aria-label="Search" name="searchWord">
+					</form>
+      		  </div>
+      		</div>
+      		<div class="row" id="centerLine3">
+      		 <div class="col-md-12" style="background-color:purple;">
+      		  	d
+      		  </div>	
+      		</div>
+      		<div class="row" id="centerLine4">
+      		 <div class="col-md-6" style="background-color:black;">
+      		  	d
+      		  </div>
+      		  <div class="col-md-6" style="background-color:blue;">
+      		  	d
+      		  </div>
+      		</div>
+      		<div class="row" id="centerLine5">
+      		  <div class="col-md-12" style="background-color:aqua;">
+      		  	<div id="calendar"></div>
+      		  </div>
+      		</div>
+     	  </div>
+    	  <div class="col-md-1" style="background-color:gray;">
+      		Column
+    	  </div>	
+	  </div>
+	 </div>
 	</section>
-
 
    <script>
 

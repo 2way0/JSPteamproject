@@ -17,6 +17,9 @@
 <!-- 글목록css -->
 <link rel="stylesheet" href="style.css">
 <style>
+body{
+	padding-top:87px;
+}
 html,
 body {
   height: 100%;
@@ -63,7 +66,7 @@ body {
 		}
 	%>
 <header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1;"">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 					<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
