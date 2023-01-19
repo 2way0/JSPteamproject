@@ -138,7 +138,8 @@ margin-top : 0px;
 		List<Post> postlist = dao.selectFoodPostAll(index_no);
 
 		//총 게시물 개수
-		int totalPost = dao.countPostAll();
+		String board = "맛집게시판";
+		int totalPost = dao.countPostAll(board);
 		//
 		int lastPostpage = (int) Math.ceil((double) totalPost / 10);
 	%>

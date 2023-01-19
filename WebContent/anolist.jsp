@@ -34,6 +34,9 @@ a {
 #content {
 margin-top : 0px;
 }
+#page {
+	text-align: center;
+}
 </style>
 
 </head>
@@ -138,7 +141,8 @@ margin-top : 0px;
 		List<Post> postlist = dao.selectPostAll(index_no);
 
 		//총 게시물 개수
-		int totalPost = dao.countPostAll();
+		String board = "익명게시판";
+		int totalPost = dao.countPostAll(board);
 		//
 		int lastPostpage = (int) Math.ceil((double) totalPost / 10);
 	%>
@@ -193,8 +197,8 @@ margin-top : 0px;
 
 
 		<!-- 페이징 -->
-		<div>
-			<center>
+		<div id="page">
+			
 				<%
 					//페이징
 					for (int i = 1; i <= lastPostpage; i++) {
@@ -207,7 +211,7 @@ margin-top : 0px;
 				<%
 					}
 				%>
-			</center>
+			
 		</div>
 	</div>
 	<script

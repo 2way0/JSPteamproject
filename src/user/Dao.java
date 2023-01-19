@@ -174,12 +174,12 @@ public class Dao {
 	}
 	
 	//총 게시물 개수
-	public int countPostAll(){
+	public int countPostAll(String board){
 		
-		String sql = "select count(*) total from post";
+		String sql = "select count(*) total from post where board=?";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			
+			pstm.setString(1, board);
 			ResultSet rsTot = pstm.executeQuery();
 			rsTot.next();
 			int total = rsTot.getInt("total");
@@ -806,7 +806,8 @@ public class Dao {
 //		}
 		
 		//게시글 총 수
-		System.out.println("총 게시글 수: "+dao.countPostAll());
+		String aa = "익명게시판";
+		System.out.println("총 게시글 수: "+dao.countPostAll(aa));
 		
 //		//해당 아이디가쓴 글
 //		List<Post> idPostCheck = dao.selectPostID(1001, 1);
