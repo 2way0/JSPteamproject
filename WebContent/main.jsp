@@ -229,6 +229,19 @@ border-radius: 20px;
 	 </div>
 	</section>
 
+	<div class="container">
+  <footer class="py-2 my-3">
+    <ul class="nav justify-content-center border-bottom pb-2 mb-2" style="align-items:center;">
+      <li><a href="main.jsp"><img src="image/shelter.png"></a></li>
+	  <li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
+	  <li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
+	  <li><a href="#" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
+	  <li><a href="myPage.jsp" class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
+    </ul>
+    <p class="text-center text-muted">&copy; 2023 Choongang, Inc</p>
+  </footer>
+	</div>
+	
    <script>
 
       document.addEventListener('DOMContentLoaded', function() {
