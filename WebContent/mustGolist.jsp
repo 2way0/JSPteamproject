@@ -59,7 +59,7 @@ margin-top : 0px;
 						class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
 
 					<ul
-						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"  style="align-items:center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
 						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
@@ -138,7 +138,8 @@ margin-top : 0px;
 		List<Post> postlist = dao.selectFoodPostAll(index_no);
 
 		//총 게시물 개수
-		int totalPost = dao.countPostAll();
+		String board = "맛집게시판";
+		int totalPost = dao.countPostAll(board);
 		//
 		int lastPostpage = (int) Math.ceil((double) totalPost / 10);
 	%>

@@ -98,6 +98,14 @@ margin-top: 25px;
 margin-left:12px;
 border-radius: 20px;
 }
+
+.text {
+ display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding : 15px;
+}
 </style>
 
 </head>
@@ -126,10 +134,6 @@ border-radius: 20px;
 						<li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
 						<li><a href="mustGolist.jsp" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
 						<li><a href="myPage.jsp" class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
-						<li><%if(userID != null){%>
-	                    <a href="write.jsp" class="btn btn-success offset-10" style="width: 75px; margin-right: 100px">
-	                    	글쓰기</a>
-						<% }%></li>
 					</ul>
 		<%--검색 --%>
 					<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -199,10 +203,26 @@ border-radius: 20px;
       		<div class="row" id="centerLine4">
       		 <div class="col-md-6" style="background-color:aqua;">
       		  	<div class="board">
+      		  	  <div class="section text" style="user-select: auto;">
+					 <h3 style="user-select: auto;">
+						<a href="anolist.jsp" style="user-select: auto;">익명게시판</a>
+					 </h3>
+					<div class="more" style="user-select: auto;">
+						<a href="anolist.jsp" style="user-select: auto;">더보기</a>
+				    </div>
+			       </div>
       		  	</div>
       		  </div>
       		  <div class="col-md-6" style="background-color:blue;">
       		  	<div class="board">
+      		  		<div class="section text" style="user-select: auto;">
+					 <h3 style="user-select: auto;">
+						<a href="mustGolist.jsp" style="user-select: auto;">맛집게시판</a>
+					 </h3>
+					<div class="more" style="user-select: auto;">
+						<a href="mustGolist.jsp" style="user-select: auto;">더보기</a>
+				    </div>
+			       </div>
       		  	</div>
       		  </div>
       		</div>
@@ -235,7 +255,7 @@ border-radius: 20px;
       <li><a href="main.jsp"><img src="image/shelter.png"></a></li>
 	  <li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
 	  <li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
-	  <li><a href="#" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
+	  <li><a href="mustGolist.jsp" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
 	  <li><a href="myPage.jsp" class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
     </ul>
     <p class="text-center text-muted">&copy; 2023 Choongang, Inc</p>
