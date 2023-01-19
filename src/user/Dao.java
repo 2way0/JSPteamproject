@@ -864,11 +864,139 @@ public class Dao {
 //		commentCheck.stream().sorted((n1,n2)->n2.compareTo(n1)).forEach(n->System.out.println(n));
 //		System.out.println("게시글 전체 목록 불러오기 완료");
 	
-	
-	
-	
 	}
-	
+		
+	//----------------------------------------------댓글관련 메서드--------------------------------------
+		
+		// 댓글달기 기능  
+	public int insertCommentContent(int postNum, int studentNum, String commentContent) {
+//		Comment comment = new Comment(); 문제 생기면 필드에 생성한 Comment comment = new Comment();삭제
+		String insert = "insert into comment(postNum, studentNum, commentContent, date)"
+				+ " values(?, ?, ?, now())";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(insert);
+			psmt.setInt(1, postNum);
+			psmt.setInt(2, studentNum);
+			psmt.setString(3, commentContent);
+			int result = psmt.executeUpdate();
+			psmt.close();
+			return result;
+			}
+			
+		// comment 데이터 베이스에 삽입 성공시
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1; // comment를 데이터 베이스에 삽입 실패시
+	}
+
+
+	//해당 postNum에 해당하는 모든 댓글
+	public ArrayList<Comment> SelectCommentAll(int postNum) {
+		
+		String sql = "select commentContent from comment where postNum = ?";
+		ArrayList<Comment> list = new ArrayList<Comment>();
+		
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, postNum);
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				Comment comment = new Comment();
+				comment.setCommentContent(rs.getString(1));    
+				list.add(comment);
+			}
+			psmt.close();
+			
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+
+	//내가 commentNum까지 넣어보았다 값 이상해지면 삭제.
+	public ArrayList<Comment> SelectCommentCommentNum(int postNum) {
+//		Comment comment = new Comment(); 문제 생기면 필드에 생성한 Comment comment = new Comment();삭제
+		
+		String sql = "select commentContent, studentNum, date, commentNum from comment where postNum = ?";
+		ArrayList<Comment> list = new ArrayList<Comment>();
+		
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, postNum);
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				Comment comment = new Comment();
+				comment.setCommentContent(rs.getString(1), rs.getInt(2), rs.getString(3),rs.getInt(4));    
+				list.add(comment);
+			}
+			psmt.close();
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+
+
+	// 자신의 commentNum을 찾기 위한 메서드 
+	public int selectCommentNum(String commentContent) {
+		Comment comment = new Comment();
+		String sql = "select commentNum from comment commentContent = ?";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, commentContent.trim());
+			ResultSet rs =  psmt.executeQuery();
+			if(rs.next()) {
+			comment.setCommentNum(rs.getInt(1));
+			psmt.close();
+			return comment.getCommentNum();
+			}
+			
+			 // 댓글 수정 성공시 1반환
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1; // 댓글 수정 실패시 -1반환.
+	}
+
+
+	//댓글 업데이트 기능.
+	public int updateComment(String commentContent, int commentNum) {
+		String sql = "update comment set commentContent = ? where commentNum = ?";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, commentContent);
+			psmt.setInt(2, commentNum);
+			return psmt.executeUpdate();
+			 // 댓글 수정 성공시 1반환
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1; // 댓글 수정 실패시 -1반환.
+	}
+
+	//댓글 삭제 기능
+	public int deleteComment(String commentContent, int commentNum) {
+		String sql = "delete from comment where commentNum = ?";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, commentNum);
+			return psmt.executeUpdate(); //데이터 베이스 성공시 
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1; //데이터 베이스 실패시 
+
+	}
+
 
 
 }

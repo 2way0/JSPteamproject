@@ -1,8 +1,7 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.io.PrintWriter"%>
 <%@ page import="java.io.File"%>
-<%@page import="user.Post"%>
-<%@page import="user.User"%>
-<%@page import="user.Dao"%>
+<%@page import ="user.*" %>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -25,6 +24,100 @@
 body{
 	padding-top:87px;
 }
+
+/**************댓글관련 CSS**************/
+a {
+	color: white;
+	text-decoration: none;
+}
+
+#sign-color {
+	color: black;
+}
+
+#commentarea {
+	
+	margin : 80px auto 30px auto;
+	width: 800px;
+	height: 30%;
+	
+	
+}
+
+
+#showComment {
+	max-width: 800px;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin : 0 auto 10px auto;
+	background-color: lightgray;
+	transition: 0.3s;
+}
+
+/* 전체 댓글 부분이 담길 케이스 */
+#commentCase {
+	padding: 5px;
+	background-color: rgb(243, 242, 242);
+	overflow: hidden;
+	transition: 0.3s;
+}
+
+
+#writecomment {
+	margin-left: 60px;
+	cursor: pointer;
+}
+
+#commentDiv {
+	max-width: 800px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 0;
+	background-color: rgb(243, 242, 242);
+	cursor: pointer;
+}
+
+#saveComment{
+	display: inline-block;
+}
+
+/* 댓글 수정할 직접적인 textarea  */
+.updateCommentTextArea {
+	width: 85%;
+	height: 20%;
+}
+
+/* updateComment버튼을 누르면 나오는 댓글을 수정 할 영역 */
+.updateCommentarea {
+	display: none;
+}
+
+.active .updateCommentarea {
+	display: block;
+}
+
+label {
+	color: #2e7903;
+	cursor: pointer;
+}
+
+/*댓글들 li를 담을 ul  */
+.commentUnorderdList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.a{
+	float :right;
+}
+
 </style>
 
 </head>
@@ -42,9 +135,12 @@ body{
 		int postNum = 0;
 		if(request.getParameter("postNum") != null){
 			postNum = Integer.parseInt(request.getParameter("postNum"));
+			System.out.println("게시판 번호는 :" + postNum);
+			session.setAttribute("postNum", Integer.parseInt(request.getParameter("postNum")));
+			postNum = (int)session.getAttribute("postNum");
+			
 		}
-		
-		
+		postNum = (int)session.getAttribute("postNum");
 		Post post = new Post();
 		Dao dao = Dao.getInstance();
 		post = dao.getPost(postNum);
@@ -192,6 +288,90 @@ body{
    			</div>
 		</main>
 		</div>
+		
+					<!------------------------------------댓글 다는 창------------------------------------------>
+		<div id="commentarea">
+		<form action=""></form>
+			<form id="writeCommentForm" method="post">
+				<input type="hidden" name="studentNum" value="<%=studentNum%>" />
+				<input type="hidden" name="postNum" value="<%=postNum%>" />
+				<%-- <input type="hidden" name="title" value="<%=title%>" /> --%>
+				<input type="hidden" name="content" value="<%=content%>" />
+				<textarea name="commentcontent"
+					style="width: 100%; height: 100%; border-color: black;"
+					class="form-control" placeholder="댓글을 입력하세요"></textarea>
+				<div class = "a">
+				<input type="submit" value="댓글저장" id="saveComment">
+				</div>
+			</form>
+		</div>
+	</div>
+		
+		
+		<!---------------------------------- 댓글보는 창 ------------------------------------>
+	<!-- 	<button id="showCommentbtn">댓글보기</button> -->
+		<div id="showComment" >
+			<div id="commentCase">
+				<ul class = "commentUnorderdList">
+					
+				<%
+					ArrayList<Comment> commentlist = dao.SelectCommentCommentNum(postNum);
+					for (int i = 0; i < commentlist.size(); i++) {
+						System.out.println(commentlist.get(i).getCommentContent());
+					
+				%>
+					<li>				
+				<div id="commentDiv">
+					<!--------------------------- 댓글 수정을 위한 폼테그 --------------------------->
+					<!-- action="updateComment.jsp" <iframe id="iframe2" name="iframe2" style="display:none"></iframe> -->
+					<form action=""></form>
+					<form action="updateComment.jsp" method="post" class = "updateCommentFormArea">
+						<div id="commentNumber">
+							<input type="hidden" name="commentNum"
+								value="<%=commentlist.get(i).getCommentNum()%>"> date :
+							<%=commentlist.get(i).getDate()%>
+						</div>
+
+						<!---------------------------------- 실제 나오는 댓글 ------------------------------->
+						
+						<%=commentlist.get(i).getCommentContent().trim()%>
+						<%
+							//본인이 단 댓글만  수정하기 버튼이 나올 수 있도록 한 조건문
+								if (studentNum == commentlist.get(i).getStudentNum()) {
+						%>
+
+						<label class="updateComment">수정</label>
+						<div class="updateCommentarea">
+							<textarea class="updateCommentTextArea"
+								name="updateCommentTextArea"><%=commentlist.get(i).getCommentContent().trim()%></textarea>
+							<input type="submit" value="저장" id="updateCommentbtn">
+						</div>
+					</form>
+
+
+
+
+					<!----------------------------- 댓글 삭제 하는 액션 폼 -------------------------------------->
+					<!-- action = "deleteComment.jsp" -->
+					<form action=""></form>
+					<form id="deleteCommentForm" method="post">
+						<input type="submit" value="삭제" />
+						<input type="hidden" name="commentNum" value="<%=commentlist.get(i).getCommentNum()%>">
+						<input type="hidden" name="commentContent" value="<%=commentlist.get(i).getCommentContent()%>">
+					</form>
+				</div>
+
+				<%
+					}
+				%>
+				</li>
+			<%
+				}
+			%>
+			</div><!--comment div-->
+				</ul>
+		</div><!--showcomment끝  -->
+		
 	</div>
 	
 	<script
@@ -214,6 +394,102 @@ body{
 				  .then(b => {document.getElementById('likecount').innerText = --likecount;});
 			}
 		});
+		
+		
+		/***********************댓글 저장, 수정, 삭제 등 데이터를 보낼 js/
+		/* 새로운 댓글을 달때 정보를 보내는 방법  */
+let writeCommentForm = document.getElementById('writeCommentForm');
+writeCommentForm.addEventListener('submit', function(e){
+	e.preventDefault();
+	let formData = new FormData(writeCommentForm);
+	console.log(FormData);
+
+	fetch('./commentAction.jsp',{
+		method:'POST',
+		body : new URLSearchParams(formData)
+	}).then(data => {
+		
+			alert("댓글이 저장되었습니다")
+			location.reload();
+			
+	}) 
+})
+
+	
+		/* 댓글 삭제를 위한 스크립트  */
+  		let deleteCommentForm = document.getElementById('deleteCommentForm');
+  		
+		deleteCommentForm.addEventListener('submit', function(e){
+			e.preventDefault();
+			let deleteFormData = new FormData(deleteCommentForm);
+			console.log(deleteFormData);
+			console.log("---");
+			
+			
+
+ 			fetch('./deleteComment.jsp',{
+ 				method:'POST',
+ 				body : new URLSearchParams(deleteFormData)
+ 			}).then(data => {
+				
+ 					alert("삭제 되었습니다.")
+ 					location.reload();
+					
+ 			})
+ 			
+ 			console.log("s");
+		})
+	
+
+		
+		
+		
+		/* 댓글 수정을 위한 스크립트  */
+/* let updateCommentForm = document.getElementById('aaa');
+updateCommentForm.addEventListener('submit', function(e){
+				e.preventDefault();
+		console.log(updateCommentForm);
+		let updateFormData = new FormData(updateCommentForm);
+					
+		fetch('./updateComment.jsp',{
+			method:'POST',
+			body : new URLSearchParams(updateFormData)
+							}).then(data => {
+								
+									alert("수정 되었습니다.")
+									  location.reload(); 
+									
+							}) 
+						}) 
+						 */
+		
+	
+	 /* 여긴 토글 방법으로 수정하기 누르면 껏다 커졌다 반복. */
+	 var updateElem = document.querySelector('.updateComment');
+     var currentItem;
+
+
+     function active(elem){
+        elem.classList.toggle('active');
+        currentItem = elem;
+     }
+
+     function inactive(elem){
+        elem.classList.remove('active');
+     }
+
+	window.addEventListener('click', (e)=>{
+
+        if(e.target.classList.contains('updateComment')){
+            active(e.target.parentNode);
+        }
+    });
+	
+	
+		
+		
+		
+		
 	</script>
 </body>
 

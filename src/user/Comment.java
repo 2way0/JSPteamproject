@@ -9,6 +9,14 @@ public class Comment implements Comparable<Comment>{
 	private String date;
 	private String title;
 	
+	
+	
+	
+	public Comment() {
+		super();
+	}
+
+
 	//생성자
 	public Comment(int commentNum, int postNum, int studentNum, String commentContent, String date) {
 		super();
@@ -30,6 +38,13 @@ public class Comment implements Comparable<Comment>{
 		this.title = title;
 	}
 
+	
+	public void setCommentContent(String commentContent, int studentNum, String date, int commentNum) {
+		this.commentContent = commentContent;
+		this.studentNum = studentNum;
+		this.date = date;
+		this.commentNum = commentNum;
+	}
 
 	// getter, setter
 	public int getCommentNum() {

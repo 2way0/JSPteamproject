@@ -50,6 +50,11 @@ margin-top : 0px;
 			userID = (String) session.getAttribute("userID");
 			loginStudentNum = (int) session.getAttribute("studentNum");
 		}
+		if(session.getAttribute("postNum") != null){
+			int postNum = (int)session.getAttribute("postNum");
+			session.removeAttribute("postNum");
+		}
+		
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
