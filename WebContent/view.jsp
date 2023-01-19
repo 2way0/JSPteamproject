@@ -177,7 +177,7 @@ body{
                </li>
            </ul>
        </section>
-     		<a href="anolist.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
+     		<a href="main.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
 			<%
 				if (studentNum != 0 && studentNum == post.getStudentNum()) {
 			%>
