@@ -151,14 +151,13 @@ body{
                       	
                        <div id="like-comment">
                            <span id="like">
-                                 <button value=<%=postNum%> id="like_btn">
+                                <button value=<%=postNum%> id="like_btn">
                                 <%
-                                
-                         		int countLike = dao.countLikePost(postNum);
-                         		int countComment = dao.countCommentPost(postNum);
-		                           int likeOnOff = dao.LikeOnOff(postNum,studentNum);
-		                           if	(likeOnOff == 0){
-	                           %>
+	                				int countLike = dao.countLikePost(postNum);
+									int countComment = dao.countCommentPost(postNum);
+									int likeOnOff = dao.LikeOnOff(postNum, studentNum);
+									if (likeOnOff == 0) {
+	                            %>
 	                               <img src="image/OFF.png" alt="좋아요 수" id="like_img">
 	                        	<%
 	                           		 } else {
@@ -168,7 +167,7 @@ body{
 	                          		 };
 	                           %>
 	                           </button> 
-	                           <%=countLike %>
+	                           <span id="likecount" value=""><%=countLike%></span>
                            </span>
                            <span id="comment">
                                <img src="image/icon_comment.png" alt="댓글 수"> <%=countComment %>
@@ -178,18 +177,18 @@ body{
                </li>
            </ul>
        </section>
-     <a href="anolist.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
-						<%
-						if (studentNum != 0 && studentNum == post.getStudentNum()) {
-						%>
-						<a href="update.jsp?postNum=<%=postNum%>"
-							class="btn btn-primary offset-7" style="width: 75px;">수정</a> <a
-							onclick="return confirm('정말로 삭제하시겠습니까?')"
-							href="deleteAction.jsp?postNum=<%=postNum%>" class="btn btn-primary"
-							style="width: 75px; margin-left: 15px;">삭제</a>
-						<%
-						}
-						%>
+     		<a href="anolist.jsp" class="btn btn-success" style="width: 75px; margin: 15px;">목록</a>
+			<%
+				if (studentNum != 0 && studentNum == post.getStudentNum()) {
+			%>
+			<a href="update.jsp?postNum=<%=postNum%>"
+				class="btn btn-primary offset-7" style="width: 75px;">수정</a> <a
+				onclick="return confirm('정말로 삭제하시겠습니까?')"
+				href="deleteAction.jsp?postNum=<%=postNum%>" class="btn btn-primary"
+				style="width: 75px; margin-left: 15px;">삭제</a>
+			<%
+			}
+			%>
    			</div>
 		</main>
 		</div>
@@ -198,23 +197,23 @@ body{
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
-	$("#like_btn").click(function() {
-		var img = document.getElementById('like_img');
-		
-		if (img.src.match('OFF')) {
-			img.src = 'image/ON.png';
+		$("#like_btn").click(function() {
+			var img = document.getElementById('like_img');
+			var likecount = document.getElementById('likecount').innerText;
 			
-			fetch("likeBtn.jsp?postNum="+$(this).val())
-			  .then(response => response.json())
-			  .then(json => console.log(json));
-		} else {
-			img.src = 'image/OFF.png';
-			
-			fetch("likeBtn.jsp?postNum="+$(this).val())
-			  .then(response => response.json())
-			  .then(json => console.log(json));
-		}
-	});
+			if (img.src.match('OFF')) {
+				img.src = 'image/ON.png';
+				
+				fetch("likeBtn.jsp?postNum="+$(this).val())
+				  .then(a => {document.getElementById('likecount').innerText = ++likecount;});
+				
+			} else {
+				img.src = 'image/OFF.png';
+				
+				fetch("likeBtn.jsp?postNum="+$(this).val())
+				  .then(b => {document.getElementById('likecount').innerText = --likecount;});
+			}
+		});
 	</script>
 </body>
 

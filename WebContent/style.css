@@ -102,3 +102,6 @@ color: #FF0000;
 #comment {
 color: #0055FF;
 }
+#like_btn {
+	border: none; /*좋아요 버튼 테두리 제거*/
+}

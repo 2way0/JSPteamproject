@@ -12,7 +12,8 @@
 	
 	int postNum = Integer.parseInt(request.getParameter("postNum"));
 	
-	
 	Dao dao = Dao.getInstance();
-	dao.likeDB(studentNum, postNum);
+	dao.likeDB(postNum, studentNum);
+	
 %>
+
