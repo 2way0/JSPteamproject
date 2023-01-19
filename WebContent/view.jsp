@@ -354,7 +354,7 @@ li {
 					<!----------------------------- 댓글 삭제 하는 액션 폼 -------------------------------------->
 					<!-- action = "deleteComment.jsp" -->
 					<form action=""></form>
-					<form id="deleteCommentForm" method="post">
+					<form action = "deleteComment.jsp" method="post">
 						<input type="submit" value="삭제" />
 						<input type="hidden" name="commentNum" value="<%=commentlist.get(i).getCommentNum()%>">
 						<input type="hidden" name="commentContent" value="<%=commentlist.get(i).getCommentContent()%>">
@@ -416,53 +416,6 @@ writeCommentForm.addEventListener('submit', function(e){
 })
 
 	
-		/* 댓글 삭제를 위한 스크립트  */
-  		let deleteCommentForm = document.getElementById('deleteCommentForm');
-  		
-		deleteCommentForm.addEventListener('submit', function(e){
-			e.preventDefault();
-			let deleteFormData = new FormData(deleteCommentForm);
-			console.log(deleteFormData);
-			console.log("---");
-			
-			
-
- 			fetch('./deleteComment.jsp',{
- 				method:'POST',
- 				body : new URLSearchParams(deleteFormData)
- 			}).then(data => {
-				
- 					alert("삭제 되었습니다.")
- 					location.reload();
-					
- 			})
- 			
- 			console.log("s");
-		})
-	
-
-		
-		
-		
-		/* 댓글 수정을 위한 스크립트  */
-/* let updateCommentForm = document.getElementById('aaa');
-updateCommentForm.addEventListener('submit', function(e){
-				e.preventDefault();
-		console.log(updateCommentForm);
-		let updateFormData = new FormData(updateCommentForm);
-					
-		fetch('./updateComment.jsp',{
-			method:'POST',
-			body : new URLSearchParams(updateFormData)
-							}).then(data => {
-								
-									alert("수정 되었습니다.")
-									  location.reload(); 
-									
-							}) 
-						}) 
-						 */
-		
 	
 	 /* 여긴 토글 방법으로 수정하기 누르면 껏다 커졌다 반복. */
 	 var updateElem = document.querySelector('.updateComment');
