@@ -46,6 +46,51 @@ a {
 #search {
 margin-top:30px;
 border: 2px solid black;
+border-radius: 7px;
+}
+
+#newyear {
+height: 280px;
+margin-top: 10px;
+margin-left: 60px;
+border-radius: 7px;
+}
+
+#mbti {
+height: 280px;
+margin-top: 10px;
+margin-left: 60px;
+border-radius: 7px;
+}
+
+#section {
+background-color: #EBEDF3;
+}
+
+.board {
+border: 2px solid black;
+width : 500px;
+height: 300px;
+border-radius: 7px;
+background-color: white;
+margin-top:25px;
+margin-left:10px;
+}
+
+#coolboard {
+border: 2px solid black;
+width : 1050px;
+height: 300px;
+border-radius: 7px;
+background-color: white;
+margin-top:25px;
+margin-left:10px;
+}
+
+#choongang {
+width : 1050px;
+margin-left:15px;
+border-radius: 7px;
 }
 </style>
 
@@ -63,13 +108,13 @@ border: 2px solid black;
 		}
 	%>
 <!-- 헤더 -->
-			<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background-color: white !important;">
+			<header class="p-3 text-bg-dark" style="position:fixed; top:0; width: 100%; z-index: 1; background-color: white !important; border-bottom:1px solid gray;">
 				<div class="container">
 					<div class="row">
 					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 						<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
 
-					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="align-items:center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
 						<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
@@ -123,42 +168,55 @@ border: 2px solid black;
 	
 
 <%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
-	<section>
+	<section id="section" >
 	<div class="container">
-	  <div class="row" id="centerLine">
-		  <div class="col-md-1" style="background-color:red;">
+	  <div class="row" id="centerLine" style="background-color:red;">
+		  <div class="col-md-1">
       		Column
     	  </div>
     	  <div class="col-md-10">
-      		<div class="row" id="centerLine2">
-      		  <div class="col-md-12" style="background-color:orange;">
+      		<div class="row" id="centerLine2" style="background-color:orange;">
+      		  <div class="col-md-12">
       		  	<form method="post" action="searchedList.jsp" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" id="search">
 						<input type="search"
 							class="form-control form-control-dark text-bg-white"
-							placeholder="토픽 주제를 검색하세요" aria-label="Search" name="searchWord">
+							placeholder="토픽 주제를 검색하세요!" aria-label="Search" name="searchWord">
 					</form>
       		  </div>
       		</div>
-      		<div class="row" id="centerLine3">
-      		 <div class="col-md-12" style="background-color:purple;">
-      		  	d
+      		<div class="row" id="centerLine3" style="background-color:gray;">
+      		 <div class="col-md-12">
+      		  	<div id="coolboard">
+      		  	</div>
       		  </div>	
       		</div>
       		<div class="row" id="centerLine4">
-      		 <div class="col-md-6" style="background-color:black;">
-      		  	d
+      		 <div class="col-md-6" style="background-color:aqua;">
+      		  	<div class="board">
+      		  	</div>
       		  </div>
       		  <div class="col-md-6" style="background-color:blue;">
-      		  	d
+      		  	<div class="board">
+      		  	</div>
       		  </div>
       		</div>
       		<div class="row" id="centerLine5">
-      		  <div class="col-md-12" style="background-color:aqua;">
-      		  	<div id="calendar"></div>
+      		 <div class="col-md-6" style="background-color:blue;">
+      		  	<a href="https://www.shinhanlife.co.kr/hp/cdhg0130.do">
+      		  	<img src="image/newyear.png" id="newyear"></a>
+      		  </div>
+      		  <div class="col-md-6" style="background-color:aqua;">
+      		  	<img src="image/mbti.png" id="mbti">
+      		  </div>
+      		</div>
+      		<div class="row" id="centerLine6" style="background-color:purple;">
+      		  <div class="col-md-12">
+      		  	<a href="https://www.choongang.co.kr/html/sub01_06_n.php">
+      		  	<img src="image/choongang.jpg" id="choongang"></a>
       		  </div>
       		</div>
      	  </div>
-    	  <div class="col-md-1" style="background-color:gray;">
+    	  <div class="col-md-1" style="background-color:black;">
       		Column
     	  </div>	
 	  </div>
