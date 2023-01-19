@@ -46,21 +46,22 @@ a {
 #search {
 margin-top:30px;
 border: 2px solid black;
-border-radius: 7px;
+border-radius: 10px;
 }
 
 #newyear {
-height: 280px;
-margin-top: 10px;
-margin-left: 60px;
-border-radius: 7px;
+height: 290px;
+width: 500px;
+margin-top: 5px;
+margin-left: 10px;
+border-radius: 20px;
 }
 
 #mbti {
 height: 280px;
 margin-top: 10px;
 margin-left: 60px;
-border-radius: 7px;
+border-radius: 20px;
 }
 
 #section {
@@ -71,7 +72,7 @@ background-color: #EBEDF3;
 border: 2px solid black;
 width : 500px;
 height: 300px;
-border-radius: 7px;
+border-radius: 20px;
 background-color: white;
 margin-top:25px;
 margin-left:10px;
@@ -81,7 +82,7 @@ margin-left:10px;
 border: 2px solid black;
 width : 1050px;
 height: 300px;
-border-radius: 7px;
+border-radius: 20px;
 background-color: white;
 margin-top:25px;
 margin-left:10px;
@@ -89,8 +90,9 @@ margin-left:10px;
 
 #choongang {
 width : 1050px;
-margin-left:15px;
-border-radius: 7px;
+margin-top: 25px;
+margin-left:12px;
+border-radius: 20px;
 }
 </style>
 
@@ -206,7 +208,7 @@ border-radius: 7px;
       		  	<img src="image/newyear.png" id="newyear"></a>
       		  </div>
       		  <div class="col-md-6" style="background-color:aqua;">
-      		  	<img src="image/mbti.png" id="mbti">
+      		  	d
       		  </div>
       		</div>
       		<div class="row" id="centerLine6" style="background-color:purple;">
@@ -216,7 +218,7 @@ border-radius: 7px;
       		  </div>
       		</div>
      	  </div>
-    	  <div class="col-md-1" style="background-color:black;">
+    	  <div class="col-md-1">
       		Column
     	  </div>	
 	  </div>
