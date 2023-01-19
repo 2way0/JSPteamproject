@@ -43,6 +43,10 @@ a {
 	height: 300px;
 }
 
+#centerLine6 {
+	height: 350px;
+}
+
 #search {
 margin-top:30px;
 border: 2px solid black;
