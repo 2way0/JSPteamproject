@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="user.*"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,12 +11,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<%--부트스트랩 cdn --%>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
 
 <!-- 글목록css -->
 <style>
 #wrapper {
-	border: 1px solid #333;
+	border: 1px solid rgb(243, 242, 242);
 	max-width: 800px; /*800이하 시 줄어듦*/
 	height: 100%;
 	margin: 0 auto;
@@ -27,42 +33,60 @@
 	max-width: 800px;
 	background-color: rgb(243, 242, 242);
 	padding: 20px;
+	height: 300px;
 	
 }
 
 #img{
-	width: 100px;
-	height: 100px;
-	margin: auto;
+	width: 150px;
+	height: 150px;
+	margin: 10px auto;
 	display: block;
+	object-fit: cover; /*이미지의 종횡비를 유지하면서 박스를가득채움.*/
+}
+
+#userInfo div {
+	margin: 5px auto;
+	text-align: center;
+}
+
+#userInfo div a {
+	text-decoration-line: none;
+}
+
+#userID a {
+	color: black;
+	font-weight: bold;
 	
 }
-
-#userID {
-	margin: auto;
-	text-align: center;
+#nickName a, #studentNum a {
+	color: grey;
 }
 
-#nickName {
-	margin: auto;
-	text-align: center;
-}
-
+/*여기서부터 안건듦*/
 #content {
-	border: 1px solid red;
+	border: 2px solid #bddbd2;
 	max-width: 800px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 30px;
+	padding: 0;
+	padding:0 auto;
+	
+	
 }
 #myPageList {
-	
-	
+	display: flex;
+	margin: 0 auto;
 	
 }
 #myPageList div{
 	display: inline-block;
-	border: 1px solid #333;
+	width: 35%;
+	text-align: center;
+}
+#myPageList button{
+	width: 100%;
+	/*border: 1px solid #333;*/
+	border: 1px solid #bddbd2;
+	
 }
 
 #content ul {
@@ -81,6 +105,11 @@
 
 #content article {
 	height: 100px;
+}
+
+#content a {
+	color: black;
+	text-decoration: none;
 }
 
 #profile {
@@ -184,36 +213,68 @@ padding-bottom: 10px;*/
 	User user = dao.selectUserOne(studentNum);
 	
 %>
-	<div>
-		<div id="wrapper">
-			<div id="userInfo">
-				<img id="img" src="image/blankProfile.jpg" alt="프로필사진">
-				<div id="userID"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getUserID() %></a></div>
-				<div id="nickName"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getNickName() %></a></div>
-				
-			</div>
+	
+	<div id="wrapper">
+	<form action="profimgAction.jsp" method="post" enctype="multipart/form-data" name="signform">
+		<div id="userInfo">
+		<%
+		//프로필 사진(경로에 사진 없으면 기본이미지)
+			String real = "C:\\JavaProgramming\\source\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\team0110\\image";
+			File viewImg = new File(real+"\\"+studentNum+"프로필사진.jpg");
+			if(viewImg.exists()){
+		%>
+			<img id="img" src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" onclick="clickBtn()" class="rounded">
+			<%} else { %>
+				<img id="img" src="image/blankProfile.jpg" alt="프로필사진" onclick="clickBtn()" class="rounded">
+			<%} %>
+			<input type="file" name="fileName" id="profimg" style="display: none;" onchange="changeValue(this)" />
+				<input type="hidden" name = "target_url">
 			
-			<section id="content">
-				<div>내정보</div>
-				<div id="myPageList">
-					<div>
-						<button id="exePost">내가 쓴 글</button>
-					</div>
-					<div>
-						<button id="exeComment">댓글 단 글</button>
-					</div>
-					<div>
-						<button id="exeLike">좋아요 한 글</button>
-					</div>
-				</div>
-				<div id="showList"></div>
-
-			</section>
+			<div id="userID"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getUserID() %></a></div>
+			<div id="nickName"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>">닉네임: <%=user.getNickName() %></a></div>
+			<div id="studentNum"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>">학번: <%=user.getStudentNum() %></a></div>
 		</div>
+	</form>
+	
+	
+		<section id="content">
+			
+			<div id="myPageList" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				<div>
+					<button id="exePost" class="bg-success p-2 text-dark bg-opacity-25">내가 쓴 글</button>
+				</div>
+				<div>
+					<button id="exeComment" class="bg-success p-2 text-dark bg-opacity-25">댓글 단 글</button>
+				</div>
+				<div>
+					<button id="exeLike" class="bg-success p-2 text-dark bg-opacity-25">좋아요 한 글</button>
+				</div>
+			</div>
+			<div id="showList"></div>
+
+		</section>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	
+	<%--프로필사진 클릭 이벤트 --%>
+	<script>
+		function clickBtn() {
+			$('#profileAction').submit();
+		}
+		$("#img").click(function(e){
+			document.signform.target_url.value = document.getElementById('img').src;
+			e.preventDefault();
+			$("#profimg").click();
+		});
+		
+		function changeValue(obj) {
+			document.signform.submit();
+		}
+	</script>
+	
+	<%--버튼 클릭 이벤트 --%>
 	<script>
 		$(function() {
 			$("#exePost").click(function() {
