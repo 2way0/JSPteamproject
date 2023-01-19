@@ -43,41 +43,75 @@ public class Dao {
 		return null;
 	}
 //	post  ---------------------------------------------------------
-	// 게시글 전체 목록 불러오기
-	public List<Post> selectPostAll(int index_no){
-		List<Post> postList = new ArrayList<>();
-		
-		String sql = "select * from post where onoff=1 order by postNum desc limit "+index_no+",10";
-		Post post = null;
-		
-		try {
+	// 익명게시글 전체 목록 불러오기
+		public List<Post> selectPostAll(int index_no){
+			List<Post> postList = new ArrayList<>();
 			
-			PreparedStatement pstm = conn.prepareStatement(sql);
-			ResultSet rs = pstm.executeQuery();
-			while(rs.next()) {
-				int postNum = rs.getInt("postNum");
-				int studentNum = rs.getInt("studentNum");
-				String title = rs.getString("title");
-				String content = rs.getString("content");
-				String date =  rs.getString("date");
-				String board =  rs.getString("board");
-				int onoff =  rs.getInt("onoff");
-				post = new Post(postNum, studentNum, title, content, date, board, onoff); 
-				postList.add(post);
+			String sql = "select * from post where onoff=1 and board='익명게시판' order by postNum desc limit "+index_no+",10";
+			Post post = null;
+			
+			try {
+				
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery();
+				while(rs.next()) {
+					int postNum = rs.getInt("postNum");
+					int studentNum = rs.getInt("studentNum");
+					String title = rs.getString("title");
+					String content = rs.getString("content");
+					String date =  rs.getString("date");
+					String board =  rs.getString("board");
+					int onoff =  rs.getInt("onoff");
+					post = new Post(postNum, studentNum, title, content, date, board, onoff); 
+					postList.add(post);
+				}
+				rs.close();
+				pstm.close();
+				System.out.println("게시글 전체 목록 리턴");
+				return postList;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("selectPostAll() 에러");
 			}
-			rs.close();
-			pstm.close();
-			System.out.println("게시글 전체 목록 리턴");
-			return postList;
 			
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("selectPostAll() 에러");
+			return null;
 		}
 		
-		return null;
-	}
-	
+		// 맛집게시글 전체 불러오기
+		public List<Post> selectFoodPostAll(int index_no){
+			List<Post> postList = new ArrayList<>();
+			
+			String sql = "select * from post where onoff=1 and board='맛집게시판' order by postNum desc limit "+index_no+",10";
+			Post post = null;
+			
+			try {
+				
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery();
+				while(rs.next()) {
+					int postNum = rs.getInt("postNum");
+					int studentNum = rs.getInt("studentNum");
+					String title = rs.getString("title");
+					String content = rs.getString("content");
+					String date =  rs.getString("date");
+					String board =  rs.getString("board");
+					int onoff =  rs.getInt("onoff");
+					post = new Post(postNum, studentNum, title, content, date, board, onoff); 
+					postList.add(post);
+				}
+				rs.close();
+				pstm.close();
+				System.out.println("게시글 전체 목록 리턴");
+				return postList;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("selectPostAll() 에러");
+			}
+			
+			return null;
+		}
 	// 해당 아이디가 작성한 게시글 전체 목록 불러오기
 	public List<Post> selectPostID(int idStudentNum,int index_no){
 		List<Post> postList = new ArrayList<>();
