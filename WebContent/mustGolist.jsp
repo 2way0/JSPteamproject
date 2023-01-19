@@ -68,7 +68,7 @@ margin-top : 0px;
 						<li>
 							<%
 								if (userID != null) {
-							%> <a href="write.jsp"
+							%> <a href="write2.jsp"
 							class="btn btn-success offset-10"
 							style="width: 75px; margin-right: 100px"> 글쓰기</a> <%
  	}

@@ -124,7 +124,7 @@ border-radius: 20px;
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
 						<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
+						<li><a href="mustGolist.jsp" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
 						<li><a href="myPage.jsp" class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
 						<li><%if(userID != null){%>
 	                    <a href="write.jsp" class="btn btn-success offset-10" style="width: 75px; margin-right: 100px">

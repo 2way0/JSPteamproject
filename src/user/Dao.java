@@ -327,26 +327,44 @@ public class Dao {
 					return sql; // 
 				}				
 		
-		//글쓰기
+		//익명 게시판 글쓰기
 		public int write(String title, int studentNum, String content) {
-			String sql = "insert into post values(?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into post values(?,?,?,?,?,?,?)";
 			try {
 				PreparedStatement psmt = conn.prepareStatement(sql);
 				psmt.setInt(1, getNext());
 				psmt.setInt(2, studentNum);
 				psmt.setString(3, title);
 				psmt.setString(4, content);
-				psmt.setInt(5, 0);
-				psmt.setInt(6, 0);
-				psmt.setString(7, getDate());
-				psmt.setString(8, getBoard());
-				psmt.setInt(9, 1);
+				psmt.setString(5, getDate());
+				psmt.setString(6, "익명게시판");
+				psmt.setInt(7, 1);
 				return psmt.executeUpdate(); // 
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 			return -1; //
 		}
+		
+		//맛집게시판 글쓰기
+				public int write2(String title, int studentNum, String content) {
+					String sql = "insert into post values(?,?,?,?,?,?,?)";
+					try {
+						PreparedStatement psmt = conn.prepareStatement(sql);
+						psmt.setInt(1, getNext());
+						psmt.setInt(2, studentNum);
+						psmt.setString(3, title);
+						psmt.setString(4, content);
+						psmt.setString(5, getDate());
+						psmt.setString(6, "맛집게시판");
+						psmt.setInt(7, 1);
+						return psmt.executeUpdate(); // 
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					return -1; //
+				}
+		
 		
 		// 글 수정
 		public int update(int postNum, String title, String content) {

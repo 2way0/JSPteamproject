@@ -87,14 +87,14 @@ body{
 			<div class="container">
 				<div class="row">
 					<form method="post" encType="multipart/form-data"
-						action="writeAction.jsp" id="ActionBtn">
+						action="writeAction2.jsp" id="ActionBtn">
 						<table class="table table-striped"
 							style="text-align: center border:1px solid #dddddd">
 							<thead>
 								<tr>
 									<th colspan="2"
 										style="background-color: #eeeeee; text-align: center;">
-										익명 게시판 글쓰기 양식</th>
+										맛집 게시판 글쓰기 양식</th>
 
 								</tr>
 							</thead>
