@@ -321,7 +321,7 @@ li {
 				<%
 					ArrayList<Comment> commentlist = dao.SelectCommentCommentNum(postNum);
 					for (int i = 0; i < commentlist.size(); i++) {
-						System.out.println(commentlist.get(i).getCommentContent());
+		 				System.out.println(commentlist.get(i).getCommentContent());
 					
 				%>
 					<li>				

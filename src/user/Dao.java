@@ -939,7 +939,7 @@ public class Dao {
 		
 	}
 
-
+	
 	// 자신의 commentNum을 찾기 위한 메서드 
 	public int selectCommentNum(String commentContent) {
 		Comment comment = new Comment();
