@@ -220,8 +220,10 @@ padding-bottom: 10px;*/
 		<div id="userInfo">
 		<%
 		//프로필 사진(경로에 사진 없으면 기본이미지)
-			String real = "C:\\JavaProgramming\\source\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\team0110\\image";
-			File viewImg = new File(real+"\\"+studentNum+"프로필사진.jpg");
+			ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+            
+			File viewImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
 			if(viewImg.exists()){
 		%>
 			<img id="img" src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" onclick="clickBtn()" class="rounded">
