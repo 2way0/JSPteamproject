@@ -131,8 +131,8 @@ border-radius: 20px;
 					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="align-items:center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
 						<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
-						<li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명 게시판</a></li>
-						<li><a href="mustGolist.jsp" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
+						<li><a href="anolist.jsp?board=ano" class="nav-link px-2 text-secondary">익명 게시판</a></li>
+						<li><a href="anolist.jsp?board=mustGo" class="nav-link px-2 text-secondary">맛집 게시판</a></li>
 						<li><a href="myPage.jsp" class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
 					</ul>
 		<%--검색 --%>
@@ -205,10 +205,10 @@ border-radius: 20px;
       		  	<div class="board">
       		  	  <div class="section text" style="user-select: auto;">
 					 <h3 style="user-select: auto;">
-						<a href="anolist.jsp" style="user-select: auto;">익명게시판</a>
+						<a href="anolist.jsp?board=ano" style="user-select: auto;">익명게시판</a>
 					 </h3>
 					<div class="more" style="user-select: auto;">
-						<a href="anolist.jsp" style="user-select: auto;">더보기</a>
+						<a href="anolist.jsp?board=ano" style="user-select: auto;">더보기</a>
 				    </div>
 			       </div>
       		  	</div>
@@ -217,10 +217,10 @@ border-radius: 20px;
       		  	<div class="board">
       		  		<div class="section text" style="user-select: auto;">
 					 <h3 style="user-select: auto;">
-						<a href="mustGolist.jsp" style="user-select: auto;">맛집게시판</a>
+						<a href="anolist.jsp?board=mustGo" style="user-select: auto;">맛집게시판</a>
 					 </h3>
 					<div class="more" style="user-select: auto;">
-						<a href="mustGolist.jsp" style="user-select: auto;">더보기</a>
+						<a href="anolist.jsp?board=mustGo" style="user-select: auto;">더보기</a>
 				    </div>
 			       </div>
       		  	</div>

@@ -29,7 +29,12 @@ body{
 
 <body>
 	<% String userID=null; if (session.getAttribute("userID") !=null) { userID=(String)
-                        session.getAttribute("userID"); } %>
+                        session.getAttribute("userID"); }
+	
+		String postBoard = request.getParameter("board");
+		System.out.println("write postBoard"+postBoard);
+	
+	%>
 	<header class="p-3 text-bg-dark"
 		style="position: fixed; top: 0; width: 100%; z-index: 1;"">
 		<div class=" container">
@@ -87,7 +92,7 @@ body{
 			<div class="container">
 				<div class="row">
 					<form method="post" encType="multipart/form-data"
-						action="writeAction.jsp" id="ActionBtn">
+						action="writeAction.jsp?board=<%=postBoard%>" id="ActionBtn">
 						<table class="table table-striped"
 							style="text-align: center border:1px solid #dddddd">
 							<thead>
