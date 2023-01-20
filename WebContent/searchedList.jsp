@@ -119,6 +119,11 @@ color: #FF0000;
 color: #0055FF;
 }
 
+a {
+	color: black;
+	text-decoration: none;
+}
+
 </style>
 </head>
 <body>
