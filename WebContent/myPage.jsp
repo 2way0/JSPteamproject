@@ -216,7 +216,7 @@ padding-bottom: 10px;*/
 %>
 	
 	<div id="wrapper">
-	<form action="profimgAction.jsp" method="post" enctype="multipart/form-data" name="signform">
+	<form  action="profimgAction.jsp" method="post" enctype="multipart/form-data" name="signform">
 		<div id="userInfo">
 		<%
 		//프로필 사진(경로에 사진 없으면 기본이미지)
@@ -231,8 +231,9 @@ padding-bottom: 10px;*/
 				<img id="img" src="image/blankProfile.jpg" alt="프로필사진" onclick="clickBtn()" class="rounded">
 			<%} %>
 			<input type="file" name="fileName" id="profimg" style="display: none;" onchange="changeValue(this)" />
-				<input type="hidden" name = "target_url">
-			
+			<input type="hidden" name = "target_url">
+		
+		<%--아이디, 닉네임, 학번 --%>
 			<div id="userID">
 				<a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>" 
 				onclick="window.open(this.href,'_blank', 'width=600,height=300,left=500,top=300,toolbars=no,scrollbars=no'); return false;" >
@@ -276,11 +277,12 @@ padding-bottom: 10px;*/
 	<%--프로필사진 클릭 이벤트 --%>
 	<script>
 		function clickBtn() {
-			$('#profileAction').submit();
+			$('#profimgAction').submit();
 		}
+		
 		$("#img").click(function(e){
 			document.signform.target_url.value = document.getElementById('img').src;
-			e.preventDefault();
+			/* e.preventDefault(); */
 			$("#profimg").click();
 		});
 		
@@ -291,6 +293,8 @@ padding-bottom: 10px;*/
 	
 	<%--버튼 클릭 이벤트 --%>
 	<script>
+	
+	 
 		$(function() {
 			$("#exePost").click(function() {
 				$.ajax({

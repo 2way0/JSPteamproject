@@ -48,20 +48,36 @@ File beforeImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg") ;
 
 
 if(fileName != null) {
-	if(beforeImg.exists()) { //이전 프로필사진 있으면
-		beforeImg.delete(); //이전 사진 삭제
-		//사진업로드
-		File oldFile = new File(realFolder+"\\"+fileName);
-		File newFile = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
-		oldFile.renameTo(newFile);
-		System.out.println("저장된 파일 이름: "+newFile);
-		
-	} else { //사진업로드
-		File oldFile = new File(realFolder+"\\"+fileName);
-		File newFile = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
-		oldFile.renameTo(newFile);
-		System.out.println("저장된 파일 이름: "+newFile);
-	}
+	   if(beforeImg.exists()) { //이전 프로필사진 있으면
+	      beforeImg.delete(); //이전 사진 삭제
+	      //사진업로드
+	      File oldFile = new File(realFolder+"\\"+fileName);
+	      File newFile = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
+	      oldFile.renameTo(newFile);
+	      System.out.println("저장된 파일 이름: "+newFile);
+	      %>
+	         <script>
+	         window.addEventListener('DOMContentLoaded', function() {
+	   	      alert("프로필 사진이 변경되었습니다.");
+	   	      window.location.href = 'myPage.jsp';	
+	   	    	})
+	         </script>
+	      
+	   <%} else { //사진업로드
+	      File oldFile = new File(realFolder+"\\"+fileName);
+	      File newFile = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
+	      oldFile.renameTo(newFile);
+	      System.out.println("저장된 파일 이름: "+newFile);
+	      %>
+	      <script>
+	      window.addEventListener('DOMContentLoaded', function() {
+	      alert("프로필 사진이 변경되었습니다.");
+	      window.location.href = 'myPage.jsp';	
+	    	})
+	      </script>
+	      
+	   <% }
+
 	
 }
 
@@ -70,7 +86,7 @@ if(fileName != null) {
 
 <script>
 alert("프로필 사진이 변경되었습니다.");
-window.location.href = 'myPage.jsp';
+location.href = 'myPage.jsp';
 </script>
 </body>
 </html>
