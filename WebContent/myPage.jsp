@@ -194,6 +194,7 @@ padding-bottom: 10px;*/
 #comment {
 	color: #0055FF;
 }
+
 </style>
 
 </head>
@@ -230,9 +231,21 @@ padding-bottom: 10px;*/
 			<input type="file" name="fileName" id="profimg" style="display: none;" onchange="changeValue(this)" />
 				<input type="hidden" name = "target_url">
 			
-			<div id="userID"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>"><%=user.getUserID() %></a></div>
-			<div id="nickName"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>">닉네임: <%=user.getNickName() %></a></div>
-			<div id="studentNum"><a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>">학번: <%=user.getStudentNum() %></a></div>
+			<div id="userID">
+				<a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>" 
+				onclick="window.open(this.href,'_blank', 'width=600,height=300,left=500,top=300,toolbars=no,scrollbars=no'); return false;" >
+				<%=user.getUserID() %></a>
+			</div>
+			<div id="nickName">
+				<a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>" 
+				onclick="window.open(this.href,'_blank', 'width=600,height=300,left=500,top=300,toolbars=no,scrollbars=no'); return false;">
+				닉네임: <%=user.getNickName() %></a>
+			</div>
+			<div id="studentNum">
+				<a href="myinfoUpdate.jsp?studentNum=<%=user.getStudentNum() %>" 
+				onclick="window.open(this.href,'_blank', 'width=600,height=300,left=500,top=300,toolbars=no,scrollbars=no'); return false;">
+				학번: <%=user.getStudentNum() %></a>
+			</div>
 		</div>
 	</form>
 	

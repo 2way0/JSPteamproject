@@ -29,7 +29,8 @@
 <%--수정완료되면 알림창뜨고 마이페이지로 돌아가기 --%>
 <script>
 alert("정보가 수정되었습니다.");
-window.location.href = 'myPage.jsp';
+opener.location.reload(); //부모창 새로고침
+window.close(); //팝업창 닫기
 </script>
 </body>
 </html>

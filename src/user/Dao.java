@@ -327,27 +327,8 @@ public class Dao {
 					return sql; // 
 				}				
 		
-		//익명 게시판 글쓰기
-		public int write(String title, int studentNum, String content) {
-			String sql = "insert into post values(?,?,?,?,?,?,?)";
-			try {
-				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(1, getNext());
-				psmt.setInt(2, studentNum);
-				psmt.setString(3, title);
-				psmt.setString(4, content);
-				psmt.setString(5, getDate());
-				psmt.setString(6, "익명게시판");
-				psmt.setInt(7, 1);
-				return psmt.executeUpdate(); // 
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			return -1; //
-		}
-		
-		//맛집게시판 글쓰기
-				public int write2(String title, int studentNum, String content) {
+				//익명 게시판 글쓰기
+				public int write(String title, int studentNum, String content, String board) {
 					String sql = "insert into post values(?,?,?,?,?,?,?)";
 					try {
 						PreparedStatement psmt = conn.prepareStatement(sql);
@@ -356,7 +337,7 @@ public class Dao {
 						psmt.setString(3, title);
 						psmt.setString(4, content);
 						psmt.setString(5, getDate());
-						psmt.setString(6, "맛집게시판");
+						psmt.setString(6, board);
 						psmt.setInt(7, 1);
 						return psmt.executeUpdate(); // 
 					} catch(Exception e) {
@@ -364,6 +345,8 @@ public class Dao {
 					}
 					return -1; //
 				}
+		
+		
 		
 		
 		// 글 수정
