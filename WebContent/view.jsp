@@ -75,7 +75,7 @@ a {
 	margin-top: 10px;
 	margin-left: 0;
 	background-color: rgb(243, 242, 242);
-	cursor: pointer;
+
 }
 
 #saveComment{
@@ -116,6 +116,10 @@ li {
 }
 .a{
 	float :right;
+}
+
+.updateComment{
+	cursor : pointer;
 }
 
 </style>

@@ -918,9 +918,7 @@ public class Dao {
 
 	//내가 commentNum까지 넣어보았다 값 이상해지면 삭제.
 	public ArrayList<Comment> SelectCommentCommentNum(int postNum) {
-//		Comment comment = new Comment(); 문제 생기면 필드에 생성한 Comment comment = new Comment();삭제
-		
-		String sql = "select commentContent, studentNum, date, commentNum from comment where postNum = ?";
+		String sql = "select commentContent, studentNum, date, commentNum from comment where postNum = ? order by date desc";
 		ArrayList<Comment> list = new ArrayList<Comment>();
 		
 		try {
