@@ -1,3 +1,4 @@
+<%@page import="java.io.Console"%>
 <%@page import="user.*"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -54,6 +55,10 @@ margin-top : 0px;
 			int postNum = (int)session.getAttribute("postNum");
 			session.removeAttribute("postNum");
 		}
+		//게시판 
+		String postBoard = request.getParameter("board");
+		System.out.println("ㅎㅎ"+postBoard);
+		System.out.println("ㅋㅋ");
 		
 	%>
 	<!-- 헤더 -->
@@ -67,7 +72,7 @@ margin-top : 0px;
 						class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
 
 					<ul
-						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"  style="align-items:center;">
+						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
 						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
 						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
@@ -76,7 +81,9 @@ margin-top : 0px;
 						<li>
 							<%
 								if (userID != null) {
-							%> <a href="write.jsp"
+									System.out.println("anolist postBoard"+postBoard);
+							%> <a href="write.jsp?board=<%=postBoard%>"
+							
 							class="btn btn-success offset-10"
 							style="width: 75px; margin-right: 100px"> 글쓰기</a> <%
  	}
@@ -134,6 +141,8 @@ margin-top : 0px;
 		//페이지 누르면 값 가져오기
 
 		String postpg = request.getParameter("postpage");
+	    //String postbo = request.getParameter("board");
+	    //System.out.println("안ㄴ"+postpg+postbo);
 		if (postpg == null) {
 			postpg = "1";
 		}
@@ -143,13 +152,23 @@ margin-top : 0px;
 
 		//DB연결, post테이블정보 담은 리스트
 		Dao dao = Dao.getInstance();
-		List<Post> postlist = dao.selectPostAll(index_no);
-
-		//총 게시물 개수
-		String board = "익명게시판";
-		int totalPost = dao.countPostAll(board);
-		//
-		int lastPostpage = (int) Math.ceil((double) totalPost / 10);
+		List<Post> postlist = null;
+		int totalPost = 0;
+		int lastPostpage = 0;
+		String board = null;
+		if(postBoard.equals("ano")){
+			postlist = dao.selectPostAll(index_no);
+			board = "익명게시판";
+			//총 게시물 개수
+			totalPost = dao.countPostAll(board);
+			lastPostpage = (int) Math.ceil((double) totalPost / 10);
+		}else if (postBoard.equals("mustGo")){
+			postlist = dao.selectFoodPostAll(index_no);
+			board = "맛집게시판";
+			//총 게시물 개수
+			totalPost = dao.countPostAll(board);
+			lastPostpage = (int) Math.ceil((double) totalPost / 10);
+		}
 	%>
 	<div id="wrapper">
 		<section id="content">
@@ -211,7 +230,7 @@ margin-top : 0px;
 						//위에처럼 해도 되고 아래처럼 해도 된다 - postpage 값 전달 되도록
 				%>
 				<button>
-					<a href="anolist.jsp?postpage=<%=i%>"><%=i%></a>
+					<a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=i%>"><%=i%></a>
 				</button>
 				<%
 					}

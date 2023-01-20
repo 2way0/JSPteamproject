@@ -327,27 +327,8 @@ public class Dao {
 					return sql; // 
 				}				
 		
-		//익명 게시판 글쓰기
-		public int write(String title, int studentNum, String content) {
-			String sql = "insert into post values(?,?,?,?,?,?,?)";
-			try {
-				PreparedStatement psmt = conn.prepareStatement(sql);
-				psmt.setInt(1, getNext());
-				psmt.setInt(2, studentNum);
-				psmt.setString(3, title);
-				psmt.setString(4, content);
-				psmt.setString(5, getDate());
-				psmt.setString(6, "익명게시판");
-				psmt.setInt(7, 1);
-				return psmt.executeUpdate(); // 
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			return -1; //
-		}
-		
-		//맛집게시판 글쓰기
-				public int write2(String title, int studentNum, String content) {
+				//익명 게시판 글쓰기
+				public int write(String title, int studentNum, String content, String board) {
 					String sql = "insert into post values(?,?,?,?,?,?,?)";
 					try {
 						PreparedStatement psmt = conn.prepareStatement(sql);
@@ -356,7 +337,7 @@ public class Dao {
 						psmt.setString(3, title);
 						psmt.setString(4, content);
 						psmt.setString(5, getDate());
-						psmt.setString(6, "맛집게시판");
+						psmt.setString(6, board);
 						psmt.setInt(7, 1);
 						return psmt.executeUpdate(); // 
 					} catch(Exception e) {
@@ -364,6 +345,8 @@ public class Dao {
 					}
 					return -1; //
 				}
+		
+		
 		
 		
 		// 글 수정
@@ -918,9 +901,7 @@ public class Dao {
 
 	//내가 commentNum까지 넣어보았다 값 이상해지면 삭제.
 	public ArrayList<Comment> SelectCommentCommentNum(int postNum) {
-//		Comment comment = new Comment(); 문제 생기면 필드에 생성한 Comment comment = new Comment();삭제
-		
-		String sql = "select commentContent, studentNum, date, commentNum from comment where postNum = ?";
+		String sql = "select commentContent, studentNum, date, commentNum from comment where postNum = ? order by date desc";
 		ArrayList<Comment> list = new ArrayList<Comment>();
 		
 		try {
@@ -941,7 +922,7 @@ public class Dao {
 		
 	}
 
-
+	
 	// 자신의 commentNum을 찾기 위한 메서드 
 	public int selectCommentNum(String commentContent) {
 		Comment comment = new Comment();

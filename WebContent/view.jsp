@@ -75,7 +75,7 @@ a {
 	margin-top: 10px;
 	margin-left: 0;
 	background-color: rgb(243, 242, 242);
-	cursor: pointer;
+
 }
 
 #saveComment{
@@ -116,6 +116,10 @@ li {
 }
 .a{
 	float :right;
+}
+
+.updateComment{
+	cursor : pointer;
 }
 
 </style>
@@ -317,7 +321,7 @@ li {
 				<%
 					ArrayList<Comment> commentlist = dao.SelectCommentCommentNum(postNum);
 					for (int i = 0; i < commentlist.size(); i++) {
-						System.out.println(commentlist.get(i).getCommentContent());
+		 				System.out.println(commentlist.get(i).getCommentContent());
 					
 				%>
 					<li>				

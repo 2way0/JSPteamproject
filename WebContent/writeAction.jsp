@@ -19,6 +19,15 @@
 </head>
 <body>
 	<%	
+	String board = request.getParameter("board");
+	String postBoard = null;
+	if (board.equals("ano")){
+		postBoard = "익명게시판";
+	}else if(board.equals("mustGo")){
+		postBoard = "맛집게시판";
+	}
+	
+	
 		String userID = null;
 		int studentNum = 0;
 		if(session.getAttribute("userID") != null){
@@ -67,7 +76,7 @@
 					} else {
 						
 						Dao dao = Dao.getInstance();
-						int result = dao.write(bbsTitle, studentNum, bbsContent);
+						int result = dao.write(bbsTitle, studentNum, bbsContent, postBoard);
 						if(result == -1){
 							PrintWriter script = response.getWriter();
 							script.println("<script>");
@@ -82,9 +91,13 @@
 								oldFile.renameTo(newFile);
 								System.out.println(newFile);
 							}
-							script.println("<script>");
-							script.println("location.href = 'anolist.jsp'");
-							script.println("</script>");
+							System.out.println("갸갹");
+							System.out.println("고고"+board);
+							response.sendRedirect("anolist.jsp?board="+board);
+							
+							//script.println("<script>");
+							//script.println("location.href = 'anolist.jsp?board=ano");
+							//script.println("</script>");
 						} 
 					}
 		}
@@ -92,5 +105,6 @@
 		
 		
 	%>
+	
 </body>
 </html>
