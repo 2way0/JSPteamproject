@@ -106,8 +106,7 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20px;
-	padding: 15px;
+	margin : 7px;
 }
 
 .board li {
@@ -250,7 +249,8 @@ a {
 													Post l = mainlikepost.get(i);
 											%>
 											<li>
-												<a href="view.jsp?postNum=<%=l.getPostNum()%>" class="likeTitle"><%=l.getTitle()%></a>
+												<a href="view.jsp?postNum=<%=l.getPostNum()%>" class="likeTitle" style="font-size:20px; letter-spacing:-3px;">
+												<%=l.getTitle()%></a>
 												<div id="like-comment">
 													<span id="like"> 
 														<%
@@ -299,7 +299,7 @@ a {
 											Post p = ubselect.get(i);
 									%>
 									<li>
-										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle"><%=p.getTitle()%></a>
+										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle" style="font-size:20px; letter-spacing:-3px;"><%=p.getTitle()%></a>
 										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubDate"><%=p.getDate()%></a>
 									</li>
 									<%
