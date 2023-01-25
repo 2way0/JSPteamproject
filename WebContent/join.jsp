@@ -19,7 +19,7 @@
 <!-- 글목록css -->
 <style>
 body{
-	padding-top:87px;
+	padding-top:87px; 
 }
 html,
 body {

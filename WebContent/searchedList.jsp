@@ -269,7 +269,7 @@ a {
                        </a>
                        </p>
                        <div id="like-comment">
-                           <span id="like">
+                           <span id="like"> 
                            <%
                            int likeOnOff = dao.LikeOnOff(searchedList.get(i).getPostNum(), loginStudentNum);
                            int countLike = dao.countLikePost(searchedList.get(i).getPostNum());

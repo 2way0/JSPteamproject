@@ -35,7 +35,7 @@ a {
 }
 
 body {
-  display: flex;
+  display: flex; 
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;

@@ -28,7 +28,7 @@ body{
 /**************댓글관련 CSS**************/
 a {
 	color: white;
-	text-decoration: none;
+	text-decoration: none; 
 }
 
 #sign-color {

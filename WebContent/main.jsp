@@ -234,7 +234,7 @@ a {
 										<a href="anolist.jsp?board=ano" style="user-select: auto; letter-spacing:-5px;">더보기</a>
 									</div>
 								</div>
-							</div>
+							</div> 
 						</div>
 						<div class="col-md-6">
 							<div class="board">

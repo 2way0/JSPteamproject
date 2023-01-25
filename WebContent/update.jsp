@@ -232,7 +232,7 @@ padding-bottom: 10px;*/
 						</button>
 						<a href="myPage.jsp">
 						<%
-						
+						 
 						//프로필 사진(경로에 사진 없으면 기본이미지)
 						ServletContext context = this.getServletContext(); //절대경로를 얻는다.
 			            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.

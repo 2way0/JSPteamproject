@@ -81,7 +81,7 @@ body{
 					</div>
 					<%
 				} else {
-			%>
+			%> 
 					<div class="text-end">
 						<button type="button" class="btn btn-warning me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 </head>
-<body>
+<body> 
 	<!-- 글목록 부분 -->
 	<%
 	String userID = null;
