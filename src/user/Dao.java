@@ -351,6 +351,37 @@ public class Dao {
 			return null;
 		}
 		
+		
+		// 메인페이지에서 맛집 게시판 정보 불러오기
+		
+		// 메인페이지 익명게시판 정보 불러오기
+				public List<Post> ubSelect2(){
+					List<Post> postList = new ArrayList<>();
+					String sql = "select postNum, title, date from post where board = '맛집게시판' and onoff=1 order by date desc limit 0,3";
+					Post post = null;
+					try {
+						PreparedStatement pstm = conn.prepareStatement(sql);
+						ResultSet rs = pstm.executeQuery();
+						while(rs.next()) {
+							int postNum = rs.getInt("postNum");
+							String title = rs.getString("title");
+							String date = rs.getString("date");
+							post = new Post(postNum, title, date); 
+							postList.add(post);
+						}
+						rs.close();
+						pstm.close();
+						System.out.println("게시글 전체 목록 리턴");
+						return postList;
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+						System.out.println("selectPostAll() 에러");
+					}
+					
+					return null;
+				}
+		
 		// -------------------글쓰기--------------
 		
 		

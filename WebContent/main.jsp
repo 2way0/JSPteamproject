@@ -47,7 +47,7 @@ a {
 }
 
 #centerLine6 {
-	height: 350px;
+	height: 250px;
 }
 
 #search {
@@ -127,6 +127,39 @@ justify-content : space-between;
 margin-right : 7px;
 }
 
+.picture {
+display : flex;
+align-items: center;
+justify-content: center;
+flex-direction: column; 
+padding-left : 0;
+position : relative;
+}
+
+.picture li{
+	display:flex;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
+}
+.picture li:nth-child(1){
+	align-self:flex-start;
+	position: absolute;
+	top: 30px;
+	margin-left: 3px;
+}
+.picture li:nth-child(2){
+	position: absolute;
+	top: 30px;
+}
+.picture li:nth-child(3){
+	align-self:flex-end;
+	position: absolute;
+	top: 30px;
+}
+
+
+
 </style>
 
 </head>
@@ -150,6 +183,7 @@ margin-right : 7px;
 		Dao dao = Dao.getInstance();
 		List<Post> mainlikepost = dao.mainLikeSelect();
 		List<Post> ubselect = dao.ubSelect();
+		List<Post> ubselect2 = dao.ubSelect2();
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
@@ -324,6 +358,30 @@ margin-right : 7px;
 										<a href="anolist.jsp?board=mustGo" style="user-select: auto; letter-spacing:-5px;">더보기</a>
 									</div>
 								</div>
+								<ul class="picture">
+										<%
+											for (int i = 0; i < ubselect2.size(); i++) {
+												Post p2 = ubselect2.get(i);
+										%>
+									 	<li id="space">
+									 	<%
+									 	ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+							            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+							            
+										File viewImg = new File(realFolder+"/"+p2.getPostNum()+"사진.jpg");
+							            System.out.println(viewImg);
+							            if(viewImg != null){
+									 	%>
+									    <img src="bbsUpload/<%=p2.getPostNum()%>사진.jpg" alt="사진" style="border-radius:20px" width="150px" height="150px">
+										<a href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle" style="font-size:20px; 
+										letter-spacing:-3px; overflow:hidden;"><%=p2.getTitle()%></a>
+								
+									</li>
+									<%
+											}
+										}
+									%>
+									</ul>
 							</div>
 						</div>
 					</div>
@@ -335,7 +393,7 @@ margin-right : 7px;
 						<div class="col-md-6" >
 							<table width="500px" height="290px" style="margin-top:10px">
 								<tr>
-									<form name="form1" method="get">
+									<form name="form1" method="post">
 										<input type="hidden" name="year" value="2023"> <input
 											type="hidden" name="month" value="01"> <input
 											type="hidden" name="cur_month" value="01"> <input
