@@ -119,10 +119,14 @@
 					<%}
 					//페이징
 					int j;
-					for( j= startPage; j<= endPage; j++){%>
+					for( j= startPage; j<= endPage; j++){
+					if(j == postpage){%>
+						<button style="background-color:red" class="pageBtn" value=<%=j %>><%=j%></button>
+						<%}else{
+					%> 
 						<button class="pageBtn" value=<%=j %>><%=j%></button>
 					<%}
-					
+					}
 					// 다음이라는 링크 만들건지 
 					if(endPage < pageCount){%>
 						<button class="pageBtn" value=<%=startPage+5%>>다음</button>

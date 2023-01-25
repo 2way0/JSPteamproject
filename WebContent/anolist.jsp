@@ -286,11 +286,11 @@ position: relative
 					//페이징
 					int ii;
 					for( ii = startPage; ii<= endPage; ii++){
+						//  현재 페이지 색 
 						if(ii == postpage){%>
 							<button style="background-color:red"><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
 						<%}else{
-					%> 
-						<!-- 현재 페이지 색 -->
+					%> 	
 						<button ><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
 					<%}
 					}
