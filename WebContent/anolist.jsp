@@ -87,7 +87,16 @@ position: relative
 						<li><a href="myPage.jsp"
 							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
 					</ul>
-
+					
+					
+					<form method="post" action="searchedList.jsp"
+								class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
+								id="search">
+								<input type="search"
+									class="form-control form-control-dark text-bg-white"
+									placeholder="검색..." aria-label="Search"
+									name="searchWord">
+							</form>
 					<%
 				if(userID == null){
 			%>
@@ -275,11 +284,16 @@ position: relative
 						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage-5%>">이전</a></button>
 					<%}
 					//페이징
-					
-					for(int i = startPage; i<= endPage; i++){%>
-						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=i%>"><%=i %></a></button>
+					int ii;
+					for( ii = startPage; ii<= endPage; ii++){
+						if(ii == postpage){%>
+							<button style="background-color:red"><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
+						<%}else{
+					%> 
+						<!-- 현재 페이지 색 -->
+						<button ><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
 					<%}
-					
+					}
 					// 다음이라는 링크 만들건지 
 					if(endPage < pageCount){%>
 						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage+5%>">다음</a></button>
@@ -289,7 +303,7 @@ position: relative
 				%>
 		</div>
 		<% if(session.getAttribute("userID") != null){%>
-	<a href="write.jsp" class="btn btn-success offset-10"
+	<a href="write.jsp?board=<%=postBoard %>" class="btn btn-success offset-10"
 									style="width: 75px; letter-spacing:-2px;">글쓰기</a>
 	<%} %>
 		</section>

@@ -208,7 +208,15 @@ padding-bottom: 10px;*/
 						<li><a href="myPage.jsp"
 							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
 					</ul>
-
+					
+						<form method="post" action="searchedList.jsp"
+								class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
+								id="search">
+								<input type="search"
+									class="form-control form-control-dark text-bg-white"
+									placeholder="검색..." aria-label="Search"
+									name="searchWord">
+							</form>
 					<%
 				if(userID == null){
 			%>
