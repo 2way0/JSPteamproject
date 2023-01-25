@@ -41,53 +41,6 @@ margin-top : 0px;
 position: relative
 }
 
-
-/* #wrapper{
-	position: relative;
-} */
-
-#page {
-	width: 140px;
-	bottom: -60px;
-	height: 50px;
-	left: 300px;
-	background: red;
-	position: absolute;
-	overflow: hidden;
-	display: inline;
-}
-#pageBtn {
-
-	width: 1000px;
-	position: absolute;
-	margin-left: -10px;
-	
-
-}
-#pgNumber {
-	border: 1px solid gray;
-
-
-}
-
-#before {
-	border: 1px solid gray;
-	width: 50px;
-	bottom: -40px;
-	height: 30px;
-	left: 240px;
-	position: absolute;
-}
-
-#next {
-	border: 1px solid gray;
-	width: 50px;
-	bottom: -40px;
-	height: 30px;
-	left: 450px;
-	position: absolute;
-}
-
 </style>
 
 </head>
@@ -279,25 +232,38 @@ position: relative
 
 		<!-- 페이징 -->
 		
-		<div id="page">
-		
-			<label id="pageBtn">
+		<div>
 				<%
-					//페이징
-					for (int i = 1; i <= lastPostpage; i++) {
-						//out.print("<a href='anolist2.jsp?postpage= "+i+"'>"+i+"</a> ");
-						//위에처럼 해도 되고 아래처럼 해도 된다 - postpage 값 전달 되도록
-				%>
-				<button id="pgNumber">
-					<a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=i%>"><%=i%></a>
-				</button>
-				<%
+				if(totalPost > 0){
+					int pageCount = totalPost/ 10 +(totalPost % 10 == 0? 0:1);
+					int startPage = 1;
+					if(postpage % 5 != 0){
+						startPage = (int)(postpage/5)*5+1;
+					}else{
+						startPage = ((int)(postpage/5)-1)*5+1;
 					}
+					int pageBlock = 5;
+					int endPage = startPage + pageBlock - 1;
+					if(endPage > pageCount) endPage = pageCount;
+					
+					// 이전이라는 링크 만들건지 
+					if(startPage > 5){ %>
+						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage-5%>">이전</a></button>
+					<%}
+					//페이징
+					
+					for(int i = startPage; i<= endPage; i++){%>
+						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=i%>"><%=i %></a></button>
+					<%}
+					
+					// 다음이라는 링크 만들건지 
+					if(endPage < pageCount){%>
+						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage+5%>">다음</a></button>
+					<%}
+				}
+				
 				%>
-				</label>
 		</div>
-		<button id="before">이전</button>
-		<button id="next" onclick="next()">다음</button>
 		</section>
 	</div>
 	</div>
