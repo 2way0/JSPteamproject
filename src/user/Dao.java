@@ -239,38 +239,59 @@ public class Dao {
 		}
 		
 		//검색한 단어 포함한 게시물 목록 불러오기
-		public List<Post> selectSearchedList(String searchWord){
-			List<Post> searchedList = new ArrayList<>();
-			
-			String sql = "select * from post where onoff=1 "
-					+ "and (title like '%"+searchWord+"%' "
-							+ "or content like '%"+searchWord+"%')";
-			Post post = null;
-			try {
-				PreparedStatement pstm = conn.prepareStatement(sql);
-				ResultSet rs = pstm.executeQuery();
-				while(rs.next()) {
-					int postNum = rs.getInt("postNum");
-					int studentNum = rs.getInt("studentNum");
-					String title = rs.getString("title");
-					String content = rs.getString("content");
-					String date =  rs.getString("date");
-					String board =  rs.getString("board");
-					int onoff =  rs.getInt("onoff");
-					post = new Post(postNum, studentNum, title, content, date, board, onoff); 
-					searchedList.add(post);
+				public List<Post> selectSearchedList(String searchWord, int index_no){
+					List<Post> searchedList = new ArrayList<>();
+					
+					String sql = "select * from post where onoff=1 "
+							+ "and (title like '%"+searchWord+"%' "
+									+ "or content like '%"+searchWord+"%') order by postNum desc limit "+index_no+", 10";
+					Post post = null;
+					try {
+						PreparedStatement pstm = conn.prepareStatement(sql);
+						ResultSet rs = pstm.executeQuery();
+						while(rs.next()) {
+							int postNum = rs.getInt("postNum");
+							int studentNum = rs.getInt("studentNum");
+							String title = rs.getString("title");
+							String content = rs.getString("content");
+							String date =  rs.getString("date");
+							String board =  rs.getString("board");
+							int onoff =  rs.getInt("onoff");
+							post = new Post(postNum, studentNum, title, content, date, board, onoff); 
+							searchedList.add(post);
+						}
+						rs.close();
+						pstm.close();
+						System.out.println("검색한 게시글 목록 리턴");
+						return searchedList;
+						
+					}catch(Exception e) {
+						e.printStackTrace();
+						System.out.println("selectSearchedList() 에러");
+					}
+					return null;
 				}
-				rs.close();
-				pstm.close();
-				System.out.println("검색한 게시글 목록 리턴");
-				return searchedList;
 				
-			}catch(Exception e) {
-				e.printStackTrace();
-				System.out.println("selectSearchedList() 에러");
-			}
-			return null;
-		}
+				//검색한 단어 포함한 게시물 개수
+				public int countSearchedPostAll(String searchWord){
+					String sql = "select count(*) total from post where onoff=1 "
+							+ "and (title like '%"+searchWord+"%' "
+							+ "or content like '%"+searchWord+"%')"
+					;
+					try {
+						PreparedStatement pstm = conn.prepareStatement(sql);
+						ResultSet rsTot = pstm.executeQuery();
+						rsTot.next();
+						int total = rsTot.getInt("total");
+						System.out.println("총 게시물 개수 : "+total+"리턴완료");
+						return total;
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println("countPostAll() 에러");
+					}
+					return  0;
+				}
 		
 		// -------------------글쓰기--------------
 		

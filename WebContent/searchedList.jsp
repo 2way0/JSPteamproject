@@ -119,15 +119,27 @@ color: #FF0000;
 color: #0055FF;
 }
 
-a {
-	color: black;
-	text-decoration: none;
-}
-
 </style>
 </head>
 <body>
 <%
+		
+		//페이지 누르면 값 가져오기
+
+		String postpg = request.getParameter("postpage");
+	    //String postbo = request.getParameter("board");
+	    //System.out.println("안ㄴ"+postpg+postbo);
+		if (postpg == null) {
+			postpg = "1";
+		}
+		int postpage = Integer.parseInt(postpg);
+		//1->0 ; 2-> 10
+		int index_no = (postpage - 1) * 10;
+		System.out.println("num"+index_no);
+		
+		
+		
+		
 		String searchWord = null;
 		if(request.getParameter("searchWord")!=null){
 			searchWord = (String) request.getParameter("searchWord");
@@ -148,7 +160,14 @@ a {
 <%
 	//DB연결, 검색한 게시글 목록 불러오기
 	Dao dao = Dao.getInstance();
-	List<Post> searchedList = dao.selectSearchedList(searchWord);
+	List<Post> searchedList = dao.selectSearchedList(searchWord, index_no);
+	
+	int totalPost = 0;
+	int lastPostpage = 0;
+	
+	totalPost = dao.countSearchedPostAll(searchWord);
+	lastPostpage = (int) Math.ceil((double) totalPost / 10);
+
 
 %>
 
@@ -161,9 +180,22 @@ a {
            %>
                <li>
                    <article>
-                       <div id="profile">     
-                           <img src="image/blankProfile.jpg" alt="프로필사진">
-                           <div id="ano">익명</div>
+                       <div id="profile">   
+                       <%
+                       if(searchedList.get(i).getBoard().equals("익명게시판")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano">익명</div>
+
+						<%}else if (searchedList.get(i).getBoard().equals("맛집게시판")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano"></div>
+							
+						<%
+						}
+						%>
+						  
                            <div id="date"><%=searchedList.get(i).getDate() %></div>
                        </div>
                        <h1>
@@ -199,7 +231,40 @@ a {
                <%}%>
                
            </ul>
+           <div>
+				<%
+				if(totalPost > 0){
+					int pageCount = totalPost/ 10 +(totalPost % 10 == 0? 0:1);
+					int startPage = 1;
+					if(postpage % 5 != 0){
+						startPage = (int)(postpage/5)*5+1;
+					}else{
+						startPage = ((int)(postpage/5)-1)*5+1;
+					}
+					int pageBlock = 5;
+					int endPage = startPage + pageBlock - 1;
+					if(endPage > pageCount) endPage = pageCount;
+					
+					// 이전이라는 링크 만들건지 
+					if(startPage > 5){ %>
+						<button><a href="searchedList.jsp?postpage=<%=startPage-5%>&searchWord=<%=searchWord%>">이전</a></button>
+					<%}
+					//페이징
+					
+					for(int i = startPage; i<= endPage; i++){%>
+						<button><a href="searchedList.jsp?postpage=<%=i%>&searchWord=<%=searchWord%>"><%=i %></a></button>
+					<%}
+					
+					// 다음이라는 링크 만들건지 
+					if(endPage < pageCount){%>
+						<button><a href="searchedList.jsp?postpage=<%=startPage+5%>&searchWord=<%=searchWord%>">다음</a></button>
+					<%}
+				}
+				
+				%>
+				</div>
        </section>
+       
    </div>
 
 </body>
