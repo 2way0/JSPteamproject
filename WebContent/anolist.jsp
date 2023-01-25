@@ -187,6 +187,12 @@ position: relative
 	<div class="container-fluid" id="wrapper2">
 	<div id="wrapper">
 		<section id="content" style="background-color:white">
+		<!-- 게시판 구분 표시 -->
+		<%  if(postBoard.equals("ano")){%>		
+			<h1>익명게시판</h1>
+			<%}else if (postBoard.equals("mustGo")){%>
+			<h1>맛집게시판</h1>
+		<%} %>
 			<ul>
 				<%
 					for (int i = 0; i<postlist.size(); i++) {
