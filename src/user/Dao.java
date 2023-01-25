@@ -326,7 +326,7 @@ public class Dao {
 		// 메인페이지 익명게시판 정보 불러오기
 		public List<Post> ubSelect(){
 			List<Post> postList = new ArrayList<>();
-			String sql = "select postNum, title, date from post where board = '익명게시판' and onoff=1 order by date desc limit 0,6";
+			String sql = "select postNum, title, date from post where board = '익명게시판' and onoff=1 order by date desc limit 0,7";
 			Post post = null;
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
