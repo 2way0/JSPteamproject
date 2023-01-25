@@ -27,6 +27,15 @@ body {
   
 }
 
+a {
+	color: white;
+	text-decoration: none;
+}
+
+#sign-color {
+	color: black;
+}
+
 body {
   display: flex;
   align-items: center;
