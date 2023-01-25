@@ -79,21 +79,14 @@ position: relative
 						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
 						style="align-items: center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
+						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
 						<li><a href="anolist.jsp?board=ano"
-							class="nav-link px-2 text-secondary">익명 게시판</a></li>
+							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
 						<li><a href="anolist.jsp?board=mustGo"
-							class="nav-link px-2 text-secondary">맛집 게시판</a></li>
+							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">맛집 게시판</a></li>
 						<li><a href="myPage.jsp"
-							class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
+							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
 					</ul>
-					<%--검색 --%>
-					<form method="post" action="searchedList.jsp"
-						class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-						<input type="search"
-							class="form-control form-control-dark text-bg-white"
-							placeholder="Search..." aria-label="Search" name="searchWord">
-					</form>
 
 					<%
 				if(userID == null){
@@ -112,11 +105,27 @@ position: relative
 				} else {
 			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
+						<button type="button" class="btn btn-warning me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<a href="logoutAction.jsp">LogOut</a>
 						</button>
-
+						<a href="myPage.jsp">
+						<%
+						int studentNum = (int) session.getAttribute("studentNum");
+						//프로필 사진(경로에 사진 없으면 기본이미지)
+						ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+			            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+			            
+						File viewImg = new File(realFolder+"/"+studentNum+"프로필사진.jpg");
+						if(viewImg.exists()){
+						%>
+						<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<%} else { %>
+						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<%} %>
+						
+						
+						</a>
 					</div>
 					<%		
 				}
@@ -210,11 +219,11 @@ position: relative
 						
 						
 						<h1>
-							<a href="view.jsp?postNum=<%=p.getPostNum()%>">
+							<a href="view.jsp?postNum=<%=p.getPostNum()%>" style="letter-spacing:-2px;">
 								<%=p.getTitle()%></a>
 						</h1>
 						<p>
-							<a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>">
+							<a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>" style="letter-spacing:-2px;">
 								<%=p.getContent()%></a>
 						</p>
 						<div id="like-comment">
@@ -279,13 +288,14 @@ position: relative
 				
 				%>
 		</div>
+		<% if(session.getAttribute("userID") != null){%>
+	<a href="write.jsp" class="btn btn-success offset-10"
+									style="width: 75px; letter-spacing:-2px;">글쓰기</a>
+	<%} %>
 		</section>
 	</div>
 	</div>
-	<% if(session.getAttribute("userID") != null){%>
-	<a href="write.jsp" class="btn btn-success offset-10"
-									style="width: 75px;">글쓰기</a>
-	<%} %>
+	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
