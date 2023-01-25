@@ -331,7 +331,17 @@ li {
 					style="width: 100%; height: 100%; border-color: black;"
 					class="form-control" placeholder="댓글을 입력하세요"></textarea>
 				<div class = "a">
+				<%
+					if(userID != null) {
+				%>
 				<input type="submit" value="댓글저장" id="saveComment">
+				<%
+					} else {
+				%>
+				<input type="submit" value="댓글저장" disabled id="saveComment">
+				<%
+					}
+				%>
 				</div>
 			</form>
 		</div>

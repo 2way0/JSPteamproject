@@ -45,9 +45,21 @@
            %>
                <li>
                    <article>
-                       <div id="profile">     
-                           <img src="image/blankProfile.jpg" alt="프로필사진">
-                           <div id="ano">익명</div>
+                        <div id="profile">   
+                       <%
+                       if(postlist.get(i).getBoard().equals("익명게시판")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano">익명</div>
+
+						<%}else if (postlist.get(i).getBoard().equals("맛집게시판")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano"></div>
+							
+						<%
+						}
+						%>
                            <div id="date"><%=postlist.get(i).getDate() %></div>
                        </div>
                        <h1>

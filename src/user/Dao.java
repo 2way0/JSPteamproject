@@ -716,7 +716,7 @@ public class Dao {
 //		like_table  ----------------------------------------------------------
 		public List<Post> selectLikeID(int idStudentNum,int index_no){
 			List<Post> likeList = new ArrayList<>();
-			String sql = "select l.postNum, p.title, p.content, p.date " + 
+			String sql = "select l.postNum, p.title, p.content, p.date, p.board " + 
 					"from like_table l, post p " + 
 					"where l.postNum = p.postNum and l.studentNum = ? order by postNum desc limit ?,5";
 			Post like = null;
@@ -730,7 +730,8 @@ public class Dao {
 					String title = rs.getString("title");
 					String content = rs.getString("content");
 					String date = rs.getString("date");
-					like = new Post(postNum,title, content,date); 
+					String board = rs.getString("board");
+					like = new Post(postNum,title, content,date, board); 
 					likeList.add(like);
 				}
 				rs.close();

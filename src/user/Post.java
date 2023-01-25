@@ -28,12 +28,13 @@ public class Post implements Comparable<Post>{
 
 
 
-	public Post(int postNum, String title, String content, String date) {
+	public Post(int postNum, String title, String content, String date, String board) {
 		super();
 		this.postNum = postNum;
 		this.title = title;
 		this.content = content;
 		this.date = date;
+		this.board = board;
 	}
 
 	public Post(int postNum, String title, String date) {
