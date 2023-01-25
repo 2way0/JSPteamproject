@@ -61,7 +61,7 @@
 							File viewImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
 				            
 							if(viewImg.exists()){%>
-								<img id="img" src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진">
+								<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진">
 							<%} else { %>
 								<img src="image/blankProfile.jpg" alt="프로필사진">
 							<%}

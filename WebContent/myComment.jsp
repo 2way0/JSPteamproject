@@ -46,12 +46,12 @@
            %>
                <li>
                    <article>
-                       <div id="profile"> 
+                       
                        <h1>
                        <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
                        <%=commentList.get(i).getTitle() %></a>
                        </h1>    
-                       </div>
+                      
                        <div id="date"><%=commentList.get(i).getDate() %></div>
                        <p>
                        <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
