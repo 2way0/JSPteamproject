@@ -1,3 +1,4 @@
+<%@page buffer = "1kb" %>
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
@@ -55,28 +56,12 @@ if(fileName != null) {
 	      File newFile = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
 	      oldFile.renameTo(newFile);
 	      System.out.println("저장된 파일 이름: "+newFile);
-	      %>
-	         <script>
-	         window.addEventListener('DOMContentLoaded', function() {
-	   	      alert("프로필 사진이 변경되었습니다.");
-	   	      window.location.href = 'myPage.jsp';	
-	   	    	})
-	         </script>
-	      
-	   <%} else { //사진업로드
+	      } else { //사진업로드
 	      File oldFile = new File(realFolder+"\\"+fileName);
 	      File newFile = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
 	      oldFile.renameTo(newFile);
 	      System.out.println("저장된 파일 이름: "+newFile);
-	      %>
-	      <script>
-	      window.addEventListener('DOMContentLoaded', function() {
-	      alert("프로필 사진이 변경되었습니다.");
-	      window.location.href = 'myPage.jsp';	
-	    	})
-	      </script>
-	      
-	   <% }
+	       }
 
 	
 }
