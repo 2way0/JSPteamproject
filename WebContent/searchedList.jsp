@@ -218,7 +218,14 @@ a {
 						<li><a href="myPage.jsp"
 							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
 					</ul>
-
+						<form method="post" action="searchedList.jsp"
+								class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
+								id="search">
+								<input type="search"
+									class="form-control form-control-dark text-bg-white"
+									placeholder="검색..." aria-label="Search"
+									name="searchWord">
+							</form>
 					<%
 				if(userID == null){
 			%>
@@ -271,7 +278,7 @@ a {
 <%-- 실제 검색한 것이 나오는 장소 --%>
 <div id="wrapper">
        <section id="content">
-       <h1 style="letter-spacing:-3px; margin-bottom:35px;">검색결과 <%=searchedList.size() %>건 존재합니다</h1>
+       <h1 style="letter-spacing:-3px; margin-bottom:35px;">검색결과 <%=totalPost %>건 존재합니다</h1>
            <ul>
            <%
            		for (int i = 0; i <= searchedList.size() - 1; i++) {
