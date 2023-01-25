@@ -223,12 +223,26 @@ position: relative
 				<%
 					for (int i = 0; i<postlist.size(); i++) {
 						Post p = postlist.get(i);
+						
 				%>
 				<li>
 					<article>
 						<div id="profile">
+						<%
+						if(postBoard.equals("ano")){%>
+						
 							<img src="image/blankProfile.jpg" alt="프로필사진">
 							<div id="ano">익명</div>
+
+						<%}else if (postBoard.equals("mustGo")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano"></div>
+							
+						<%
+						}
+						%>
+							
 							<div id="date"><%=p.getDate()%></div>
 						</div>
 						<h1>
