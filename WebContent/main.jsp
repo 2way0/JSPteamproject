@@ -109,6 +109,19 @@ a {
 	margin-bottom: 20px;
 	padding: 15px;
 }
+
+.board li {
+	list-style: none;
+}
+
+.ubDate {
+	font-size: 12px;
+}
+
+#likeboard li {
+	list-style: none;
+}
+
 </style>
 
 </head>
@@ -122,9 +135,16 @@ a {
 
 	<%
 		String userID = null;
+		int loginStudentNum = 0;
 		if(session.getAttribute("userID") != null){
 			userID = (String) session.getAttribute("userID");
+			loginStudentNum = (int) session.getAttribute("studentNum");
 		}
+		
+		//DB연결, post테이블정보 담은 리스트
+		Dao dao = Dao.getInstance();
+		List<Post> mainlikepost = dao.mainLikeSelect();
+		List<Post> ubselect = dao.ubSelect();
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
@@ -220,7 +240,46 @@ a {
 					</div>
 					<div class="row" id="centerLine3">
 						<div class="col-md-12">
-							<div id="coolboard"></div>
+							<div id="coolboard">
+								<div id="likeboard">
+									<p style="font-size: 25px; font-weight: bold; margin: 10px;">실시간 인기글</p>
+									<div>
+										<ul>
+											<%
+												for (int i = 0; i < mainlikepost.size(); i++) {
+													Post l = mainlikepost.get(i);
+											%>
+											<li>
+												<a href="view.jsp?postNum=<%=l.getPostNum()%>" class="likeTitle"><%=l.getTitle()%></a>
+												<div id="like-comment">
+													<span id="like"> 
+														<%
+														 	int likeOnOff = dao.LikeOnOff(l.getPostNum(), loginStudentNum);
+													 		int countLike = dao.countLikePost(l.getPostNum());
+													 		int countComment = dao.countCommentPost(l.getPostNum());
+													
+													 		if (likeOnOff == 0) {
+														 %> 
+														 <img src="image/OFF.png" alt="좋아요 수"> <%=countLike%> 
+														 <%
+														 	} else {
+														 %> 
+														 <img src="image/ON.png" alt="좋아요 수"> <%=countLike%> 
+														 <%
+														 	}
+														 %>
+													</span> <span id="comment"> <img src="image/icon_comment.png"
+														alt="댓글 수"> <%=countComment%>
+													</span>
+												</div>
+											</li>
+											<%
+												}
+											%>
+										</ul>								
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row" id="centerLine4">
@@ -234,6 +293,19 @@ a {
 										<a href="anolist.jsp?board=ano" style="user-select: auto; letter-spacing:-5px;">더보기</a>
 									</div>
 								</div>
+								<ul>
+									<%
+										for (int i = 0; i < ubselect.size(); i++) {
+											Post p = ubselect.get(i);
+									%>
+									<li>
+										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle"><%=p.getTitle()%></a>
+										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubDate"><%=p.getDate()%></a>
+									</li>
+									<%
+										}
+									%>
+								</ul>
 							</div> 
 						</div>
 						<div class="col-md-6">

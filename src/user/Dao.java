@@ -293,6 +293,64 @@ public class Dao {
 			return  0;
 		}
 		
+		// 메인페이지 인기글 정보 불러오기
+		public List<Post> mainLikeSelect(){
+			List<Post> postList = new ArrayList<>();
+			String sql = "select p.postNum, p.title from post p, (select postNum, count(*) likeAll from like_table \r\n" + 
+					"	group by postNum order by likeAll desc limit 0,7) l\r\n" + 
+					"    where p.postNum = l.postNum and p.onoff=1 order by l.likeAll desc;";
+			Post post = null;
+			
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery();
+				while(rs.next()) {
+					int postNum = rs.getInt("p.postNum");
+					String title = rs.getString("p.title");
+					post = new Post(postNum, title); 
+					postList.add(post);
+				}
+				rs.close();
+				pstm.close();
+				System.out.println("게시글 전체 목록 리턴");
+				return postList;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("selectPostAll() 에러");
+			}
+			
+			return null;
+		}
+		
+		// 메인페이지 익명게시판 정보 불러오기
+		public List<Post> ubSelect(){
+			List<Post> postList = new ArrayList<>();
+			String sql = "select postNum, title, date from post where board = '익명게시판' and onoff=1 order by date desc limit 0,6";
+			Post post = null;
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				ResultSet rs = pstm.executeQuery();
+				while(rs.next()) {
+					int postNum = rs.getInt("postNum");
+					String title = rs.getString("title");
+					String date = rs.getString("date");
+					post = new Post(postNum, title, date); 
+					postList.add(post);
+				}
+				rs.close();
+				pstm.close();
+				System.out.println("게시글 전체 목록 리턴");
+				return postList;
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				System.out.println("selectPostAll() 에러");
+			}
+			
+			return null;
+		}
+		
 		// -------------------글쓰기--------------
 		
 		
@@ -332,43 +390,40 @@ public class Dao {
 		}
 		
 	
-			//게시판 이름(익명게시판)
-				public String getBoard() {
-					String sql = "select board from post order by postNum desc";
-					try {
-						PreparedStatement psmt = conn.prepareStatement(sql);
-						ResultSet rs = psmt.executeQuery();
-						if(rs.next()) {
-						return rs.getString(1);
-						}
-						return sql; // 
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
-					return sql; // 
-				}				
-		
-				//익명 게시판 글쓰기
-				public int write(String title, int studentNum, String content, String board) {
-					String sql = "insert into post values(?,?,?,?,?,?,?)";
-					try {
-						PreparedStatement psmt = conn.prepareStatement(sql);
-						psmt.setInt(1, getNext());
-						psmt.setInt(2, studentNum);
-						psmt.setString(3, title);
-						psmt.setString(4, content);
-						psmt.setString(5, getDate());
-						psmt.setString(6, board);
-						psmt.setInt(7, 1);
-						return psmt.executeUpdate(); // 
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
-					return -1; //
+		//게시판 이름(익명게시판)
+		public String getBoard() {
+			String sql = "select board from post order by postNum desc";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				ResultSet rs = psmt.executeQuery();
+				if(rs.next()) {
+				return rs.getString(1);
 				}
+				return sql; // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return sql; // 
+		}				
 		
-		
-		
+		//익명 게시판 글쓰기
+		public int write(String title, int studentNum, String content, String board) {
+			String sql = "insert into post values(?,?,?,?,?,?,?)";
+			try {
+				PreparedStatement psmt = conn.prepareStatement(sql);
+				psmt.setInt(1, getNext());
+				psmt.setInt(2, studentNum);
+				psmt.setString(3, title);
+				psmt.setString(4, content);
+				psmt.setString(5, getDate());
+				psmt.setString(6, board);
+				psmt.setInt(7, 1);
+				return psmt.executeUpdate(); // 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return -1; //
+		}
 		
 		// 글 수정
 		public int update(int postNum, String title, String content) {
@@ -497,57 +552,57 @@ public class Dao {
 	
 
 	// 학번으로 유저 한명 정보 불러오기
-			public User selectUserOne(int num){
-				String sql = "select studentNum, userID, nickName, pw, email from user "
-						+ "where studentNum = ?";
-				User user = null;
-				try {
-					PreparedStatement pstm = conn.prepareStatement(sql);
-					pstm.setInt(1, num); //물음표 안에 int num값.
-					ResultSet rs = pstm.executeQuery();
-					while(rs.next()) {
-						int studentNum = rs.getInt("studentNum");
-						String userID =  rs.getString("userID");
-						String nickName =  rs.getString("nickName");
-						String pw =  rs.getString("pw");
-						String email =  rs.getString("email");
-						user = new User(studentNum,userID,nickName,pw,email);
-					}
-					rs.close();
-					pstm.close();
-					System.out.println("학번으로 유저 정보 불러오기");
-					return user;
-					
-				}catch(Exception e) {
-					e.printStackTrace();
-					System.out.println("selectUserOne() 에러");
-				}
-				return null;
+	public User selectUserOne(int num){
+		String sql = "select studentNum, userID, nickName, pw, email from user "
+				+ "where studentNum = ?";
+		User user = null;
+		try {
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, num); //물음표 안에 int num값.
+			ResultSet rs = pstm.executeQuery();
+			while(rs.next()) {
+				int studentNum = rs.getInt("studentNum");
+				String userID =  rs.getString("userID");
+				String nickName =  rs.getString("nickName");
+				String pw =  rs.getString("pw");
+				String email =  rs.getString("email");
+				user = new User(studentNum,userID,nickName,pw,email);
 			}
+			rs.close();
+			pstm.close();
+			System.out.println("학번으로 유저 정보 불러오기");
+			return user;
 			
-			//유저 정보 수정
-			public int updateUser(User user) {
-				String sql = "update user set nickname=?, pw=?, email=?"
-						+ " where studentNum=?";
-				
-				try {
-					PreparedStatement pstm = conn.prepareStatement(sql);
-					
-					pstm.setString(1, user.getNickName());
-					pstm.setString(2, user.getPw());
-					pstm.setString(3, user.getEmail());
-					pstm.setInt(4, user.getStudentNum());
-					int res = pstm.executeUpdate();
-					System.out.println("처리된 행의 개수:"+res);
-					pstm.close();
-					return res;
-				} catch (SQLException e) {
-					e.printStackTrace();
-					System.out.println("updateUser() 에러");
-				}
-				return 0;
-				
-			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("selectUserOne() 에러");
+		}
+		return null;
+	}
+	
+	//유저 정보 수정
+	public int updateUser(User user) {
+		String sql = "update user set nickname=?, pw=?, email=?"
+				+ " where studentNum=?";
+		
+		try {
+			PreparedStatement pstm = conn.prepareStatement(sql);
+			
+			pstm.setString(1, user.getNickName());
+			pstm.setString(2, user.getPw());
+			pstm.setString(3, user.getEmail());
+			pstm.setInt(4, user.getStudentNum());
+			int res = pstm.executeUpdate();
+			System.out.println("처리된 행의 개수:"+res);
+			pstm.close();
+			return res;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("updateUser() 에러");
+		}
+		return 0;
+		
+	}
 			
 	
 //	--------------------------------------------------------------------

@@ -36,6 +36,18 @@ public class Post implements Comparable<Post>{
 		this.date = date;
 	}
 
+	public Post(int postNum, String title, String date) {
+		super();
+		this.postNum = postNum;
+		this.title = title;
+		this.date = date;
+	}
+	
+	public Post(int postNum, String title) {
+		super();
+		this.postNum = postNum;
+		this.title = title;
+	}
 	
 	public Post(String title, String content) {
 		super();
@@ -43,14 +55,9 @@ public class Post implements Comparable<Post>{
 		this.content = content;
 	}
 
+	public Post() {}
+
 	
-
-	public Post() {
-		super();
-	}
-
-
-
 	// getter, setter
 	public int getPostNum() {
 		return postNum;
