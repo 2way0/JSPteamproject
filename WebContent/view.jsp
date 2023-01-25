@@ -288,7 +288,7 @@ li {
                            </span>
                            <span id="comment">
                                <img src="image/icon_comment.png" alt="댓글 수"> <%=countComment %>
-                           </span>-
+                           </span>
                        </div>
                    </article>
                </li>
