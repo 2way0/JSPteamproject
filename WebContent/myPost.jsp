@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 </head>
-<body> 
+<body>
 	<!-- 글목록 부분 -->
 	<%
 	String userID = null;
@@ -26,7 +26,7 @@
 	}
 	int postpage = Integer.parseInt(postpg);
 	//1->0 ; 2-> 10
-	int index_no = (postpage - 1) * 10;
+	int index_no = (postpage - 1) * 5;
 
 	//DB연결, post테이블정보 담은 리스트
 	Dao dao = Dao.getInstance();
@@ -35,7 +35,7 @@
 	//내가 작성한 총 게시물 개수
 	int totalPost = dao.countPostID(studentNum);
 	//
-	int lastPostpage = (int) Math.ceil((double) totalPost / 10);
+	/* int lastPostpage = (int) Math.ceil((double) totalPost / 5); */
 	%>
 	
 	<div id="showPage">
@@ -85,23 +85,40 @@
                <%} %>
                
            </ul>
-		
-
+           
 		<!-- 페이징 -->
-		<div style="width: 600px; text-align: center; margin-top: 10px;">
-			<%
-				//페이징
-				int i;
-				for (i = 1; i <= lastPostpage; i++) {
-					//out.print("<a href='anolist2.jsp?postpage= "+i+"'>"+i+"</a> ");
-					//위에처럼 해도 되고 아래처럼 해도 된다 - postpage 값 전달 되도록
-			%>
-			<%-- <button id="pageBtn<%=i%>"><%=i%></button> --%>
-			<button class="pageBtn" value=<%=i %>><%=i%></button>
-			<%
+		<div>
+				<%
+				if(totalPost > 0){
+					int pageCount = totalPost/ 5 +(totalPost % 5 == 0? 0:1);
+					int startPage = 1;
+					if(postpage % 5 != 0){
+						startPage = (int)(postpage/5)*5+1;
+					}else{
+						startPage = ((int)(postpage/5)-1)*5+1;
+					}
+					int pageBlock = 5;
+					int endPage = startPage + pageBlock - 1;
+					if(endPage > pageCount) endPage = pageCount;
+					
+					// 이전이라는 링크 만들건지 
+					if(startPage > 5){ %>
+						<button class="pageBtn" value=<%=startPage-5%>>이전</button>
+					<%}
+					//페이징
+					int j;
+					for( j= startPage; j<= endPage; j++){%>
+						<button class="pageBtn" value=<%=j %>><%=j%></button>
+					<%}
+					
+					// 다음이라는 링크 만들건지 
+					if(endPage < pageCount){%>
+						<button class="pageBtn" value=<%=startPage+5%>>다음</button>
+					<%}
 				}
-			%>
-		</div>
+				
+				%>
+				</div>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
