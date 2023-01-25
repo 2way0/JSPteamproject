@@ -242,7 +242,7 @@ li {
                         if(viewFile.exists()){
                     	%>
                     	<br>
-                       <img src="bbsUpload\\<%=postNum%>사진.jpg" width="300px" height="300px">
+                       <img src="bbsUpload\\<%=postNum%>사진.jpg" width="600px" height="600px">
                        <%}
                         
                         String content = post.getContent().replaceAll("\n", "<br/>");
