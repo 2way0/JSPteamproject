@@ -284,11 +284,16 @@ position: relative
 						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage-5%>">이전</a></button>
 					<%}
 					//페이징
-					
-					for(int i = startPage; i<= endPage; i++){%>
-						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=i%>"><%=i %></a></button>
+					int ii;
+					for( ii = startPage; ii<= endPage; ii++){
+						if(ii == postpage){%>
+							<button style="background-color:red"><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
+						<%}else{
+					%> 
+						<!-- 현재 페이지 색 -->
+						<button ><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
 					<%}
-					
+					}
 					// 다음이라는 링크 만들건지 
 					if(endPage < pageCount){%>
 						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage+5%>">다음</a></button>
