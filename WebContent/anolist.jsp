@@ -182,28 +182,42 @@ position: relative
 				<%
 					for (int i = 0; i<postlist.size(); i++) {
 						Post p = postlist.get(i);
+						int studentNum = p.getStudentNum();
 						
 				%>
 				<li>
 					<article>
 						<div id="profile">
+					<%-------------익명게시판 프로필--------------- --%>
 						<%
 						if(postBoard.equals("ano")){%>
 						
 							<img src="image/blankProfile.jpg" alt="프로필사진">
 							<div id="ano">익명</div>
-
-						<%}else if (postBoard.equals("mustGo")){%>
+					<%-------------맛집게시판 프로필--------------- --%>
+						<%}else if (postBoard.equals("mustGo")){
+								//프로필 사진(경로에 사진 없으면 기본이미지)
+								ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+					            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+								File viewImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
+					            
+								if(viewImg.exists()){ %> 
+									<img id="img" src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진">
+								<%} else { %>
+									<img src="image/blankProfile.jpg" alt="프로필사진">
+									<%}
+								//닉네임 불러오기
+									User user = dao.selectUserOne(studentNum);
+									String nickName = user.getNickName();
+									System.out.println("닉네임:"+nickName);
+									%>
+							<div id="ano"><%=nickName %></div>
+							<%} %>
 						
-							<img src="image/blankProfile.jpg" alt="프로필사진">
-							<div id="ano"></div>
-							
-						<%
-						}
-						%>
 							
 							<div id="date"><%=p.getDate()%></div>
 						</div>
+						
 						<h1>
 							<a href="view.jsp?postNum=<%=p.getPostNum()%>" style="letter-spacing:-2px;">
 								<%=p.getTitle()%></a>
