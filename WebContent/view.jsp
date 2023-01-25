@@ -255,22 +255,35 @@ li {
                       	
                        <div id="like-comment">
                            <span id="like">
-                                <button value=<%=postNum%> id="like_btn">
                                 <%
-	                				int countLike = dao.countLikePost(postNum);
+	                           		int countLike = dao.countLikePost(postNum);
 									int countComment = dao.countCommentPost(postNum);
 									int likeOnOff = dao.LikeOnOff(postNum, studentNum);
-									if (likeOnOff == 0) {
-	                            %>
+                           			if(userID != null) {
+                           		%>
+		                            <button value=<%=postNum%> id="like_btn">
+	                                <%
+		                				
+										if (likeOnOff == 0) {
+		                            %>
 	                               <img src="image/OFF.png" alt="좋아요 수" id="like_img">
-	                        	<%
-	                           		 } else {
-	                        	 %>
+		                        	<%
+		                           		 } else {
+		                        	 %>
 	                               <img src="image/ON.png" alt="좋아요 수" id="like_img">
-	                        	<%
-	                          		 };
-	                           %>
-	                           </button> 
+		                        	<%
+		                          		 };
+		                           %>
+	                               </button> 
+		                       <%
+                           			} else {
+		                       %>
+		                       		<button id="like_btn" disabled>
+		                       			<img src="image/OFF.png" alt="좋아요 수" id="like_img">
+		                       		</button> 
+		                       <%
+                           			};
+		                       %>
 	                           <span id="likecount" value=""><%=countLike%></span>
                            </span>
                            <span id="comment">
