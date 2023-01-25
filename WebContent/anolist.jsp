@@ -24,6 +24,9 @@
 
 <!-- 글목록css -->
 <style>
+#wrapper2 {
+background-color: #EBEDF3;
+}
 body{
 	padding-top:87px;
 	
@@ -110,7 +113,7 @@ position: relative
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1;">
+		style="position: fixed; top: 0; width: 100%; z-index: 1; background-color: white !important; border-bottom: 1px solid gray;">
 		<div class="container">
 			<div class="row">
 				<div
@@ -119,49 +122,41 @@ position: relative
 						class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
 
 					<ul
-						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+						style="align-items: center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-white">카테고리</a></li>
-						<li><a href="anolist.jsp" class="nav-link px-2 text-white">게시판</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">1:1 채팅</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">About</a></li>
-						<li>
-							<%
-								if (userID != null) {
-									System.out.println("anolist postBoard"+postBoard);
-							%> <a href="write.jsp?board=<%=postBoard%>"
-							
-							class="btn btn-success offset-10"
-							style="width: 75px; margin-right: 100px"> 글쓰기</a> <%
- 	}
- %>
-						</li>
+						<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
+						<li><a href="anolist.jsp?board=ano"
+							class="nav-link px-2 text-secondary">익명 게시판</a></li>
+						<li><a href="anolist.jsp?board=mustGo"
+							class="nav-link px-2 text-secondary">맛집 게시판</a></li>
+						<li><a href="myPage.jsp"
+							class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
 					</ul>
-
-					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+					<%--검색 --%>
+					<form method="post" action="searchedList.jsp"
+						class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 						<input type="search"
-							class="form-control form-control-dark text-bg-dark"
-							placeholder="Search..." aria-label="Search">
+							class="form-control form-control-dark text-bg-white"
+							placeholder="Search..." aria-label="Search" name="searchWord">
 					</form>
 
-					<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
-
 					<%
-						if (userID == null) {
-					%>
+				if(userID == null){
+			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
+						<button type="button" class="btn btn-outline-dark me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp">Login</a>
+							<a href="login.jsp">로그인</a>
 						</button>
 						<button type="button" class="btn btn-warning" role="button"
 							aria-haspopup="true" aria-expanded="false">
-							<a href="join.jsp" id="sign-color">Sign-up</a>
+							<a href="join.jsp" id="sign-color">회원 가입</a>
 						</button>
 					</div>
 					<%
-						} else {
-					%>
+				} else {
+			%>
 					<div class="text-end">
 						<button type="button" class="btn btn-outline-light me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
@@ -169,9 +164,9 @@ position: relative
 						</button>
 
 					</div>
-					<%
-						}
-					%>
+					<%		
+				}
+			%>
 
 				</div>
 			</div>
@@ -217,8 +212,9 @@ position: relative
 			lastPostpage = (int) Math.ceil((double) totalPost / 10);
 		}
 	%>
+	<div class="container-fluid" id="wrapper2">
 	<div id="wrapper">
-		<section id="content">
+		<section id="content" style="background-color:white">
 			<ul>
 				<%
 					for (int i = 0; i<postlist.size(); i++) {
@@ -303,6 +299,7 @@ position: relative
 		<button id="before">이전</button>
 		<button id="next" onclick="next()">다음</button>
 		</section>
+	</div>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
