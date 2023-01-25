@@ -21,6 +21,16 @@
 
 <!-- 글목록css -->
 <style>
+body{
+	padding-top:87px;
+	 
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
 #wrapper {
 	border: 1px solid rgb(243, 242, 242);
 	max-width: 800px; /*800이하 시 줄어듦*/
@@ -223,6 +233,77 @@ padding-bottom: 10px;*/
 	User user = dao.selectUserOne(studentNum);
 	
 %>
+	<!-- 헤더 -->
+	<header class="p-3 text-bg-dark"
+		style="position: fixed; top: 0; width: 100%; z-index: 1; background-color: white !important; border-bottom: 1px solid gray;">
+		<div class="container">
+			<div class="row">
+				<div
+					class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<a href="/"
+						class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
+
+					<ul
+						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+						style="align-items: center;">
+						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
+						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
+						<li><a href="anolist.jsp?board=ano"
+							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
+						<li><a href="anolist.jsp?board=mustGo"
+							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">맛집 게시판</a></li>
+						<li><a href="myPage.jsp"
+							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
+					</ul>
+
+					<%
+				if(userID == null){
+			%>
+					<div class="text-end">
+						<button type="button" class="btn btn-outline-dark me-2"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							<a href="login.jsp">로그인</a>
+						</button>
+						<button type="button" class="btn btn-warning" role="button"
+							aria-haspopup="true" aria-expanded="false">
+							<a href="join.jsp" id="sign-color">회원 가입</a>
+						</button>
+					</div>
+					<%
+				} else {
+			%>
+					<div class="text-end">
+						<button type="button" class="btn btn-warning me-2"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							<a href="logoutAction.jsp">LogOut</a>
+						</button>
+						<a href="myPage.jsp">
+						<%
+						//프로필 사진(경로에 사진 없으면 기본이미지)
+						ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+			            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+			            
+						File viewImg = new File(realFolder+"/"+studentNum+"프로필사진.jpg");
+						if(viewImg.exists()){
+						%>
+						<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<%} else { %>
+						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<%} %>
+						
+						
+						</a>
+					</div>
+					<%		
+				}
+			%>
+
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	
 	
 	<div id="wrapper">
 	<form  action="profimgAction.jsp" method="post" enctype="multipart/form-data" name="signform">
