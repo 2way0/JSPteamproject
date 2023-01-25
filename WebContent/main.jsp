@@ -121,6 +121,12 @@ a {
 	list-style: none;
 }
 
+#space {
+display : flex;
+justify-content : space-between;
+margin-right : 7px;
+}
+
 </style>
 
 </head>
@@ -241,7 +247,7 @@ a {
 						<div class="col-md-12">
 							<div id="coolboard">
 								<div id="likeboard">
-									<p style="font-size: 25px; font-weight: bold; margin: 10px;">실시간 인기글</p>
+									<p style="font-size: 25px; font-weight: bold; margin: 10px; letter-spacing:-3px;">실시간 인기글</p>
 									<div>
 										<ul>
 											<%
@@ -298,7 +304,7 @@ a {
 										for (int i = 0; i < ubselect.size(); i++) {
 											Post p = ubselect.get(i);
 									%>
-									<li>
+									<li id="space">
 										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle" style="font-size:20px; letter-spacing:-3px;"><%=p.getTitle()%></a>
 										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubDate"><%=p.getDate()%></a>
 									</li>
