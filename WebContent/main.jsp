@@ -193,10 +193,10 @@ a {
 	<%-- 로그인하지않았을때 login버튼, 로그인했을때 logout버튼. --%>
 	<section id="section">
 		<div class="container">
-			<div class="row" id="centerLine" style="background-color: red;">
+			<div class="row" id="centerLine">
 				<div class="col-md-1">Column</div>
 				<div class="col-md-10">
-					<div class="row" id="centerLine2" style="background-color: orange;">
+					<div class="row" id="centerLine2">
 						<div class="col-md-12">
 							<form method="post" action="searchedList.jsp"
 								class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
@@ -208,13 +208,13 @@ a {
 							</form>
 						</div>
 					</div>
-					<div class="row" id="centerLine3" style="background-color: gray;">
+					<div class="row" id="centerLine3"">
 						<div class="col-md-12">
 							<div id="coolboard"></div>
 						</div>
 					</div>
 					<div class="row" id="centerLine4">
-						<div class="col-md-6" style="background-color: aqua;">
+						<div class="col-md-6">
 							<div class="board">
 								<div class="section text" style="user-select: auto;">
 									<h3 style="user-select: auto;">
@@ -226,7 +226,7 @@ a {
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6" style="background-color: blue;">
+						<div class="col-md-6">
 							<div class="board">
 								<div class="section text" style="user-select: auto;">
 									<h3 style="user-select: auto;">
@@ -240,11 +240,11 @@ a {
 						</div>
 					</div>
 					<div class="row" id="centerLine5">
-						<div class="col-md-6" style="background-color: blue;">
+						<div class="col-md-6">
 							<a href="https://www.shinhanlife.co.kr/hp/cdhg0130.do"> <img
 								src="image/newyear.png" id="newyear"></a>
 						</div>
-						<div class="col-md-6" style="background-color: aqua;" >
+						<div class="col-md-6" >
 							<table width="500px" height="290px" style="margin-top:10px">
 								<tr>
 									<form name="form1" method="get">
@@ -269,7 +269,7 @@ a {
 													href="javascript:changeCal('prev')">◀</a></td>
 												<td width="500px">
 													<div align="center">
-														<b><font color="#FF0000">2023년 1월</font></b>
+														<b><font color="black">2023년 1월</font></b>
 													</div>
 												</td>
 												<td><a href="javascript:changeCal('next')">▶</a></td>
@@ -366,8 +366,7 @@ a {
 												<td onClick="iapply('25', '수'); "
 													onMouseOver="this.style.backgroundColor='white'"
 													onMouseOut="this.style.backgroundColor='#F4F4F4'; "
-													height="10" style="cursor: pointer"><font
-													color="#FF0000" size="2"><b>25</b></font></td>
+													height="10" style="cursor: pointer"><b>25</b></td>
 
 												<td onClick="iapply('26', '목'); "
 													onMouseOver="this.style.backgroundColor='white'"
@@ -429,7 +428,7 @@ a {
 							</table>
 						</div>
 					</div>
-					<div class="row" id="centerLine6" style="background-color: purple;">
+					<div class="row" id="centerLine6">
 						<div class="col-md-12">
 							<a href="https://www.choongang.co.kr/html/sub01_06_n.php"> <img
 								src="image/choongang.jpg" id="choongang"></a>
