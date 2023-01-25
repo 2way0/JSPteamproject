@@ -115,7 +115,7 @@ public class Dao {
 	// 해당 아이디가 작성한 게시글 전체 목록 불러오기
 	public List<Post> selectPostID(int idStudentNum,int index_no){
 		List<Post> postList = new ArrayList<>();
-		String sql = "select * from post where onoff=1 and studentNum= ? order by postNum desc limit ?,10";
+		String sql = "select * from post where onoff=1 and studentNum= ? order by postNum desc limit ?,5";
 		Post post = null;
 		try {
 			
@@ -643,7 +643,7 @@ public class Dao {
 		List<Comment> commentList = new ArrayList<>();
 		String sql = "select c.commentNum, c.studentNum, c.postNum, c.commentContent, c.date, p.title " + 
 				"from comment c, post p " + 
-				"where c.postNum = p.postNum and c.studentNum = ? order by date desc limit ?,10";
+				"where c.postNum = p.postNum and c.studentNum = ? order by date desc limit ?,5";
 		Comment comment = null;
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
@@ -718,7 +718,7 @@ public class Dao {
 			List<Post> likeList = new ArrayList<>();
 			String sql = "select l.postNum, p.title, p.content, p.date " + 
 					"from like_table l, post p " + 
-					"where l.postNum = p.postNum and l.studentNum = ? order by postNum desc limit ?,10";
+					"where l.postNum = p.postNum and l.studentNum = ? order by postNum desc limit ?,5";
 			Post like = null;
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);

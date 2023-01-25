@@ -27,7 +27,7 @@
 	}
 	int commentpage = Integer.parseInt(commentpg);
 	//1->0 ; 2-> 10
-	int index_no = (commentpage - 1) * 10;
+	int index_no = (commentpage - 1) * 5;
 
 	//DB연결, comment테이블정보 담은 리스트
 	Dao dao = Dao.getInstance();
@@ -37,7 +37,7 @@
 	//내가 작성한 총 댓글 개수
 	int totalComment = dao.countCommentID(studentNum);
 	//
-	int lastCommentpage = (int) Math.ceil((double) totalComment / 10);
+	/* int lastCommentpage = (int) Math.ceil((double) totalComment / 5); */
 	%>
 	<div id="showPage">
 	<ul>
@@ -64,17 +64,38 @@
 	
 
 	<!-- 페이징 -->
-	<div style="width: 600px; text-align: center; margin-top: 10px;">
-		<%
-		//페이징
-		for (int i = 1; i <= lastCommentpage; i++) {
-			//out.print("<a href='anolist2.jsp?commentpage= "+i+"'>"+i+"</a> ");
-			//위에처럼 해도 되고 아래처럼 해도 된다 - commentpage 값 전달 되도록
-		%>
-		<button class="pageBtn" value=<%=i %>><%=i%></button>
-		<%
-		}
-		%>
+		<div>
+				<%
+				if(totalComment > 0){
+					int pageCount = totalComment/ 5 +(totalComment % 5 == 0? 0:1);
+					int startPage = 1;
+					if(commentpage % 5 != 0){
+						startPage = (int)(commentpage/5)*5+1;
+					}else{
+						startPage = ((int)(commentpage/5)-1)*5+1;
+					}
+					int pageBlock = 5;
+					int endPage = startPage + pageBlock - 1;
+					if(endPage > pageCount) endPage = pageCount;
+					
+					// 이전이라는 링크 만들건지 
+					if(startPage > 5){ %>
+						<button class="pageBtn" value=<%=startPage-5%>>이전</button>
+					<%}
+					//페이징
+					int j;
+					for( j= startPage; j<= endPage; j++){%>
+						<button class="pageBtn" value=<%=j %>><%=j%></button>
+					<%}
+					
+					// 다음이라는 링크 만들건지 
+					if(endPage < pageCount){%>
+						<button class="pageBtn" value=<%=startPage+5%>>다음</button>
+					<%}
+				}
+				
+				%>
+		</div>
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -82,7 +103,7 @@
 	$(function(){
 		$(".pageBtn").click(function() {
 			$.ajax({
-				url : 'myComment.jsp?postpage='+ $(this).val(),
+				url : 'myComment.jsp?commentpage='+ $(this).val(),
 				success : function(x) {
 					$('#showPage').html(x);
 				}
