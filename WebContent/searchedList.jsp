@@ -1,4 +1,3 @@
-<%@ page import="java.io.File"%>
 <%@page import="java.util.List"%>
 <%@page import="user.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,24 +9,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <title>Insert title here</title>
-<!-- 헤더 부트스트랩 -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
-<link rel="stylesheet" href="style.css">
 <!-- 글목록css -->
 <style>
-body{
-	padding-top:87px;
-	
-}
 
 #wrapper {
 border: 1px solid #333;
@@ -43,6 +27,7 @@ padding: 0 auto;
 max-width: 800px;
 padding-top: 20px;
 padding-bottom: 20px;
+margin-top: 100px;
 }
 
 #content ul{
@@ -134,19 +119,27 @@ color: #FF0000;
 color: #0055FF;
 }
 
-a {
-	color: black;
-	text-decoration: none;
-}
-
-#sign-color {
-	color: black;
-}
-
 </style>
 </head>
 <body>
 <%
+		
+		//페이지 누르면 값 가져오기
+
+		String postpg = request.getParameter("postpage");
+	    //String postbo = request.getParameter("board");
+	    //System.out.println("안ㄴ"+postpg+postbo);
+		if (postpg == null) {
+			postpg = "1";
+		}
+		int postpage = Integer.parseInt(postpg);
+		//1->0 ; 2-> 10
+		int index_no = (postpage - 1) * 10;
+		System.out.println("num"+index_no);
+		
+		
+		
+		
 		String searchWord = null;
 		if(request.getParameter("searchWord")!=null){
 			searchWord = (String) request.getParameter("searchWord");
@@ -167,109 +160,56 @@ a {
 <%
 	//DB연결, 검색한 게시글 목록 불러오기
 	Dao dao = Dao.getInstance();
-	List<Post> searchedList = dao.selectSearchedList(searchWord);
+	List<Post> searchedList = dao.selectSearchedList(searchWord, index_no);
+	
+	int totalPost = 0;
+	int lastPostpage = 0;
+	
+	totalPost = dao.countSearchedPostAll(searchWord);
+	lastPostpage = (int) Math.ceil((double) totalPost / 10);
+
 
 %>
-
-<!-- 헤더 -->
-	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1; border-bottom: 1px solid gray;">
-		<div class="container">
-			<div class="row">
-				<div
-					class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-					<a href="/"
-						class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"></a>
-
-					<ul
-						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-						style="align-items: center;">
-						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
-						<li><a href="anolist.jsp?board=ano"
-							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
-						<li><a href="anolist.jsp?board=mustGo"
-							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">맛집 게시판</a></li>
-						<li><a href="myPage.jsp"
-							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
-					</ul>
-
-					<%
-				if(userID == null){
-			%>
-					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="login.jsp">로그인</a>
-						</button>
-						<button type="button" class="btn btn-warning" role="button"
-							aria-haspopup="true" aria-expanded="false">
-							<a href="join.jsp" id="sign-color">회원 가입</a>
-						</button>
-					</div>
-					<%
-				} else {
-			%>
-					<div class="text-end">
-						<button type="button" class="btn btn-warning me-2"
-							role="button" aria-haspopup="true" aria-expanded="false">
-							<a href="logoutAction.jsp">LogOut</a>
-						</button>
-						<a href="myPage.jsp">
-						<%
-						int studentNum = (int) session.getAttribute("studentNum");
-						//프로필 사진(경로에 사진 없으면 기본이미지)
-						ServletContext context = this.getServletContext(); //절대경로를 얻는다.
-			            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
-			            
-						File viewImg = new File(realFolder+"/"+studentNum+"프로필사진.jpg");
-						if(viewImg.exists()){
-						%>
-						<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
-						<%} else { %>
-						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
-						<%} %>
-						
-						
-						</a>
-					</div>
-					<%		
-				}
-			%>
-
-				</div>
-			</div>
-		</div>
-	</header>
-
 
 <%-- 실제 검색한 것이 나오는 장소 --%>
 <div id="wrapper">
        <section id="content">
-       <h1 style="letter-spacing:-3px; margin-bottom:35px;">검색결과 <%=searchedList.size() %>건 존재합니다</h1>
            <ul>
            <%
            		for (int i = 0; i <= searchedList.size() - 1; i++) {
            %>
                <li>
                    <article>
-                       <div id="profile">     
-                           <img src="image/blankProfile.jpg" alt="프로필사진">
-                           <div id="ano">익명</div>
+                       <div id="profile">   
+                       <%
+                       if(searchedList.get(i).getBoard().equals("익명게시판")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano">익명</div>
+
+						<%}else if (searchedList.get(i).getBoard().equals("맛집게시판")){%>
+						
+							<img src="image/blankProfile.jpg" alt="프로필사진">
+							<div id="ano"></div>
+							
+						<%
+						}
+						%>
+						  
                            <div id="date"><%=searchedList.get(i).getDate() %></div>
                        </div>
                        <h1>
-                       <a href="view.jsp?postNum=<%=searchedList.get(i).getPostNum()%>" style="letter-spacing:-3px;">
+                       <a href="view.jsp?postNum=<%=searchedList.get(i).getPostNum()%>">
                        <%=searchedList.get(i).getTitle() %>
                        </a>
                        </h1>
                        <p>
-                       <a href="view.jsp?postNum=<%=searchedList.get(i).getPostNum()%>" style="letter-spacing:-3px;">
+                       <a href="view.jsp?postNum=<%=searchedList.get(i).getPostNum()%>">
                        <%=searchedList.get(i).getContent()%>
                        </a>
                        </p>
                        <div id="like-comment">
-                           <span id="like"> 
+                           <span id="like">
                            <%
                            int likeOnOff = dao.LikeOnOff(searchedList.get(i).getPostNum(), loginStudentNum);
                            int countLike = dao.countLikePost(searchedList.get(i).getPostNum());
@@ -291,7 +231,40 @@ a {
                <%}%>
                
            </ul>
+           <div>
+				<%
+				if(totalPost > 0){
+					int pageCount = totalPost/ 10 +(totalPost % 10 == 0? 0:1);
+					int startPage = 1;
+					if(postpage % 5 != 0){
+						startPage = (int)(postpage/5)*5+1;
+					}else{
+						startPage = ((int)(postpage/5)-1)*5+1;
+					}
+					int pageBlock = 5;
+					int endPage = startPage + pageBlock - 1;
+					if(endPage > pageCount) endPage = pageCount;
+					
+					// 이전이라는 링크 만들건지 
+					if(startPage > 5){ %>
+						<button><a href="searchedList.jsp?postpage=<%=startPage-5%>&searchWord=<%=searchWord%>">이전</a></button>
+					<%}
+					//페이징
+					
+					for(int i = startPage; i<= endPage; i++){%>
+						<button><a href="searchedList.jsp?postpage=<%=i%>&searchWord=<%=searchWord%>"><%=i %></a></button>
+					<%}
+					
+					// 다음이라는 링크 만들건지 
+					if(endPage < pageCount){%>
+						<button><a href="searchedList.jsp?postpage=<%=startPage+5%>&searchWord=<%=searchWord%>">다음</a></button>
+					<%}
+				}
+				
+				%>
+				</div>
        </section>
+       
    </div>
 
 </body>
