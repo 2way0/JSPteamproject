@@ -201,7 +201,7 @@ a {
 							</form>
 						</div>
 					</div>
-					<div class="row" id="centerLine3"">
+					<div class="row" id="centerLine3">
 						<div class="col-md-12">
 							<div id="coolboard"></div>
 						</div>
