@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="user.*"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -169,7 +170,23 @@ a {
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<a href="logoutAction.jsp">LogOut</a>
 						</button>
-
+						<a href="myPage.jsp">
+						<%
+						int studentNum = (int) session.getAttribute("studentNum");
+						//프로필 사진(경로에 사진 없으면 기본이미지)
+						ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+			            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+			            
+						File viewImg = new File(realFolder+"/"+studentNum+"프로필사진.jpg");
+						if(viewImg.exists()){
+						%>
+						<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<%} else { %>
+						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<%} %>
+						
+						
+						</a>
 					</div>
 					<%		
 				}
