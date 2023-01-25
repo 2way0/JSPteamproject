@@ -46,12 +46,12 @@
            %>
                <li>
                    <article>
-                       <div id="profile"> 
+                       
                        <h1>
                        <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
                        <%=commentList.get(i).getTitle() %></a>
                        </h1>    
-                       </div>
+                      
                        <div id="date"><%=commentList.get(i).getDate() %></div>
                        <p>
                        <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
@@ -84,10 +84,14 @@
 					<%}
 					//페이징
 					int j;
-					for( j= startPage; j<= endPage; j++){%>
+					for( j= startPage; j<= endPage; j++){
+					if(j == commentpage){%>
+						<button style="background-color:red" class="pageBtn" value=<%=j %>><%=j%></button>
+						<%}else{
+					%> 
 						<button class="pageBtn" value=<%=j %>><%=j%></button>
 					<%}
-					
+					}
 					// 다음이라는 링크 만들건지 
 					if(endPage < pageCount){%>
 						<button class="pageBtn" value=<%=startPage+5%>>다음</button>

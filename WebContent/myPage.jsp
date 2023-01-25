@@ -127,7 +127,8 @@ a {
 	/* border: 1px solid black; */
 	height: 25px;
 	margin: 3px 0;
-	position: relative;
+	/*position: relative;*/
+	display: flex;
 }
 
 #profile img {
@@ -137,22 +138,22 @@ a {
 
 #profile #ano {
 	/* border: 1px solid blue; */
-	position: absolute;
+	/*position: absolute;
 	margin: 0;
-	margin-left: 5px;
 	padding: 0;
-	display: inline-block;
+	display: inline-block;*/
+	margin-left: 5px;
 	height: 25px;
 	line-height: 25px;
 }
 
 #profile #date {
 	/* border: 1px solid blue; */
-	position: absolute;
+	/*position: absolute;
 	margin: 0;
-	margin-left: 50px;
 	padding: 0;
-	display: inline-block;
+	display: inline-block;*/
+	margin-left: 10px;
 	height: 25px;
 	line-height: 25px;
 	color: grey;

@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="user.*"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -50,20 +51,33 @@
                <li>
                    <article>
                         <div id="profile">   
+                  <%-------------익명게시판 프로필--------------- --%>      
                        <%
                        if(postlist.get(i).getBoard().equals("익명게시판")){%>
 						
 							<img src="image/blankProfile.jpg" alt="프로필사진">
 							<div id="ano">익명</div>
-
-						<%}else if (postlist.get(i).getBoard().equals("맛집게시판")){%>
-						
+					<%-------------맛집게시판 프로필--------------- --%>
+						<%}else if (postlist.get(i).getBoard().equals("맛집게시판")){
+							//프로필 사진(경로에 사진 없으면 기본이미지)
+							ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+				            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+							File viewImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
+				            
+							if(viewImg.exists()){%>
+								<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진">
+							<%} else { %>	
 							<img src="image/blankProfile.jpg" alt="프로필사진">
-							<div id="ano"></div>
-							
-						<%
-						}
-						%>
+							<%}
+							//닉네임 불러오기
+								User user = dao.selectUserOne(studentNum);
+								String nickName = user.getNickName();
+								System.out.println("닉네임:"+nickName);
+								%>
+							<div id="ano"><%=nickName %></div>
+						<%}%>
+						
+						
                            <div id="date"><%=postlist.get(i).getDate() %></div>
                        </div>
                        <h1>
@@ -122,10 +136,14 @@
 					<%}
 					//페이징
 					int j;
-					for( j= startPage; j<= endPage; j++){%>
+					for( j= startPage; j<= endPage; j++){
+					if(j == postpage){%>
+						<button style="background-color:red" class="pageBtn" value=<%=j %>><%=j%></button>
+						<%}else{
+					%> 
 						<button class="pageBtn" value=<%=j %>><%=j%></button>
 					<%}
-					
+					}
 					// 다음이라는 링크 만들건지 
 					if(endPage < pageCount){%>
 						<button class="pageBtn" value=<%=startPage+5%>>다음</button>
