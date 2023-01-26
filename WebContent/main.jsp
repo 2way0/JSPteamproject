@@ -160,6 +160,10 @@ a {
 	position: absolute;
 	top: 30px;
 }
+
+#comment {
+	margin-right : 10px;
+}
 </style>
 
 </head>
