@@ -60,7 +60,8 @@ height: 100px;
 /* border: 1px solid black; */
 height: 25px;
 margin: 3px 0;
-position: relative;
+/*position: relative;*/
+display: flex;
 }
 #profile img {
 width: 25px;
@@ -68,21 +69,21 @@ height: 25px;
 }
 #profile #ano {
 /* border: 1px solid blue; */
-position: absolute;
+/*position: absolute;
 margin: 0;
-margin-left: 5px;
 padding: 0;
-display: inline-block;
+display: inline-block;*/
+margin-left: 5px;
 height: 25px;
 line-height: 25px;
 }
 #profile #date {
 /* border: 1px solid blue; */
-position: absolute;
+/*position: absolute;
 margin: 0;
-margin-left: 50px;
 padding: 0;
-display: inline-block;
+display: inline-block;*/
+margin-left: 10px;
 height: 25px;
 line-height: 25px;
 color: grey;
@@ -282,20 +283,40 @@ a {
            <ul>
            <%
            		for (int i = 0; i <= searchedList.size() - 1; i++) {
+           			Post sl = searchedList.get(i);
+           			int studentNum = sl.getStudentNum();
            %>
                <li>
                    <article>
                        <div id="profile">   
+                    <%-------------익명게시판 프로필--------------- --%>
                        <%
                        if(searchedList.get(i).getBoard().equals("익명게시판")){%>
 						
 							<img src="image/blankProfile.jpg" alt="프로필사진">
 							<div id="ano">익명</div>
-
-						<%}else if (searchedList.get(i).getBoard().equals("맛집게시판")){%>
+							
+					<%-------------맛집게시판 프로필--------------- --%>
+						<%}else if (searchedList.get(i).getBoard().equals("맛집게시판")){
+							
+							//프로필 사진(경로에 사진 없으면 기본이미지)
+							ServletContext context = this.getServletContext(); //절대경로를 얻는다.
+				            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+							File viewImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
+							
+				            if(viewImg.exists()){ 
+						%>
+							<img id="img" src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진">
 						
+						<%} else { %>
 							<img src="image/blankProfile.jpg" alt="프로필사진">
-							<div id="ano"></div>
+							<%}
+								//닉네임 불러오기
+									User user = dao.selectUserOne(studentNum);
+									String nickName = user.getNickName();
+									System.out.println("닉네임:"+nickName);
+									%>
+							<div id="ano"><%=nickName %></div>
 							
 						<%
 						}
