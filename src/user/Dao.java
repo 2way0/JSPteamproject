@@ -474,7 +474,7 @@ public class Dao {
 		
 		// 글 삭제
 		public int delete(int postNum) {
-			String sql = String.format("Update post set onoff = '0' where postNum = %d", postNum);
+			String sql = String.format("Delete from post where postNum = %d", postNum);
 			PreparedStatement psmt;
 			try {
 				psmt = conn.prepareStatement(sql);
