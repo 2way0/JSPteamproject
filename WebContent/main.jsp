@@ -366,23 +366,27 @@ position : relative;
 									 	<li id="space">
 									 	<%
 									 	ServletContext context = this.getServletContext(); //절대경로를 얻는다.
-							            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
+							            String realFolder = context.getRealPath("bbsUpload"); //image폴더의 절대경로를 받는다.
 							            
 										File viewImg = new File(realFolder+"/"+p2.getPostNum()+"사진.jpg");
 							            System.out.println(viewImg);
-							            if(viewImg != null){
+							            if(viewImg.exists()){
 									 	%>
-									    <img src="bbsUpload/<%=p2.getPostNum()%>사진.jpg" alt="사진" style="border-radius:20px" width="150px" height="150px">
+									    <img src="bbsUpload/<%=p2.getPostNum()%>사진.jpg" alt="사진" style="border-radius:20px" width="150px" height="150px" />
 										<a href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle" style="font-size:20px; 
 										letter-spacing:-3px; overflow:hidden;"><%=p2.getTitle()%></a>
-								
-									</li>
+									
 									<%
-											} else{
-												System.out.println("아무것도 없씨유");
-											}
-										}
+										 } else {
 									%>
+										<img src="image/맛집공유게시판.png" alt="사진" style="border-radius:20px" width="150px" height="150px" />
+										<a href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle" style="font-size:20px; 
+										letter-spacing:-3px; overflow:hidden;"><%=p2.getTitle()%></a>
+									<%
+									    }
+											}
+									%>
+									</li>
 									</ul>
 							</div>
 						</div>
