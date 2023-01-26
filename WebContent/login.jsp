@@ -26,7 +26,7 @@ body {
 }
 
 a {
-	color: white;
+	color: black;
 	text-decoration: none;
 }
 
@@ -102,7 +102,7 @@ body {
 				if(userID == null){
 			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
+						<button type="button" class="btn btn-outline-dark me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<a href="login.jsp">Login</a>
 						</button>

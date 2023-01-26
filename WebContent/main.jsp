@@ -263,7 +263,7 @@ position : relative;
 	<section id="section">
 		<div class="container">
 			<div class="row" id="centerLine">
-				<div class="col-md-1">Column</div>
+				<div class="col-md-1"></div>
 				<div class="col-md-10">
 					<div class="row" id="centerLine2">
 						<div class="col-md-12">
@@ -583,7 +583,7 @@ position : relative;
 						</div>
 					</div>
 				</div>
-				<div class="col-md-1">Column</div>
+				<div class="col-md-1"></div>
 			</div>
 		</div>
 	</section>

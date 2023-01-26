@@ -231,7 +231,6 @@ li {
 
 <div class="container">
 		<div class="row">
-			<main style="padding: 15px">
 				 <div id="wrapper">
       			 <section id="content">
            <ul>
@@ -316,7 +315,7 @@ li {
 			}
 			%>
    			</div>
-		</main>
+		
 		</div>
 		
 					<!------------------------------------댓글 다는 창------------------------------------------>
