@@ -960,6 +960,7 @@ public class Dao {
 		// 댓글달기 기능  
 	public int insertCommentContent(int postNum, int studentNum, String commentContent) {
 //		Comment comment = new Comment(); 문제 생기면 필드에 생성한 Comment comment = new Comment();삭제
+		if(commentContent == null || commentContent == "")return 0;
 		String insert = "insert into comment(postNum, studentNum, commentContent, date)"
 				+ " values(?, ?, ?, now())";
 		try {
