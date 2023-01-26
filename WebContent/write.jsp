@@ -19,7 +19,7 @@
 <!-- 글목록css -->
 <style>
 a {
-	color: white;
+	color: black;
 	text-decoration: none;
 }
 #sign-color {
@@ -45,7 +45,7 @@ body{
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1; border-bottom: 1px solid gray;">
+		style="position: fixed; top: 0; width: 100%; z-index: 1;  background-color: white !important; border-bottom: 1px solid gray;">
 		<div class="container">
 			<div class="row">
 				<div
@@ -77,7 +77,7 @@ body{
 				if(userID == null){
 			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
+						<button type="button" class="btn btn-outline-dark me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<a href="login.jsp">로그인</a>
 						</button>
