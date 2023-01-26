@@ -198,7 +198,7 @@ a {
 %>
 <!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1; border-bottom: 1px solid gray;">
+		style="position: fixed; top: 0; width: 100%; z-index: 1; background-color: white !important; border-bottom: 1px solid gray;">
 		<div class="container">
 			<div class="row">
 				<div

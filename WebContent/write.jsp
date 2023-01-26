@@ -137,7 +137,7 @@ body{
 								<tr>
 									<th colspan="2"
 										style="background-color: #eeeeee; text-align: center;">
-										익명 게시판 글쓰기 양식</th>
+										게시판 글쓰기 양식</th>
 
 								</tr>
 							</thead>
