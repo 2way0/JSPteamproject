@@ -290,7 +290,7 @@ a {
 												for (int i = 0; i < mainlikepost.size(); i++) {
 													Post l = mainlikepost.get(i);
 											%>
-											<li><a href="view.jsp?postNum=<%=l.getPostNum()%>"
+											<li><a href="view.jsp?postNum=<%=l.getPostNum()%>&board=main"
 												class="likeTitle"
 												style="font-size: 20px; letter-spacing: -3px;"> <%=l.getTitle()%></a>
 												<div id="like-comment">
@@ -337,9 +337,9 @@ a {
 											Post p = ubselect.get(i);
 									%>
 									<li id="space"><a
-										href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle"
+										href="view.jsp?postNum=<%=p.getPostNum()%>&board=main" class="ubTitle"
 										style="font-size: 20px; letter-spacing: -3px;"><%=p.getTitle()%></a>
-										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubDate"><%=p.getDate()%></a>
+										<a href="view.jsp?postNum=<%=p.getPostNum()%>&board=main" class="ubDate"><%=p.getDate()%></a>
 									</li>
 									<%
 										}
@@ -374,14 +374,14 @@ a {
 							            if(viewImg.exists()){
 									 	%> <img src="bbsUpload/<%=p2.getPostNum()%>사진.jpg" alt="사진"
 										style="border-radius: 20px" width="150px" height="150px" /> <a
-										href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle"
+										href="view.jsp?postNum=<%=p2.getPostNum()%>&board=main" class="ubTitle"
 										style="font-size: 20px; letter-spacing: -3px; overflow: hidden;"><%=p2.getTitle()%></a>
 
 										<%
 										 } else {
 									%> <img src="image/맛집공유게시판.png" alt="사진"
 										style="border-radius: 20px" width="150px" height="150px" /> <a
-										href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle"
+										href="view.jsp?postNum=<%=p2.getPostNum()%>&board=main" class="ubTitle"
 										style="font-size: 20px; letter-spacing: -3px; overflow: hidden;"><%=p2.getTitle()%></a>
 										<%
 									    }

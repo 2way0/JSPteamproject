@@ -235,7 +235,7 @@ position: relative
 								<%=p.getTitle()%></a>
 						</h1>
 						<p>
-							<a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>" style="letter-spacing:-2px;">
+							<a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>&board=<%=postBoard%>" style="letter-spacing:-2px;">
 								<%=p.getContent()%></a>
 						</p>
 						<div id="like-comment">

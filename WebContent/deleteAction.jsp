@@ -14,10 +14,16 @@
 </head>
 <body>
 <%
-	String board = request.getParameter("board");
-	Dao dao = Dao.getInstance();
-	dao.delete(postNum);
-	response.sendRedirect("anolist.jsp?board="+board);
+String board = request.getParameter("board");
+System.out.println("딜리트 액션 보드값 = "+board);
+Dao dao = Dao.getInstance();
+dao.delete(postNum);
+if(board.equals("main")){%>
+<script type="text/javascript">
+	location.href="main.jsp";
+</script>
+<%}else{
+response.sendRedirect("anolist.jsp?board="+board);}
 %>
 </body>
 </html>
