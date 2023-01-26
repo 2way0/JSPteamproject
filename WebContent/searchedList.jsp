@@ -211,7 +211,6 @@ a {
 						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
 						style="align-items: center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
 						<li><a href="anolist.jsp?board=ano"
 							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
 						<li><a href="anolist.jsp?board=mustGo"

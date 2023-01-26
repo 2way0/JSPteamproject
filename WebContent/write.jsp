@@ -57,7 +57,6 @@ body{
 						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
 						style="align-items: center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
 						<li><a href="anolist.jsp?board=ano"
 							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
 						<li><a href="anolist.jsp?board=mustGo"
@@ -169,8 +168,7 @@ body{
 			</main>
 		</div>
 	</div>
-
-
+	
 	<script src="https://code.jquery.com/jquery-3.6.3.js"
 		integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 		crossorigin="anonymous"></script>

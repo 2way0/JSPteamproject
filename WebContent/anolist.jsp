@@ -25,9 +25,7 @@
 
 <!-- 글목록css -->
 <style>
-#wrapper2 {
-background-color: #EBEDF3;
-}
+
 body{
 	padding-top:87px;
 	 
@@ -79,7 +77,6 @@ position: relative
 						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
 						style="align-items: center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
 						<li><a href="anolist.jsp?board=ano"
 							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
 						<li><a href="anolist.jsp?board=mustGo"
@@ -314,6 +311,25 @@ position: relative
 	<%} %>
 		</section>
 	</div>
+	</div>
+	
+	<div class="container">
+		<footer class="py-2 my-3">
+			<ul class="nav justify-content-center border-bottom pb-2 mb-2"
+				style="align-items: center;">
+				<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
+				<li><a href="anolist.jsp?board=ano"
+							class="nav-link px-2 text-secondary"
+							style="letter-spacing: -3px;">익명 게시판</a></li>
+						<li><a href="anolist.jsp?board=mustGo"
+							class="nav-link px-2 text-secondary"
+							style="letter-spacing: -3px;">맛집 게시판</a></li>
+						<li><a href="myPage.jsp"
+							class="nav-link px-2 text-secondary fw-semibold"
+							style="letter-spacing: -2px;">My Page</a></li>
+			</ul>
+			<p class="text-center text-muted">&copy; 2023 Choongang, Inc</p>
+		</footer>
 	</div>
 	
 	<script

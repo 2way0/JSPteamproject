@@ -106,7 +106,7 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin : 7px;
+	margin: 7px;
 }
 
 .board li {
@@ -122,44 +122,44 @@ a {
 }
 
 #space {
-display : flex;
-justify-content : space-between;
-margin-right : 7px;
+	display: flex;
+	justify-content: space-between;
+	margin-right: 7px;
 }
 
 .picture {
-display : flex;
-align-items: center;
-justify-content: center;
-flex-direction: column; 
-padding-left : 0;
-position : relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding-left: 0;
+	position: relative;
 }
 
-.picture li{
-	display:flex;
-	flex-direction:column;
+.picture li {
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
-.picture li:nth-child(1){
-	align-self:flex-start;
+
+.picture li:nth-child(1) {
+	align-self: flex-start;
 	position: absolute;
 	top: 30px;
 	margin-left: 3px;
 }
-.picture li:nth-child(2){
-	position: absolute;
-	top: 30px;
-}
-.picture li:nth-child(3){
-	align-self:flex-end;
+
+.picture li:nth-child(2) {
 	position: absolute;
 	top: 30px;
 }
 
-
-
+.picture li:nth-child(3) {
+	align-self: flex-end;
+	position: absolute;
+	top: 30px;
+}
 </style>
 
 </head>
@@ -199,13 +199,15 @@ position : relative;
 						class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
 						style="align-items: center;">
 						<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-						<li><a href="#" class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">인기글</a></li>
 						<li><a href="anolist.jsp?board=ano"
-							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">익명 게시판</a></li>
+							class="nav-link px-2 text-secondary"
+							style="letter-spacing: -3px;">익명 게시판</a></li>
 						<li><a href="anolist.jsp?board=mustGo"
-							class="nav-link px-2 text-secondary" style="letter-spacing:-3px;">맛집 게시판</a></li>
+							class="nav-link px-2 text-secondary"
+							style="letter-spacing: -3px;">맛집 게시판</a></li>
 						<li><a href="myPage.jsp"
-							class="nav-link px-2 text-secondary fw-semibold" style="letter-spacing:-2px;">My Page</a></li>
+							class="nav-link px-2 text-secondary fw-semibold"
+							style="letter-spacing: -2px;">My Page</a></li>
 					</ul>
 
 					<%
@@ -225,12 +227,11 @@ position : relative;
 				} else {
 			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-warning me-2"
-							role="button" aria-haspopup="true" aria-expanded="false">
+						<button type="button" class="btn btn-warning me-2" role="button"
+							aria-haspopup="true" aria-expanded="false">
 							<a href="logoutAction.jsp">LogOut</a>
 						</button>
-						<a href="myPage.jsp">
-						<%
+						<a href="myPage.jsp"> <%
 						int studentNum = (int) session.getAttribute("studentNum");
 						//프로필 사진(경로에 사진 없으면 기본이미지)
 						ServletContext context = this.getServletContext(); //절대경로를 얻는다.
@@ -238,13 +239,12 @@ position : relative;
 			            
 						File viewImg = new File(realFolder+"/"+studentNum+"프로필사진.jpg");
 						if(viewImg.exists()){
-						%>
-						<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
-						<%} else { %>
-						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
-						<%} %>
-						
-						
+						%> <img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진"
+							style="border-radius: 20px" width="40px" height="40px"> <%} else { %>
+							<img id="img" src="image/blankProfile.jpg" alt="프로필사진"
+							style="border-radius: 20px" width="40px" height="40px"> <%} %>
+
+
 						</a>
 					</div>
 					<%		
@@ -281,42 +281,40 @@ position : relative;
 						<div class="col-md-12">
 							<div id="coolboard">
 								<div id="likeboard">
-									<p style="font-size: 25px; font-weight: bold; margin: 10px; letter-spacing:-3px;">실시간 인기글</p>
+									<p
+										style="font-size: 25px; font-weight: bold; margin: 10px; letter-spacing: -3px;">실시간
+										인기글</p>
 									<div>
 										<ul>
 											<%
 												for (int i = 0; i < mainlikepost.size(); i++) {
 													Post l = mainlikepost.get(i);
 											%>
-											<li>
-												<a href="view.jsp?postNum=<%=l.getPostNum()%>" class="likeTitle" style="font-size:20px; letter-spacing:-3px;">
-												<%=l.getTitle()%></a>
+											<li><a href="view.jsp?postNum=<%=l.getPostNum()%>"
+												class="likeTitle"
+												style="font-size: 20px; letter-spacing: -3px;"> <%=l.getTitle()%></a>
 												<div id="like-comment">
-													<span id="like"> 
-														<%
+													<span id="like"> <%
 														 	int likeOnOff = dao.LikeOnOff(l.getPostNum(), loginStudentNum);
 													 		int countLike = dao.countLikePost(l.getPostNum());
 													 		int countComment = dao.countCommentPost(l.getPostNum());
 													
 													 		if (likeOnOff == 0) {
-														 %> 
-														 <img src="image/OFF.png" alt="좋아요 수"> <%=countLike%> 
-														 <%
+														 %> <img src="image/OFF.png" alt="좋아요 수"> <%=countLike%>
+														<%
 														 	} else {
-														 %> 
-														 <img src="image/ON.png" alt="좋아요 수"> <%=countLike%> 
-														 <%
+														 %> <img src="image/ON.png" alt="좋아요 수"> <%=countLike%>
+														<%
 														 	}
 														 %>
-													</span> <span id="comment"> <img src="image/icon_comment.png"
-														alt="댓글 수"> <%=countComment%>
+													</span> <span id="comment"> <img
+														src="image/icon_comment.png" alt="댓글 수"> <%=countComment%>
 													</span>
-												</div>
-											</li>
+												</div></li>
 											<%
 												}
 											%>
-										</ul>								
+										</ul>
 									</div>
 								</div>
 							</div>
@@ -327,10 +325,10 @@ position : relative;
 							<div class="board">
 								<div class="section text" style="user-select: auto;">
 									<h3 style="user-select: auto;">
-										<a href="anolist.jsp?board=ano" style="user-select: auto; letter-spacing:-5px;">익명게시판</a>
+										<a href="anolist.jsp?board=ano" style="letter-spacing: -5px;">익명게시판</a>
 									</h3>
 									<div class="more" style="user-select: auto;">
-										<a href="anolist.jsp?board=ano" style="user-select: auto; letter-spacing:-5px;">더보기</a>
+										<a href="anolist.jsp?board=ano" style="letter-spacing: -5px;">더보기</a>
 									</div>
 								</div>
 								<ul>
@@ -338,56 +336,59 @@ position : relative;
 										for (int i = 0; i < ubselect.size(); i++) {
 											Post p = ubselect.get(i);
 									%>
-									<li id="space">
-										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle" style="font-size:20px; letter-spacing:-3px;"><%=p.getTitle()%></a>
+									<li id="space"><a
+										href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubTitle"
+										style="font-size: 20px; letter-spacing: -3px;"><%=p.getTitle()%></a>
 										<a href="view.jsp?postNum=<%=p.getPostNum()%>" class="ubDate"><%=p.getDate()%></a>
 									</li>
 									<%
 										}
 									%>
 								</ul>
-							</div> 
+							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="board">
 								<div class="section text" style="user-select: auto;">
 									<h3 style="user-select: auto;">
-										<a href="anolist.jsp?board=mustGo" style="user-select: auto; letter-spacing:-5px;">맛집게시판</a>
+										<a href="anolist.jsp?board=mustGo"
+											style="user-select: auto; letter-spacing: -5px;">맛집게시판</a>
 									</h3>
 									<div class="more" style="user-select: auto;">
-										<a href="anolist.jsp?board=mustGo" style="user-select: auto; letter-spacing:-5px;">더보기</a>
+										<a href="anolist.jsp?board=mustGo"
+											style="user-select: auto; letter-spacing: -5px;">더보기</a>
 									</div>
 								</div>
 								<ul class="picture">
-										<%
+									<%
 											for (int i = 0; i < ubselect2.size(); i++) {
 												Post p2 = ubselect2.get(i);
 										%>
-									 	<li id="space">
-									 	<%
+									<li id="space">
+										<%
 									 	ServletContext context = this.getServletContext(); //절대경로를 얻는다.
 							            String realFolder = context.getRealPath("bbsUpload"); //image폴더의 절대경로를 받는다.
 							            
 										File viewImg = new File(realFolder+"/"+p2.getPostNum()+"사진.jpg");
 							            System.out.println(viewImg);
 							            if(viewImg.exists()){
-									 	%>
-									    <img src="bbsUpload/<%=p2.getPostNum()%>사진.jpg" alt="사진" style="border-radius:20px" width="150px" height="150px" />
-										<a href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle" style="font-size:20px; 
-										letter-spacing:-3px; overflow:hidden;"><%=p2.getTitle()%></a>
-									
-									<%
+									 	%> <img src="bbsUpload/<%=p2.getPostNum()%>사진.jpg" alt="사진"
+										style="border-radius: 20px" width="150px" height="150px" /> <a
+										href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle"
+										style="font-size: 20px; letter-spacing: -3px; overflow: hidden;"><%=p2.getTitle()%></a>
+
+										<%
 										 } else {
-									%>
-										<img src="image/맛집공유게시판.png" alt="사진" style="border-radius:20px" width="150px" height="150px" />
-										<a href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle" style="font-size:20px; 
-										letter-spacing:-3px; overflow:hidden;"><%=p2.getTitle()%></a>
-									<%
+									%> <img src="image/맛집공유게시판.png" alt="사진"
+										style="border-radius: 20px" width="150px" height="150px" /> <a
+										href="view.jsp?postNum=<%=p2.getPostNum()%>" class="ubTitle"
+										style="font-size: 20px; letter-spacing: -3px; overflow: hidden;"><%=p2.getTitle()%></a>
+										<%
 									    }
 											}
 									%>
 									</li>
-									</ul>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -396,8 +397,8 @@ position : relative;
 							<a href="https://www.shinhanlife.co.kr/hp/cdhg0130.do"> <img
 								src="image/newyear.png" id="newyear"></a>
 						</div>
-						<div class="col-md-6" >
-							<table width="500px" height="290px" style="margin-top:10px">
+						<div class="col-md-6">
+							<table width="500px" height="290px" style="margin-top: 10px">
 								<tr>
 									<form name="form1" method="post">
 										<input type="hidden" name="year" value="2023"> <input
@@ -533,14 +534,12 @@ position : relative;
 												<td onClick="iapply('28', '토'); "
 													onMouseOver="this.style.backgroundColor='white'"
 													onMouseOut="this.style.backgroundColor='#F4F4F4'; "
-													height="10" style="color: blue; cursor: pointer">28
-												</td>
+													height="10" style="color: blue; cursor: pointer">28</td>
 
 												<td onClick="iapply('29', '일'); "
 													onMouseOver="this.style.backgroundColor='white'"
 													onMouseOut="this.style.backgroundColor='#F4F4F4'; "
-													height="10" style="color: red; cursor: pointer">29
-												</td>
+													height="10" style="color: red; cursor: pointer">29</td>
 											</tr>
 											<tr align="center">
 												<td onClick="iapply('30', '월'); "
@@ -597,13 +596,15 @@ position : relative;
 			<ul class="nav justify-content-center border-bottom pb-2 mb-2"
 				style="align-items: center;">
 				<li><a href="main.jsp"><img src="image/shelter.png"></a></li>
-				<li><a href="#" class="nav-link px-2 text-secondary">인기글</a></li>
-				<li><a href="anolist.jsp" class="nav-link px-2 text-secondary">익명
-						게시판</a></li>
-				<li><a href="mustGolist.jsp"
-					class="nav-link px-2 text-secondary">맛집 게시판</a></li>
-				<li><a href="myPage.jsp"
-					class="nav-link px-2 text-secondary fw-semibold">My Page</a></li>
+				<li><a href="anolist.jsp?board=ano"
+							class="nav-link px-2 text-secondary"
+							style="letter-spacing: -3px;">익명 게시판</a></li>
+						<li><a href="anolist.jsp?board=mustGo"
+							class="nav-link px-2 text-secondary"
+							style="letter-spacing: -3px;">맛집 게시판</a></li>
+						<li><a href="myPage.jsp"
+							class="nav-link px-2 text-secondary fw-semibold"
+							style="letter-spacing: -2px;">My Page</a></li>
 			</ul>
 			<p class="text-center text-muted">&copy; 2023 Choongang, Inc</p>
 		</footer>
