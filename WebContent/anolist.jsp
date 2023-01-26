@@ -234,7 +234,7 @@ position: relative
 						</div>
 						
 						<h1>
-							<a href="view.jsp?postNum=<%=p.getPostNum()%>" style="letter-spacing:-2px;">
+							<a href="view.jsp?postNum=<%=p.getPostNum()%>&board=<%=postBoard%>" style="letter-spacing:-2px;">
 								<%=p.getTitle()%></a>
 						</h1>
 						<p>

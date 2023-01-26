@@ -478,8 +478,7 @@ public class Dao {
 			PreparedStatement psmt;
 			try {
 				psmt = conn.prepareStatement(sql);
-				psmt = conn.prepareStatement(sql);
-				int result = psmt.executeUpdate(sql);
+				int result = psmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

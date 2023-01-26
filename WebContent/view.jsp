@@ -144,6 +144,7 @@ li {
 			postNum = (int)session.getAttribute("postNum");
 			
 		}
+		String postBoard = request.getParameter("board");
 		postNum = (int)session.getAttribute("postNum");
 		Post post = new Post();
 		Dao dao = Dao.getInstance();
@@ -309,7 +310,7 @@ li {
 			<a href="update.jsp?postNum=<%=postNum%>"
 				class="btn btn-primary offset-7" style="width: 75px;">수정</a> <a
 				onclick="return confirm('정말로 삭제하시겠습니까?')"
-				href="deleteAction.jsp?postNum=<%=postNum%>" class="btn btn-primary"
+				href="deleteAction.jsp?postNum=<%=postNum%>&board=<%=postBoard%>" class="btn btn-primary"
 				style="width: 75px; margin-left: 15px;">삭제</a>
 			<%
 			}

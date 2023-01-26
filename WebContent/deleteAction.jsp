@@ -14,11 +14,10 @@
 </head>
 <body>
 <%
+	String board = request.getParameter("board");
 	Dao dao = Dao.getInstance();
 	dao.delete(postNum);
+	response.sendRedirect("anolist.jsp?board="+board);
 %>
-<script>
-		location.href = 'anolist.jsp';
-</script>
 </body>
 </html>
