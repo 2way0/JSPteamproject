@@ -82,7 +82,7 @@ public class Dao {
 		public List<Post> selectFoodPostAll(int index_no){
 			List<Post> postList = new ArrayList<>();
 			
-			String sql = "select * from post where onoff=1 and board='맛집게시판' order by postNum desc limit "+index_no+",10";
+			String sql = "select * from post where board='맛집게시판' order by postNum desc limit "+index_no+",10";
 			Post post = null;
 			
 			try {
@@ -115,7 +115,7 @@ public class Dao {
 	// 해당 아이디가 작성한 게시글 전체 목록 불러오기
 	public List<Post> selectPostID(int idStudentNum,int index_no){
 		List<Post> postList = new ArrayList<>();
-		String sql = "select * from post where onoff=1 and studentNum= ? order by postNum desc limit ?,5";
+		String sql = "select * from post where studentNum= ? order by postNum desc limit ?,5";
 		Post post = null;
 		try {
 			
@@ -150,7 +150,7 @@ public class Dao {
 	// 게시글 번호로 게시글 제목 찾기
 	public List <String> selectPostNum(int postNum){
 		List<String> titleList = new ArrayList<>();
-		String sql = "select title from post where onoff=1 and postNum= ?";
+		String sql = "select title from post where postNum= ?";
 		String title = null;
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
@@ -196,7 +196,7 @@ public class Dao {
 	// 해당 아이디가 작성한 총 게시물 개수
 		public int countPostID(int idStudentNum){
 			
-			String sql = "select count(*) total from post where onoff=1 and studentNum = ?";
+			String sql = "select count(*) total from post where studentNum = ?";
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setInt(1, idStudentNum);
@@ -242,8 +242,7 @@ public class Dao {
 		public List<Post> selectSearchedList(String searchWord, int index_no){
 			List<Post> searchedList = new ArrayList<>();
 			
-			String sql = "select * from post where onoff=1 "
-					+ "and (title like '%"+searchWord+"%' "
+			String sql = "select * from post where (title like '%"+searchWord+"%' "
 							+ "or content like '%"+searchWord+"%') order by postNum desc limit "+index_no+", 10";
 			Post post = null;
 			try {
@@ -298,7 +297,7 @@ public class Dao {
 			List<Post> postList = new ArrayList<>();
 			String sql = "select p.postNum, p.title from post p, (select postNum, count(*) likeAll from like_table \r\n" + 
 					"	group by postNum order by likeAll desc limit 0,7) l\r\n" + 
-					"    where p.postNum = l.postNum and p.onoff=1 order by l.likeAll desc;";
+					"    where p.postNum = l.postNum order by l.likeAll desc;";
 			Post post = null;
 			
 			try {
@@ -326,7 +325,7 @@ public class Dao {
 		// 메인페이지 익명게시판 정보 불러오기
 		public List<Post> ubSelect(){
 			List<Post> postList = new ArrayList<>();
-			String sql = "select postNum, title, date from post where board = '익명게시판' and onoff=1 order by date desc limit 0,7";
+			String sql = "select postNum, title, date from post where board = '익명게시판' order by postNum desc limit 0,7";
 			Post post = null;
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
@@ -357,7 +356,7 @@ public class Dao {
 		// 메인페이지 익명게시판 정보 불러오기
 				public List<Post> ubSelect2(){
 					List<Post> postList = new ArrayList<>();
-					String sql = "select postNum, title, date from post where board = '맛집게시판' and onoff=1 order by date desc limit 0,3";
+					String sql = "select postNum, title, date from post where board = '맛집게시판' order by postNum desc limit 0,3";
 					Post post = null;
 					try {
 						PreparedStatement pstm = conn.prepareStatement(sql);
