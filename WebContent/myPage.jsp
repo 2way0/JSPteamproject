@@ -1,5 +1,4 @@
 <%@page buffer = "1kb" %>
-<%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.File"%>
 <%@page import="user.*"%>
 <%@page import="java.util.List"%>
@@ -221,14 +220,14 @@ padding-bottom: 10px;*/
 	studentNum = (int) session.getAttribute("studentNum");
 	}
 	
-	if(userID == null){
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('로그인을 진행하세요')");
-		script.println("location.href = 'login.jsp'");
-		script.println("</script>");
-	}
-	
+	System.out.println("학생 :" + userID);
+	if(userID == null || userID == ""){%>
+		<script type="text/javascript">
+			alert("로그인 해주세요.");
+			location.href = 'login.jsp';
+		</script>
+	<%}%>
+	<% 
 	Dao dao = Dao.getInstance();
 	
 //임의로 studentNum 정함.
