@@ -8,7 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.pasingArea{
+	margin-top:5px;
+}
 
+.pasingBox{
+	margin-left:46%;
+}
+#goToWriteBtn{
+	margin-left:410px;
+}
+
+.gotowrite{
+	position:fixed;
+	top: 200px;
+	margin-left :55%;
+}
+
+</style>
 </head>
 
 <body>
@@ -123,8 +141,9 @@
                <%} %>
                
            </ul>
-	<!-- 페이징 -->
-		<div>
+<!-- 페이징 -->
+		<div class ="pasingArea">
+			<div class = "pasingBox">
 				<%
 				if(totalPost > 0){
 					int pageCount = totalPost/ 5 +(totalPost % 5 == 0? 0:1);
@@ -146,7 +165,7 @@
 					int j;
 					for( j= startPage; j<= endPage; j++){
 					if(j == postpage){%>
-						<button style="background-color:red" class="pageBtn" value=<%=j %>><%=j%></button>
+						<button style="background-color:#bddbd2;" class="pageBtn" value=<%=j %>><%=j%></button>
 						<%}else{
 					%> 
 						<button class="pageBtn" value=<%=j %>><%=j%></button>
@@ -159,6 +178,7 @@
 				}
 				
 				%>
+				</div>
 			</div>
 	</div>
 	<script

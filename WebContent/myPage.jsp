@@ -288,7 +288,7 @@ padding-bottom: 10px;*/
 						%>
 						<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
 						<%} else { %>
-						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px" width="40px" height="40px">
+						<img id="img" src="image/blankProfile.jpg" alt="프로필사진" style="border-radius:20px; width=40px; height=40px;">
 						<%} %>
 						
 						

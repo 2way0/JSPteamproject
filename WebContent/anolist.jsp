@@ -36,10 +36,27 @@ a {
 }
 
 #content {
+padding : 0;
 margin-top : 0px;
 position: relative
 }
 
+.pasingArea{
+	margin-top:5px;
+}
+
+.pasingBox{
+	margin-left:46%;
+}
+#goToWriteBtn{
+	margin-left:410px;
+}
+
+.gotowrite{
+	position:fixed;
+	top: 200px;
+	margin-left :55%;
+}
 </style>
 
 </head>
@@ -263,12 +280,11 @@ position: relative
 				%>
 
 			</ul>
-		
-
-
-		<!-- 페이징 -->
-		
-		<div>
+		</section>
+	</div>
+	<!-- 페이징 -->
+		<div class ="pasingArea">
+			<div class = "pasingBox">
 				<%
 				if(totalPost > 0){
 					int pageCount = totalPost/ 10 +(totalPost % 10 == 0? 0:1);
@@ -284,14 +300,14 @@ position: relative
 					
 					// 이전이라는 링크 만들건지 
 					if(startPage > 5){ %>
-						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage-5%>">이전</a></button>
+						<button ><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage-5%>">이전</a></button>
 					<%}
 					//페이징
 					int ii;
 					for( ii = startPage; ii<= endPage; ii++){
-						//  현재 페이지 색 
+						//  현재 페이지 색  #7497d1 #7286D3 #d5e3f9
 						if(ii == postpage){%>
-							<button style="background-color:red"><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
+							<button style="background-color:#efe2ae; "><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
 						<%}else{
 					%> 	
 						<button ><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=ii%>"><%=ii %></a></button>
@@ -302,15 +318,16 @@ position: relative
 						<button><a href="anolist.jsp?board=<%=postBoard%>&postpage=<%=startPage+5%>">다음</a></button>
 					<%}
 				}
-				
 				%>
-		</div>
-		<% if(session.getAttribute("userID") != null){%>
-	<a href="write.jsp?board=<%=postBoard %>" class="btn btn-success offset-10"
-									style="width: 75px; letter-spacing:-2px;">글쓰기</a>
-	<%} %>
-		</section>
+			</div>
+		</div>	
+	
 	</div>
+	<div class="gotowrite">
+		<% if(session.getAttribute("userID") != null){%>
+	<a href="write.jsp?board=<%=postBoard %>" id="goToWriteBtn" class="btn btn-success" style="width: 100px; letter-spacing:-2px; font-size:20px; font-weight:bold">글쓰기</a>
+	<%} %>
+	</div>		
 	</div>
 	
 	<div class="container">

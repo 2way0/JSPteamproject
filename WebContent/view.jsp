@@ -348,28 +348,25 @@ li {
 					<!------------------------------------댓글 다는 창------------------------------------------>
 		<div id="commentarea">
 		<form action=""></form>
-			<form id="writeCommentForm" method="post">
+		<!--id="writeCommentForm  -->
+			<form action="commentAction.jsp" method="post">
 				<input type="hidden" name="studentNum" value="<%=studentNum%>" />
 				<input type="hidden" name="postNum" value="<%=postNum%>" />
 				<%-- <input type="hidden" name="title" value="<%=title%>" /> --%>
 				<input type="hidden" name="content" value="<%=content%>" />
-				<textarea name="commentcontent"
-					style="width: 100%; height: 100%; border-color: black;"
-					class="form-control" placeholder="댓글을 입력하세요"></textarea>
-				<div class = "a">
 				<%
 					if(userID != null) {
 				%>
-				<input type="submit" value="댓글저장" id="saveComment" >
+				
+				<textarea name="commentcontent" class="writeCommentArea"
+					style="width: 100%; height: 100%; border-color: black;"
+					class="form-control" placeholder="댓글을 입력하세요"></textarea>
+				<input type="submit" value="댓글저장" id="saveComment" style="margin-left:720px;">
 				
 				<%
-					} else {
-				%>
-				<input type="submit" value="댓글저장" disabled id="saveComment">
-				<%
-					}
-				%>
-				</div>
+					} 
+				%>	
+				
 			</form>
 		</div>
 	</div>
@@ -484,7 +481,7 @@ li {
 		
 		/***********************댓글 저장, 수정, 삭제 등 데이터를 보낼 js/
 		/* 새로운 댓글을 달때 정보를 보내는 방법  */
-let writeCommentForm = document.getElementById('writeCommentForm');
+/* let writeCommentForm = document.getElementById('writeCommentForm');
 writeCommentForm.addEventListener('submit', function(e){
 	e.preventDefault();
 	let formData = new FormData(writeCommentForm);
@@ -499,7 +496,7 @@ writeCommentForm.addEventListener('submit', function(e){
 			location.reload();
 			
 	}) 
-})
+}) */
 
 	
 	

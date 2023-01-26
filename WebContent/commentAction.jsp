@@ -35,20 +35,17 @@
 	/*자신의 commentNum을 찾는 메서드  */
 	int commentNumber = dao.selectCommentNum(commentContent);
 
-	if (result == 1) {
-		System.out.print("success");
-	}
-	%>
-
-	<form action="view.jsp">
-		<input type="hidden" name="postNum" value="<%=postNum%>"> <input
-		type="hidden" name="commentNum" value="<%=commentNumber%>">
-		성공적으로 댓글을 저장하였습니다 <input type=submit value="돌아가기">
-	</form>
-
+	if (result == 0) {%>
 	<script type="text/javascript">
-		
+		alert("공백이 아닌 댓글을 입력해 주세요");
+		location.href = "view.jsp";
 	</script>
+<%}else if (result == 1){%>
+	<script type="text/javascript">
+		alert("댓글이 입력되었습니다.");
+		location.href = "view.jsp";
+	</script>
+<%} %>
 
 </body>
 </html>
