@@ -355,11 +355,17 @@ a {
 						<button><a href="searchedList.jsp?postpage=<%=startPage-5%>&searchWord=<%=searchWord%>">이전</a></button>
 					<%}
 					//페이징
-					
-					for(int i = startPage; i<= endPage; i++){%>
-						<button><a href="searchedList.jsp?postpage=<%=i%>&searchWord=<%=searchWord%>"><%=i %></a></button>
+					//  현재 페이지 색 
+						
+					int ii;
+					for(ii = startPage; ii<= endPage; ii++){
+						if(ii == postpage){%>
+							<button style="background-color:red"><a href="searchedList.jsp?postpage=<%=ii%>&searchWord=<%=searchWord%>"><%=ii %></a></button>
+						<%}else{
+					%> 	
+						<button ><a href="searchedList.jsp?postpage=<%=ii%>&searchWord=<%=searchWord%>"><%=ii %></a></button>
 					<%}
-					
+					}
 					// 다음이라는 링크 만들건지 
 					if(endPage < pageCount){%>
 						<button><a href="searchedList.jsp?postpage=<%=startPage+5%>&searchWord=<%=searchWord%>">다음</a></button>

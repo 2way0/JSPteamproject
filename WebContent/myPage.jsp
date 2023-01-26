@@ -1,3 +1,4 @@
+<%@page buffer = "1kb" %>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.io.File"%>
 <%@page import="user.*"%>
@@ -307,7 +308,7 @@ padding-bottom: 10px;*/
 	
 	
 	<div id="wrapper">
-	<form  action="profimgAction.jsp" method="post" enctype="multipart/form-data" name="signform">
+	<form  action="profimgAction.jsp" method="post" enctype="multipart/form-data" name="imgform">
 		<div id="userInfo">
 		<%
 		//프로필 사진(경로에 사진 없으면 기본이미지)
@@ -322,7 +323,7 @@ padding-bottom: 10px;*/
 				<img id="img" src="image/blankProfile.jpg" alt="프로필사진" onclick="clickBtn()" class="rounded">
 			<%} %>
 			<input type="file" name="fileName" id="profimg" style="display: none;" onchange="changeValue(this)" />
-			<input type="hidden" name = "target_url">
+			
 		
 		<%--아이디, 닉네임, 학번 --%>
 			<div id="userID">
@@ -368,17 +369,17 @@ padding-bottom: 10px;*/
 	<%--프로필사진 클릭 이벤트 --%>
 	<script>
 		function clickBtn() {
-			$('#profimgAction').submit();
+			$('#profimg').click();
 		}
 		
-		$("#img").click(function(e){
-			document.signform.target_url.value = document.getElementById('img').src;
-			/* e.preventDefault(); */
+		/* $("#img").click(function(e){
+			document.imgform.target_url.value = document.getElementById('img').src;
+			e.preventDefault(); 
 			$("#profimg").click();
-		});
+		}); */
 		
 		function changeValue(obj) {
-			document.signform.submit();
+			document.imgform.submit();
 		}
 	</script>
 	
