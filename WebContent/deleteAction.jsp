@@ -22,6 +22,10 @@ if(board.equals("main")){%>
 <script type="text/javascript">
 	location.href="main.jsp";
 </script>
+<%}else if(board.equals("mypage")){%>
+	<script type="text/javascript">
+	location.href="myPage.jsp";
+</script>
 <%}else{
 response.sendRedirect("anolist.jsp?board="+board);}
 %>

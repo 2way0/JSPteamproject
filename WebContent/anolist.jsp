@@ -42,12 +42,11 @@ position: relative
 }
 
 .pasingArea{
+	text-align:center;
 	margin-top:5px;
 }
 
-.pasingBox{
-	margin-left:46%;
-}
+
 #goToWriteBtn{
 	margin-left:410px;
 }

@@ -9,12 +9,11 @@
 <title>Insert title here</title>
 <style type="text/css">
 .pasingArea{
+	text-align:center;
 	margin-top:5px;
 }
 
-.pasingBox{
-	margin-left:46%;
-}
+
 #goToWriteBtn{
 	margin-left:410px;
 }
@@ -66,13 +65,13 @@
                    <article>
                        
                        <h1>
-                       <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
+                       <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>&board=mypage">
                        <%=commentList.get(i).getTitle() %></a>
                        </h1>    
                       
                        <div id="date"><%=commentList.get(i).getDate() %></div>
                        <p>
-                       <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>">
+                       <a href="view.jsp?postNum=<%=commentList.get(i).getPostNum()%>&board=mypage">
                        <%=commentList.get(i).getCommentContent() %></a>
                        </p>
                    </article>

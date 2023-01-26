@@ -10,12 +10,11 @@
 <title>Insert title here</title>
 <style type="text/css">
 .pasingArea{
+	text-align:center;
 	margin-top:5px;
 }
 
-.pasingBox{
-	margin-left:46%;
-}
+
 #goToWriteBtn{
 	margin-left:410px;
 }
@@ -107,11 +106,11 @@
                            <div id="date"><%=postlist.get(i).getDate() %></div>
                        </div>
                        <h1>
-                       <a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>">
+                       <a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>&board=mypage">
                        <%=postlist.get(i).getTitle() %></a>
                        </h1>
                        <p>
-                       <a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>">
+                       <a href="view.jsp?postNum=<%=postlist.get(i).getPostNum()%>&board=mypage">
                        <%=postlist.get(i).getContent() %></a>
                        </p>
                        <div id="like-comment">
