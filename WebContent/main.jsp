@@ -378,6 +378,8 @@ position : relative;
 								
 									</li>
 									<%
+											} else{
+												System.out.println("아무것도 없씨유");
 											}
 										}
 									%>
@@ -512,12 +514,12 @@ position : relative;
 												<td onClick="iapply('25', '수'); "
 													onMouseOver="this.style.backgroundColor='white'"
 													onMouseOut="this.style.backgroundColor='#F4F4F4'; "
-													height="10" style="cursor: pointer"><b>25</b></td>
+													height="10" style="cursor: pointer">25</td>
 
 												<td onClick="iapply('26', '목'); "
 													onMouseOver="this.style.backgroundColor='white'"
 													onMouseOut="this.style.backgroundColor='#F4F4F4'; "
-													height="10" style="cursor: pointer">26</td>
+													height="10" style="cursor: pointer"><b>26</b></td>
 
 												<td onClick="iapply('27', '금'); "
 													onMouseOver="this.style.backgroundColor='white'"

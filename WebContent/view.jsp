@@ -27,7 +27,7 @@ body{
 
 /**************댓글관련 CSS**************/
 a {
-	color: white;
+	color: black;
 	text-decoration: none; 
 }
 
@@ -152,7 +152,7 @@ li {
 	%>
 	<!-- 헤더 -->
 	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1; border-bottom: 1px solid gray;">
+		style="position: fixed; top: 0; width: 100%; z-index: 1; background-color: white !important; border-bottom: 1px solid gray;">
 		<div class="container">
 			<div class="row">
 				<div
@@ -199,7 +199,7 @@ li {
 				} else {
 			%>
 					<div class="text-end">
-						<button type="button" class="btn btn-outline-light me-2"
+						<button type="button" class="btn btn-warning me-2"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<a href="logoutAction.jsp">LogOut</a>
 						</button>
@@ -334,7 +334,8 @@ li {
 				<%
 					if(userID != null) {
 				%>
-				<input type="submit" value="댓글저장" id="saveComment">
+				<input type="submit" value="댓글저장" id="saveComment" >
+				
 				<%
 					} else {
 				%>

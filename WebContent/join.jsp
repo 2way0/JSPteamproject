@@ -76,7 +76,7 @@ body {
 	<% String userID=null; if(session.getAttribute("userID") !=null){ userID=(String)
                         session.getAttribute("userID"); } %>
 	<header class="p-3 text-bg-dark"
-		style="position: fixed; top: 0; width: 100%; z-index: 1;">
+		style="position: fixed; top: 0; width: 100%; z-index: 1; background-color: white !important;">
 		<div class=" container">
 			<div class="row">
 				<div
@@ -99,7 +99,7 @@ body {
 
 					<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 						<input type="search"
-							class="form-control form-control-dark text-bg-dark"
+							class="form-control form-control-dark text-bg-white"
 							placeholder="Search..." aria-label="Search">
 					</form>
 					<% if(userID==null){ %>
