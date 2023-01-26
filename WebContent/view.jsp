@@ -240,6 +240,9 @@ li {
                        <div id="profile">
                           <%-------------익명게시판 프로필--------------- --%>      
                        <%
+                       //글쓴이 학번 가져오기
+                       int stNum = post.getStudentNum();
+                       
                        if(post.getBoard().equals("익명게시판")){%>
 						
 							<img src="image/blankProfile.jpg" alt="프로필사진">
@@ -249,15 +252,15 @@ li {
 							//프로필 사진(경로에 사진 없으면 기본이미지)
 							ServletContext context = this.getServletContext(); //절대경로를 얻는다.
 				            String realFolder = context.getRealPath("image"); //image폴더의 절대경로를 받는다.
-							File viewImg = new File(realFolder+"\\"+studentNum+"프로필사진.jpg");
+							File viewImg = new File(realFolder+"\\"+stNum+"프로필사진.jpg");
 				            
 							if(viewImg.exists()){%>
-								<img src="image/<%=studentNum %>프로필사진.jpg" alt="프로필사진">
+								<img src="image/<%=stNum %>프로필사진.jpg" alt="프로필사진">
 							<%} else { %>	
 							<img src="image/blankProfile.jpg" alt="프로필사진">
 							<%}
 							//닉네임 불러오기
-								User user = dao.selectUserOne(studentNum);
+								User user = dao.selectUserOne(stNum);
 								String nickName = user.getNickName();
 								System.out.println("닉네임:"+nickName);
 								%>
